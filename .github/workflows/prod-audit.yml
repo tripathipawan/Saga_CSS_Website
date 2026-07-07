@@ -1,0 +1,40 @@
+name: Production audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Deployed URL to audit"
+        required: true
+        default: "https://csscraft.lovable.app"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Playwright
+        run: bunx playwright install --with-deps chromium
+
+      - name: SEO audit (meta / og / canonical / sitemap / JSON-LD)
+        run: node scripts/prod-seo-audit.mjs "${{ github.event.inputs.base_url }}"
+
+      - name: Prod smoke tests (routes / clipboard / PDF)
+        env:
+          PROD_URL: ${{ github.event.inputs.base_url }}
+        run: bunx playwright test tests/e2e/prod-smoke.spec.ts
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod-audit-report
+          path: playwright-report
+          retention-days: 14
