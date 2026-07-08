@@ -27,16 +27,18 @@ const TOOLS = [
 ];
 
 async function readTab(page: Page, name: "CSS" | "Tailwind" | "Bootstrap") {
-  // Click the visible tab button inside the sticky code panel.
   const btn = page.getByRole("button", { name, exact: true }).locator("visible=true").first();
   await btn.click();
-  // Wait one animation frame for React to flush.
-  await page.waitForFunction((n) => {
-    const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
-      (el) => el.textContent?.trim() === n,
-    );
-    return Boolean(b);
-  }, name);
+  await page.waitForFunction(
+    (n) => {
+      const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
+        (el) => el.textContent?.trim() === n,
+      );
+      return Boolean(b);
+    },
+    name,
+    { polling: 100 },
+  );
   const code = await page.locator("pre code:visible").first().innerText();
   return code.trim();
 }
@@ -98,11 +100,11 @@ test("color-converter renders every format row with a working copy button", asyn
 
   const formats = ["HEX", "RGB", "RGBA", "HSL", "HSLA", "HWB", "CMYK", "LCH", "XYZ", "Named"];
   for (const label of formats) {
-    const row = page.locator("div", { hasText: new RegExp(`^${label}\\s`) }).first();
-    await expect(row, `${label} row visible`).toBeVisible();
+    const copyBtn = page.getByRole("button", { name: `Copy ${label} value` });
+    await expect(copyBtn, `${label} row visible`).toBeVisible();
   }
 
-  const hexRow = page.locator("div").filter({ hasText: /^HEX/ }).first();
+  const hexRow = page.getByRole("button", { name: "Copy HEX value" }).locator("xpath=..");
   const value = (await hexRow.locator("code").first().innerText()).trim();
   expect(value.length, "HEX value non-empty").toBeGreaterThan(0);
 
