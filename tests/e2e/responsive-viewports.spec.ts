@@ -13,7 +13,9 @@ async function assertNoHorizontalOverflow(page: Page, label: string, route: stri
   const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
   const innerWidth = await page.evaluate(() => window.innerWidth);
   // Allow a 2px rounding budget for sub-pixel layout.
-  expect(scrollWidth, `${label} ${route} has horizontal overflow`).toBeLessThanOrEqual(innerWidth + 2);
+  expect(scrollWidth, `${label} ${route} has horizontal overflow`).toBeLessThanOrEqual(
+    innerWidth + 2,
+  );
 }
 
 for (const vp of VIEWPORTS) {

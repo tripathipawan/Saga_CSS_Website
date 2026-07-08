@@ -6,7 +6,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { TOOL_INDEX } from "@/lib/tools";
 import { useMemo, useState } from "react";
 
-export function AppHeader({ onOpenMenu, onToggleSidebar }: { onOpenMenu: () => void; onToggleSidebar?: () => void }) {
+export function AppHeader({
+  onOpenMenu,
+  onToggleSidebar,
+}: {
+  onOpenMenu: () => void;
+  onToggleSidebar?: () => void;
+}) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });

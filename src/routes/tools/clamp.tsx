@@ -9,9 +9,16 @@ export const Route = createFileRoute("/tools/clamp")({
   head: () => ({
     meta: [
       { title: "CSS clamp() Calculator — SagaCSS" },
-      { name: "description", content: "Build fluid, responsive font-size and spacing with CSS clamp() — set min/max viewport widths and preview scaling live." },
+      {
+        name: "description",
+        content:
+          "Build fluid, responsive font-size and spacing with CSS clamp() — set min/max viewport widths and preview scaling live.",
+      },
       { property: "og:title", content: "CSS clamp() Calculator — SagaCSS" },
-      { property: "og:description", content: "Visual clamp() generator for fluid, responsive typography and spacing." },
+      {
+        property: "og:description",
+        content: "Visual clamp() generator for fluid, responsive typography and spacing.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/clamp" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/clamp" }],
@@ -21,8 +28,8 @@ export const Route = createFileRoute("/tools/clamp")({
 
 function ClampPage() {
   const [unit, setUnit] = useState<"px" | "rem">("rem");
-  const [minVal, setMinVal] = useState(1);       // rem
-  const [maxVal, setMaxVal] = useState(2.5);     // rem
+  const [minVal, setMinVal] = useState(1); // rem
+  const [maxVal, setMaxVal] = useState(2.5); // rem
   const [minVw, setMinVw] = useState(320);
   const [maxVw, setMaxVw] = useState(1280);
   const [simVw, setSimVw] = useState(768);
@@ -55,19 +62,29 @@ function ClampPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="CSS clamp() Calculator" description="Fluid, responsive sizes that scale smoothly between two viewport widths." />
+      <ToolHeader
+        title="CSS clamp() Calculator"
+        description="Fluid, responsive sizes that scale smoothly between two viewport widths."
+      />
 
       <div className="rounded-2xl border border-border bg-gradient-to-br from-primary/10 to-accent/10 p-4 md:p-6">
         <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
           <span>Simulated viewport</span>
-          <span className="font-mono">{simVw}px — computed: {previewPx.toFixed(1)}px</span>
+          <span className="font-mono">
+            {simVw}px — computed: {previewPx.toFixed(1)}px
+          </span>
         </div>
-        <div className="mx-auto overflow-hidden rounded-lg border border-border bg-background shadow-sm" style={{ width: `min(100%, ${simVw}px)`, transition: "width 120ms ease" }}>
+        <div
+          className="mx-auto overflow-hidden rounded-lg border border-border bg-background shadow-sm"
+          style={{ width: `min(100%, ${simVw}px)`, transition: "width 120ms ease" }}
+        >
           <div className="p-6">
             <p style={{ fontSize: `${previewPx}px`, lineHeight: 1.2, margin: 0, fontWeight: 700 }}>
               Fluid Typography
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">Drag the slider to preview how this value scales.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Drag the slider to preview how this value scales.
+            </p>
           </div>
         </div>
       </div>
@@ -92,10 +109,38 @@ function ClampPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <SR label={`Min value (${unit})`} value={minVal} setValue={setMinVal} min={unit === "px" ? 8 : 0.5} max={unit === "px" ? 40 : 3} step={unit === "px" ? 1 : 0.05} />
-            <SR label={`Max value (${unit})`} value={maxVal} setValue={setMaxVal} min={unit === "px" ? 12 : 1} max={unit === "px" ? 120 : 8} step={unit === "px" ? 1 : 0.05} />
-            <SR label="Min viewport (px)" value={minVw} setValue={setMinVw} min={280} max={800} step={10} />
-            <SR label="Max viewport (px)" value={maxVw} setValue={setMaxVw} min={800} max={1920} step={10} />
+            <SR
+              label={`Min value (${unit})`}
+              value={minVal}
+              setValue={setMinVal}
+              min={unit === "px" ? 8 : 0.5}
+              max={unit === "px" ? 40 : 3}
+              step={unit === "px" ? 1 : 0.05}
+            />
+            <SR
+              label={`Max value (${unit})`}
+              value={maxVal}
+              setValue={setMaxVal}
+              min={unit === "px" ? 12 : 1}
+              max={unit === "px" ? 120 : 8}
+              step={unit === "px" ? 1 : 0.05}
+            />
+            <SR
+              label="Min viewport (px)"
+              value={minVw}
+              setValue={setMinVw}
+              min={280}
+              max={800}
+              step={10}
+            />
+            <SR
+              label="Max viewport (px)"
+              value={maxVw}
+              setValue={setMaxVw}
+              min={800}
+              max={1920}
+              step={10}
+            />
           </div>
 
           <div>
@@ -103,7 +148,14 @@ function ClampPage() {
               <Label className="text-xs">Simulated viewport width</Label>
               <span className="font-mono text-xs text-muted-foreground">{simVw}px</span>
             </div>
-            <Slider value={[simVw]} min={280} max={1920} step={1} onValueChange={(v) => setSimVw(v[0] ?? 320)} aria-label="Simulated viewport width" />
+            <Slider
+              value={[simVw]}
+              min={280}
+              max={1920}
+              step={1}
+              onValueChange={(v) => setSimVw(v[0] ?? 320)}
+              aria-label="Simulated viewport width"
+            />
           </div>
         </div>
 
@@ -113,14 +165,35 @@ function ClampPage() {
   );
 }
 
-function SR({ label, value, setValue, min, max, step }: { label: string; value: number; setValue: (n: number) => void; min: number; max: number; step: number }) {
+function SR({
+  label,
+  value,
+  setValue,
+  min,
+  max,
+  step,
+}: {
+  label: string;
+  value: number;
+  setValue: (n: number) => void;
+  min: number;
+  max: number;
+  step: number;
+}) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
         <Label className="text-xs">{label}</Label>
         <span className="font-mono text-xs text-muted-foreground">{value}</span>
       </div>
-      <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => setValue(v[0] ?? min)} aria-label={label} />
+      <Slider
+        value={[value]}
+        min={min}
+        max={max}
+        step={step}
+        onValueChange={(v) => setValue(v[0] ?? min)}
+        aria-label={label}
+      />
     </div>
   );
 }

@@ -21,7 +21,10 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <div aria-hidden="true" className="mx-auto mb-6 grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg">
+        <div
+          aria-hidden="true"
+          className="mx-auto mb-6 grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg"
+        >
           <span className="text-3xl font-black">404</span>
         </div>
         <h1 className="text-2xl font-bold text-foreground">Page not found</h1>
@@ -138,7 +141,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "SagaCSS",
           applicationCategory: "DeveloperApplication",
           operatingSystem: "Any (web)",
-          description: "A free visual CSS toolkit — gradients, shadows, animations, 3D shapes, color palettes and more, with CSS/Tailwind/Bootstrap export.",
+          description:
+            "A free visual CSS toolkit — gradients, shadows, animations, 3D shapes, color palettes and more, with CSS/Tailwind/Bootstrap export.",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
           author: {
             "@type": "Person",

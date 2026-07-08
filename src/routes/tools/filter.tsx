@@ -11,9 +11,17 @@ export const Route = createFileRoute("/tools/filter")({
   head: () => ({
     meta: [
       { title: "CSS Filter Generator — SagaCSS" },
-      { name: "description", content: "Combine blur, brightness, contrast, hue-rotate, saturate, sepia and drop-shadow filters live over an image and copy the generated CSS." },
+      {
+        name: "description",
+        content:
+          "Combine blur, brightness, contrast, hue-rotate, saturate, sepia and drop-shadow filters live over an image and copy the generated CSS.",
+      },
       { property: "og:title", content: "CSS Filter Generator — SagaCSS" },
-      { property: "og:description", content: "Stack multiple CSS filters live on an image with instant CSS / Tailwind / Bootstrap output." },
+      {
+        property: "og:description",
+        content:
+          "Stack multiple CSS filters live on an image with instant CSS / Tailwind / Bootstrap output.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/filter" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/filter" }],
@@ -41,15 +49,35 @@ const SAMPLE_IMAGE =
   );
 
 type F = {
-  blur: number; brightness: number; contrast: number; grayscale: number;
-  hueRotate: number; invert: number; opacity: number; saturate: number; sepia: number;
-  dsX: number; dsY: number; dsBlur: number; dsColor: string;
+  blur: number;
+  brightness: number;
+  contrast: number;
+  grayscale: number;
+  hueRotate: number;
+  invert: number;
+  opacity: number;
+  saturate: number;
+  sepia: number;
+  dsX: number;
+  dsY: number;
+  dsBlur: number;
+  dsColor: string;
 };
 
 const DEFAULT: F = {
-  blur: 0, brightness: 100, contrast: 100, grayscale: 0, hueRotate: 0,
-  invert: 0, opacity: 100, saturate: 100, sepia: 0,
-  dsX: 0, dsY: 0, dsBlur: 0, dsColor: "#000000",
+  blur: 0,
+  brightness: 100,
+  contrast: 100,
+  grayscale: 0,
+  hueRotate: 0,
+  invert: 0,
+  opacity: 100,
+  saturate: 100,
+  sepia: 0,
+  dsX: 0,
+  dsY: 0,
+  dsBlur: 0,
+  dsColor: "#000000",
 };
 
 const PRESETS: Record<string, Partial<F>> = {
@@ -72,7 +100,8 @@ function buildFilter(f: F) {
   if (f.opacity !== 100) parts.push(`opacity(${f.opacity}%)`);
   if (f.saturate !== 100) parts.push(`saturate(${f.saturate}%)`);
   if (f.sepia) parts.push(`sepia(${f.sepia}%)`);
-  if (f.dsBlur || f.dsX || f.dsY) parts.push(`drop-shadow(${f.dsX}px ${f.dsY}px ${f.dsBlur}px ${f.dsColor})`);
+  if (f.dsBlur || f.dsX || f.dsY)
+    parts.push(`drop-shadow(${f.dsX}px ${f.dsY}px ${f.dsBlur}px ${f.dsColor})`);
   return parts.join(" ") || "none";
 }
 
@@ -96,7 +125,14 @@ function FilterPage() {
     reader.readAsDataURL(file);
   };
 
-  const controls: { key: keyof F; label: string; min: number; max: number; step?: number; unit: string }[] = [
+  const controls: {
+    key: keyof F;
+    label: string;
+    min: number;
+    max: number;
+    step?: number;
+    unit: string;
+  }[] = [
     { key: "blur", label: "Blur", min: 0, max: 20, unit: "px" },
     { key: "brightness", label: "Brightness", min: 0, max: 200, unit: "%" },
     { key: "contrast", label: "Contrast", min: 0, max: 200, unit: "%" },
@@ -110,7 +146,10 @@ function FilterPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="CSS Filter Generator" description="Stack multiple CSS filters live over any image and copy the combined filter value." />
+      <ToolHeader
+        title="CSS Filter Generator"
+        description="Stack multiple CSS filters live over any image and copy the combined filter value."
+      />
 
       <div className="flex items-center justify-center rounded-2xl border border-border bg-gradient-to-br from-primary/10 to-accent/10 p-4 md:p-6 max-h-[22rem]">
         <img
@@ -133,10 +172,17 @@ function FilterPage() {
                 onChange={(e) => onUpload(e.target.files?.[0] ?? null)}
                 aria-label="Upload image"
               />
-              <Button size="sm" variant="outline" onClick={() => inputRef.current?.click()} className="gap-1.5">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => inputRef.current?.click()}
+                className="gap-1.5"
+              >
                 <Upload className="h-4 w-4" /> Upload
               </Button>
-              <Button size="sm" variant="outline" onClick={() => setSrc(SAMPLE_IMAGE)}>Sample</Button>
+              <Button size="sm" variant="outline" onClick={() => setSrc(SAMPLE_IMAGE)}>
+                Sample
+              </Button>
             </div>
             <Button size="sm" variant="ghost" onClick={() => setF(DEFAULT)} className="gap-1.5">
               <RotateCcw className="h-4 w-4" /> Reset
@@ -148,7 +194,10 @@ function FilterPage() {
               <div key={c.key}>
                 <div className="mb-1 flex items-center justify-between">
                   <Label className="text-xs">{c.label}</Label>
-                  <span className="font-mono text-xs text-muted-foreground">{f[c.key] as number}{c.unit}</span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {f[c.key] as number}
+                    {c.unit}
+                  </span>
                 </div>
                 <Slider
                   value={[f[c.key] as number]}
@@ -168,15 +217,29 @@ function FilterPage() {
               {(["dsX", "dsY", "dsBlur"] as const).map((k) => (
                 <div key={k}>
                   <div className="mb-1 flex items-center justify-between">
-                    <Label className="text-xs">{k === "dsX" ? "X" : k === "dsY" ? "Y" : "Blur"}</Label>
+                    <Label className="text-xs">
+                      {k === "dsX" ? "X" : k === "dsY" ? "Y" : "Blur"}
+                    </Label>
                     <span className="font-mono text-xs text-muted-foreground">{f[k]}px</span>
                   </div>
-                  <Slider value={[f[k]]} min={k === "dsBlur" ? 0 : -40} max={40} onValueChange={(v) => setKey(k, (v[0] ?? 0) as F[keyof F])} aria-label={`Drop shadow ${k}`} />
+                  <Slider
+                    value={[f[k]]}
+                    min={k === "dsBlur" ? 0 : -40}
+                    max={40}
+                    onValueChange={(v) => setKey(k, (v[0] ?? 0) as F[keyof F])}
+                    aria-label={`Drop shadow ${k}`}
+                  />
                 </div>
               ))}
               <div>
                 <Label className="mb-1 block text-xs">Color</Label>
-                <input type="color" value={f.dsColor} onChange={(e) => setKey("dsColor", e.target.value)} aria-label="Drop shadow color" className="h-8 w-full rounded border border-input" />
+                <input
+                  type="color"
+                  value={f.dsColor}
+                  onChange={(e) => setKey("dsColor", e.target.value)}
+                  aria-label="Drop shadow color"
+                  className="h-8 w-full rounded border border-input"
+                />
               </div>
             </div>
           </div>

@@ -33,9 +33,20 @@ function extractBootstrapLiterals(src) {
     const start = i;
     while (i < src.length) {
       const ch = src[i];
-      if (ch === "\\") { i += 2; continue; }
-      if (ch === "$" && src[i + 1] === "{") { depth++; i += 2; continue; }
-      if (ch === "}" && depth > 0) { depth--; i++; continue; }
+      if (ch === "\\") {
+        i += 2;
+        continue;
+      }
+      if (ch === "$" && src[i + 1] === "{") {
+        depth++;
+        i += 2;
+        continue;
+      }
+      if (ch === "}" && depth > 0) {
+        depth--;
+        i++;
+        continue;
+      }
       if (ch === "`" && depth === 0) break;
       i++;
     }

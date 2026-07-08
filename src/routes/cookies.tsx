@@ -5,9 +5,16 @@ export const Route = createFileRoute("/cookies")({
   head: () => ({
     meta: [
       { title: "Cookie Policy — SagaCSS" },
-      { name: "description", content: "SagaCSS does not use tracking cookies. Preferences are saved in localStorage on your device only." },
+      {
+        name: "description",
+        content:
+          "SagaCSS does not use tracking cookies. Preferences are saved in localStorage on your device only.",
+      },
       { property: "og:title", content: "Cookie Policy — SagaCSS" },
-      { property: "og:description", content: "No tracking cookies. Just local browser storage for your preferences." },
+      {
+        property: "og:description",
+        content: "No tracking cookies. Just local browser storage for your preferences.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/cookies" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/cookies" }],
@@ -23,9 +30,7 @@ function CookiesPage() {
         description="Short and honest — SagaCSS doesn't track you."
       />
       <div className="rounded-xl border border-border bg-card p-6 text-sm leading-7 text-foreground">
-        <p className="text-base font-medium">
-          SagaCSS does not use tracking cookies.
-        </p>
+        <p className="text-base font-medium">SagaCSS does not use tracking cookies.</p>
         <p className="mt-3 text-muted-foreground">
           We only use <code className="rounded bg-muted px-1.5 py-0.5 text-xs">localStorage</code>{" "}
           on your device to save your preferences and saved snippets — this data never leaves your

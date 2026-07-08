@@ -23,7 +23,9 @@ export function rgbToHex(r: number, g: number, b: number) {
 }
 
 export function randomHex() {
-  const h = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
+  const h = Math.floor(Math.random() * 0xffffff)
+    .toString(16)
+    .padStart(6, "0");
   return `#${h}`;
 }
 

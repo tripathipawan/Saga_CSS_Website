@@ -10,9 +10,15 @@ export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
       { title: "Settings — SagaCSS" },
-      { name: "description", content: "Adjust SagaCSS preferences: theme, default code format and reset saved data." },
+      {
+        name: "description",
+        content: "Adjust SagaCSS preferences: theme, default code format and reset saved data.",
+      },
       { property: "og:title", content: "Settings — SagaCSS" },
-      { property: "og:description", content: "Configure theme and default code format for SagaCSS." },
+      {
+        property: "og:description",
+        content: "Configure theme and default code format for SagaCSS.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/settings" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/settings" }],
@@ -66,7 +72,9 @@ function SettingsPage() {
               onClick={() => setTheme(t)}
               aria-pressed={theme === t}
               className={`rounded-md border px-3 py-1.5 text-sm capitalize transition-colors ${
-                theme === t ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-accent"
+                theme === t
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-background hover:bg-accent"
               }`}
             >
               {t}
@@ -88,7 +96,9 @@ function SettingsPage() {
               onClick={() => saveFormat(f)}
               aria-pressed={format === f}
               className={`rounded-md border px-3 py-1.5 text-sm capitalize transition-colors ${
-                format === f ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:bg-accent"
+                format === f
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-background hover:bg-accent"
               }`}
             >
               {f}
@@ -103,7 +113,9 @@ function SettingsPage() {
           Clears theme, code format, sidebar state and any other locally-saved settings.
         </p>
         <div className="mt-3">
-          <Button variant="outline" onClick={resetAll}>Reset all saved preferences</Button>
+          <Button variant="outline" onClick={resetAll}>
+            Reset all saved preferences
+          </Button>
         </div>
       </section>
     </div>

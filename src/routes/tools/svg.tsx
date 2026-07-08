@@ -11,7 +11,11 @@ export const Route = createFileRoute("/tools/svg")({
   head: () => ({
     meta: [
       { title: "SVG Shape Generator — SagaCSS" },
-      { name: "description", content: "Generate circles, rectangles, stars, organic blobs and wave dividers as SVG or CSS background data-URIs." },
+      {
+        name: "description",
+        content:
+          "Generate circles, rectangles, stars, organic blobs and wave dividers as SVG or CSS background data-URIs.",
+      },
       { property: "og:title", content: "SVG Generator — SagaCSS" },
       { property: "og:description", content: "Design production-ready SVG shapes visually." },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/svg" },
@@ -117,7 +121,21 @@ function SvgPage() {
       case "wave":
         return `<path d="${wavePath(width, height, waveAmp, waveFreq)}" fill="${fill}"${strokeAttrs} />`;
     }
-  }, [shape, width, height, fill, stroke, strokeWidth, rectRadius, starPointsN, starInner, blobSeed, blobComplexity, waveAmp, waveFreq]);
+  }, [
+    shape,
+    width,
+    height,
+    fill,
+    stroke,
+    strokeWidth,
+    rectRadius,
+    starPointsN,
+    starInner,
+    blobSeed,
+    blobComplexity,
+    waveAmp,
+    waveFreq,
+  ]);
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">\n  ${inner}\n</svg>`;
   const dataUri = `background-image: url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}");\nbackground-repeat: no-repeat;\nbackground-size: contain;`;
@@ -126,7 +144,10 @@ function SvgPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="SVG Generator" description="Generate circles, rectangles, stars, organic blobs and wave dividers. Copy as SVG or CSS background." />
+      <ToolHeader
+        title="SVG Generator"
+        description="Generate circles, rectangles, stars, organic blobs and wave dividers. Copy as SVG or CSS background."
+      />
 
       <div className="flex min-h-[16rem] items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-6">
         <div dangerouslySetInnerHTML={{ __html: svg }} aria-label="SVG preview" />
@@ -136,53 +157,164 @@ function SvgPage() {
         <div className="rounded-xl border border-border bg-card p-4">
           <div className="mb-3 flex flex-wrap gap-1 rounded-md border border-border p-1">
             {(["circle", "rectangle", "star", "blob", "wave"] as ShapeType[]).map((s) => (
-              <button key={s} type="button" onClick={() => { setShape(s); if (s === "wave") { setWidth(600); setHeight(120); } else { setWidth(200); setHeight(200); } }} aria-pressed={shape === s}
-                className={`rounded px-2.5 py-1 text-xs font-medium capitalize transition-colors ${shape === s ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"}`}>{s}</button>
+              <button
+                key={s}
+                type="button"
+                onClick={() => {
+                  setShape(s);
+                  if (s === "wave") {
+                    setWidth(600);
+                    setHeight(120);
+                  } else {
+                    setWidth(200);
+                    setHeight(200);
+                  }
+                }}
+                aria-pressed={shape === s}
+                className={`rounded px-2.5 py-1 text-xs font-medium capitalize transition-colors ${shape === s ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"}`}
+              >
+                {s}
+              </button>
             ))}
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Width</Label><span className="font-mono text-xs text-muted-foreground">{width}</span></div>
-              <Slider value={[width]} min={40} max={preferWave ? 1200 : 400} step={4} onValueChange={(v) => setWidth(v[0] ?? 200)} aria-label="Width" />
+              <div className="mb-1 flex items-center justify-between">
+                <Label className="text-xs">Width</Label>
+                <span className="font-mono text-xs text-muted-foreground">{width}</span>
+              </div>
+              <Slider
+                value={[width]}
+                min={40}
+                max={preferWave ? 1200 : 400}
+                step={4}
+                onValueChange={(v) => setWidth(v[0] ?? 200)}
+                aria-label="Width"
+              />
             </div>
             <div>
-              <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Height</Label><span className="font-mono text-xs text-muted-foreground">{height}</span></div>
-              <Slider value={[height]} min={40} max={400} step={4} onValueChange={(v) => setHeight(v[0] ?? 200)} aria-label="Height" />
+              <div className="mb-1 flex items-center justify-between">
+                <Label className="text-xs">Height</Label>
+                <span className="font-mono text-xs text-muted-foreground">{height}</span>
+              </div>
+              <Slider
+                value={[height]}
+                min={40}
+                max={400}
+                step={4}
+                onValueChange={(v) => setHeight(v[0] ?? 200)}
+                aria-label="Height"
+              />
             </div>
-            <div className="flex items-center gap-2"><Label className="text-xs">Fill</Label><input type="color" value={fill} onChange={(e) => setFill(e.target.value)} aria-label="Fill color" className="h-8 w-10 cursor-pointer rounded border border-border bg-transparent" /></div>
-            <div className="flex items-center gap-2"><Label className="text-xs">Stroke</Label><input type="color" value={stroke} onChange={(e) => setStroke(e.target.value)} aria-label="Stroke color" className="h-8 w-10 cursor-pointer rounded border border-border bg-transparent" /></div>
+            <div className="flex items-center gap-2">
+              <Label className="text-xs">Fill</Label>
+              <input
+                type="color"
+                value={fill}
+                onChange={(e) => setFill(e.target.value)}
+                aria-label="Fill color"
+                className="h-8 w-10 cursor-pointer rounded border border-border bg-transparent"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Label className="text-xs">Stroke</Label>
+              <input
+                type="color"
+                value={stroke}
+                onChange={(e) => setStroke(e.target.value)}
+                aria-label="Stroke color"
+                className="h-8 w-10 cursor-pointer rounded border border-border bg-transparent"
+              />
+            </div>
             <div>
-              <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Stroke width</Label><span className="font-mono text-xs text-muted-foreground">{strokeWidth}</span></div>
-              <Slider value={[strokeWidth]} min={0} max={20} step={1} onValueChange={(v) => setStrokeWidth(v[0] ?? 0)} aria-label="Stroke width" />
+              <div className="mb-1 flex items-center justify-between">
+                <Label className="text-xs">Stroke width</Label>
+                <span className="font-mono text-xs text-muted-foreground">{strokeWidth}</span>
+              </div>
+              <Slider
+                value={[strokeWidth]}
+                min={0}
+                max={20}
+                step={1}
+                onValueChange={(v) => setStrokeWidth(v[0] ?? 0)}
+                aria-label="Stroke width"
+              />
             </div>
 
             {shape === "rectangle" && (
               <div>
-                <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Corner radius</Label><span className="font-mono text-xs text-muted-foreground">{rectRadius}</span></div>
-                <Slider value={[rectRadius]} min={0} max={100} step={1} onValueChange={(v) => setRectRadius(v[0] ?? 0)} aria-label="Corner radius" />
+                <div className="mb-1 flex items-center justify-between">
+                  <Label className="text-xs">Corner radius</Label>
+                  <span className="font-mono text-xs text-muted-foreground">{rectRadius}</span>
+                </div>
+                <Slider
+                  value={[rectRadius]}
+                  min={0}
+                  max={100}
+                  step={1}
+                  onValueChange={(v) => setRectRadius(v[0] ?? 0)}
+                  aria-label="Corner radius"
+                />
               </div>
             )}
             {shape === "star" && (
               <>
                 <div>
-                  <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Points</Label><span className="font-mono text-xs text-muted-foreground">{starPointsN}</span></div>
-                  <Slider value={[starPointsN]} min={3} max={12} step={1} onValueChange={(v) => setStarPointsN(v[0] ?? 5)} aria-label="Star points" />
+                  <div className="mb-1 flex items-center justify-between">
+                    <Label className="text-xs">Points</Label>
+                    <span className="font-mono text-xs text-muted-foreground">{starPointsN}</span>
+                  </div>
+                  <Slider
+                    value={[starPointsN]}
+                    min={3}
+                    max={12}
+                    step={1}
+                    onValueChange={(v) => setStarPointsN(v[0] ?? 5)}
+                    aria-label="Star points"
+                  />
                 </div>
                 <div>
-                  <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Inner radius %</Label><span className="font-mono text-xs text-muted-foreground">{starInner}</span></div>
-                  <Slider value={[starInner]} min={10} max={90} step={1} onValueChange={(v) => setStarInner(v[0] ?? 45)} aria-label="Inner radius" />
+                  <div className="mb-1 flex items-center justify-between">
+                    <Label className="text-xs">Inner radius %</Label>
+                    <span className="font-mono text-xs text-muted-foreground">{starInner}</span>
+                  </div>
+                  <Slider
+                    value={[starInner]}
+                    min={10}
+                    max={90}
+                    step={1}
+                    onValueChange={(v) => setStarInner(v[0] ?? 45)}
+                    aria-label="Inner radius"
+                  />
                 </div>
               </>
             )}
             {shape === "blob" && (
               <>
                 <div>
-                  <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Complexity</Label><span className="font-mono text-xs text-muted-foreground">{blobComplexity}</span></div>
-                  <Slider value={[blobComplexity]} min={4} max={16} step={1} onValueChange={(v) => setBlobComplexity(v[0] ?? 8)} aria-label="Blob complexity" />
+                  <div className="mb-1 flex items-center justify-between">
+                    <Label className="text-xs">Complexity</Label>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {blobComplexity}
+                    </span>
+                  </div>
+                  <Slider
+                    value={[blobComplexity]}
+                    min={4}
+                    max={16}
+                    step={1}
+                    onValueChange={(v) => setBlobComplexity(v[0] ?? 8)}
+                    aria-label="Blob complexity"
+                  />
                 </div>
                 <div className="flex items-end">
-                  <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setBlobSeed(Math.floor(Math.random() * 100000))}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5"
+                    onClick={() => setBlobSeed(Math.floor(Math.random() * 100000))}
+                  >
                     <Shuffle className="h-4 w-4" /> Randomize
                   </Button>
                 </div>
@@ -191,12 +323,32 @@ function SvgPage() {
             {shape === "wave" && (
               <>
                 <div>
-                  <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Amplitude</Label><span className="font-mono text-xs text-muted-foreground">{waveAmp}</span></div>
-                  <Slider value={[waveAmp]} min={0} max={80} step={1} onValueChange={(v) => setWaveAmp(v[0] ?? 20)} aria-label="Wave amplitude" />
+                  <div className="mb-1 flex items-center justify-between">
+                    <Label className="text-xs">Amplitude</Label>
+                    <span className="font-mono text-xs text-muted-foreground">{waveAmp}</span>
+                  </div>
+                  <Slider
+                    value={[waveAmp]}
+                    min={0}
+                    max={80}
+                    step={1}
+                    onValueChange={(v) => setWaveAmp(v[0] ?? 20)}
+                    aria-label="Wave amplitude"
+                  />
                 </div>
                 <div>
-                  <div className="mb-1 flex items-center justify-between"><Label className="text-xs">Frequency</Label><span className="font-mono text-xs text-muted-foreground">{waveFreq}</span></div>
-                  <Slider value={[waveFreq]} min={1} max={8} step={1} onValueChange={(v) => setWaveFreq(v[0] ?? 2)} aria-label="Wave frequency" />
+                  <div className="mb-1 flex items-center justify-between">
+                    <Label className="text-xs">Frequency</Label>
+                    <span className="font-mono text-xs text-muted-foreground">{waveFreq}</span>
+                  </div>
+                  <Slider
+                    value={[waveFreq]}
+                    min={1}
+                    max={8}
+                    step={1}
+                    onValueChange={(v) => setWaveFreq(v[0] ?? 2)}
+                    aria-label="Wave frequency"
+                  />
                 </div>
               </>
             )}

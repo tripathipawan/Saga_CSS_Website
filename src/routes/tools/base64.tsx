@@ -11,9 +11,16 @@ export const Route = createFileRoute("/tools/base64")({
   head: () => ({
     meta: [
       { title: "Base64 Image Converter — SagaCSS" },
-      { name: "description", content: "Convert any image to a Base64 data URI or decode a data URI back to a preview. Ideal for embedding small icons in CSS." },
+      {
+        name: "description",
+        content:
+          "Convert any image to a Base64 data URI or decode a data URI back to a preview. Ideal for embedding small icons in CSS.",
+      },
       { property: "og:title", content: "Base64 Image Converter — SagaCSS" },
-      { property: "og:description", content: "Encode and decode Base64 image data URIs in the browser." },
+      {
+        property: "og:description",
+        content: "Encode and decode Base64 image data URIs in the browser.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/base64" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/base64" }],
@@ -45,12 +52,18 @@ function Base64Page() {
   const encodedSize = dataUri.length;
   const tooBig = encodedSize > 100_000;
 
-  const cssSnippet = useMemo(() => (dataUri ? `background-image: url("${dataUri}");` : ""), [dataUri]);
+  const cssSnippet = useMemo(
+    () => (dataUri ? `background-image: url("${dataUri}");` : ""),
+    [dataUri],
+  );
   const htmlSnippet = useMemo(() => (dataUri ? `<img src="${dataUri}" alt="" />` : ""), [dataUri]);
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="Base64 Image Converter" description="Encode images to Base64 data URIs for inline embedding, or decode a data URI back to an image." />
+      <ToolHeader
+        title="Base64 Image Converter"
+        description="Encode images to Base64 data URIs for inline embedding, or decode a data URI back to an image."
+      />
 
       <div className="flex items-center gap-2">
         <div className="flex gap-0.5 rounded-md border border-border p-0.5">
@@ -71,10 +84,20 @@ function Base64Page() {
       {mode === "encode" ? (
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 md:p-5">
-            <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={(e) => onUpload(e.target.files?.[0] ?? null)} aria-label="Upload image" />
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => onUpload(e.target.files?.[0] ?? null)}
+              aria-label="Upload image"
+            />
             <div
               onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => { e.preventDefault(); onUpload(e.dataTransfer.files?.[0] ?? null); }}
+              onDrop={(e) => {
+                e.preventDefault();
+                onUpload(e.dataTransfer.files?.[0] ?? null);
+              }}
               className="flex min-h-[14rem] flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-border p-6 text-center"
             >
               {dataUri ? (
@@ -82,17 +105,34 @@ function Base64Page() {
               ) : (
                 <p className="text-sm text-muted-foreground">Drop an image here or click Upload.</p>
               )}
-              <Button size="sm" variant="outline" onClick={() => inputRef.current?.click()} className="gap-1.5"><Upload className="h-4 w-4" /> Upload image</Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => inputRef.current?.click()}
+                className="gap-1.5"
+              >
+                <Upload className="h-4 w-4" /> Upload image
+              </Button>
             </div>
             {dataUri && (
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="rounded-md bg-muted p-2"><div className="text-muted-foreground">Original</div><div className="font-mono">{bytes(originalSize)}</div></div>
-                <div className="rounded-md bg-muted p-2"><div className="text-muted-foreground">Base64</div><div className="font-mono">{bytes(encodedSize)}</div></div>
+                <div className="rounded-md bg-muted p-2">
+                  <div className="text-muted-foreground">Original</div>
+                  <div className="font-mono">{bytes(originalSize)}</div>
+                </div>
+                <div className="rounded-md bg-muted p-2">
+                  <div className="text-muted-foreground">Base64</div>
+                  <div className="font-mono">{bytes(encodedSize)}</div>
+                </div>
               </div>
             )}
             {tooBig && (
-              <div role="alert" className="rounded-md border border-yellow-500/40 bg-yellow-500/10 p-2 text-xs text-yellow-700 dark:text-yellow-300">
-                This data URI is large ({bytes(encodedSize)}). Base64 embedding is best for small icons — larger images should stay as external files for caching and performance.
+              <div
+                role="alert"
+                className="rounded-md border border-yellow-500/40 bg-yellow-500/10 p-2 text-xs text-yellow-700 dark:text-yellow-300"
+              >
+                This data URI is large ({bytes(encodedSize)}). Base64 embedding is best for small
+                icons — larger images should stay as external files for caching and performance.
               </div>
             )}
           </div>
@@ -106,7 +146,12 @@ function Base64Page() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="decode-in" className="text-xs uppercase tracking-wide text-muted-foreground">Paste Base64 data URI</Label>
+            <Label
+              htmlFor="decode-in"
+              className="text-xs uppercase tracking-wide text-muted-foreground"
+            >
+              Paste Base64 data URI
+            </Label>
             <Textarea
               id="decode-in"
               value={decodeInput}
@@ -117,9 +162,15 @@ function Base64Page() {
           </div>
           <div className="flex min-h-[16rem] items-center justify-center rounded-xl border border-border bg-card p-4">
             {decodeInput.trim().startsWith("data:image") ? (
-              <img src={decodeInput.trim()} alt="Decoded preview" className="max-h-72 max-w-full rounded" />
+              <img
+                src={decodeInput.trim()}
+                alt="Decoded preview"
+                className="max-h-72 max-w-full rounded"
+              />
             ) : (
-              <p className="text-sm text-muted-foreground">Paste a valid image data URI to see the preview.</p>
+              <p className="text-sm text-muted-foreground">
+                Paste a valid image data URI to see the preview.
+              </p>
             )}
           </div>
         </div>

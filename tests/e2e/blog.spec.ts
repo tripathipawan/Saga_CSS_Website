@@ -18,12 +18,8 @@ test.describe("blog post share buttons", () => {
 
     const meta = await page.evaluate(() => ({
       title: document.title,
-      ogTitle: document
-        .querySelector('meta[property="og:title"]')
-        ?.getAttribute("content"),
-      description: document
-        .querySelector('meta[name="description"]')
-        ?.getAttribute("content"),
+      ogTitle: document.querySelector('meta[property="og:title"]')?.getAttribute("content"),
+      description: document.querySelector('meta[name="description"]')?.getAttribute("content"),
       h1: document.querySelector("h1")?.textContent?.trim() ?? "",
       origin: window.location.origin,
     }));
@@ -163,4 +159,3 @@ test.describe("blog post OpenGraph metadata", () => {
     });
   }
 });
-

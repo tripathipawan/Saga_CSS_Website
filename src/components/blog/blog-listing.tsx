@@ -2,13 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Search, X } from "lucide-react";
 import { ToolHeader } from "@/components/tool-header";
-import {
-  BLOG_PAGE_SIZE,
-  BLOG_POSTS,
-  filterPosts,
-  getAllCategories,
-  paginate,
-} from "@/lib/blog";
+import { BLOG_PAGE_SIZE, BLOG_POSTS, filterPosts, getAllCategories, paginate } from "@/lib/blog";
 
 type Props = {
   page: number;
@@ -51,7 +45,12 @@ export function BlogListing({ page, category, query }: Props) {
       <ToolHeader title={title} description={description} />
 
       <div className="flex flex-col gap-4">
-        <form onSubmit={onSearchSubmit} role="search" aria-label="Search articles" className="relative">
+        <form
+          onSubmit={onSearchSubmit}
+          role="search"
+          aria-label="Search articles"
+          className="relative"
+        >
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             type="search"
@@ -111,8 +110,18 @@ export function BlogListing({ page, category, query }: Props) {
         {(category || (query && query.trim())) && (
           <p className="text-xs text-muted-foreground">
             Showing {total} {total === 1 ? "article" : "articles"}
-            {category && <> in <span className="font-medium text-foreground">{category}</span></>}
-            {query && query.trim() && <> matching <span className="font-medium text-foreground">"{query.trim()}"</span></>}
+            {category && (
+              <>
+                {" "}
+                in <span className="font-medium text-foreground">{category}</span>
+              </>
+            )}
+            {query && query.trim() && (
+              <>
+                {" "}
+                matching <span className="font-medium text-foreground">"{query.trim()}"</span>
+              </>
+            )}
           </p>
         )}
       </div>
@@ -123,9 +132,7 @@ export function BlogListing({ page, category, query }: Props) {
           data-testid="blog-empty-state"
           className="rounded-xl border border-dashed border-border bg-card/50 p-10 text-center"
         >
-          <p className="text-base font-semibold text-foreground">
-            No articles match your filters
-          </p>
+          <p className="text-base font-semibold text-foreground">No articles match your filters</p>
           <p className="mt-1 text-sm text-muted-foreground">
             Try a different category or clear your search.
           </p>

@@ -10,9 +10,16 @@ export const Route = createFileRoute("/tools/theme-variables")({
   head: () => ({
     meta: [
       { title: "Dark Mode CSS Variables Generator — SagaCSS" },
-      { name: "description", content: "Generate matching light and dark CSS custom properties from a base palette, plus a Tailwind config snippet." },
+      {
+        name: "description",
+        content:
+          "Generate matching light and dark CSS custom properties from a base palette, plus a Tailwind config snippet.",
+      },
       { property: "og:title", content: "Dark Mode CSS Variables — SagaCSS" },
-      { property: "og:description", content: "Auto-derive dark mode variables from your palette with a live UI preview." },
+      {
+        property: "og:description",
+        content: "Auto-derive dark mode variables from your palette with a live UI preview.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/theme-variables" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/theme-variables" }],
@@ -40,17 +47,27 @@ const DEFAULT_LIGHT: Palette = {
 
 function hexToHsl(hex: string) {
   const rgb = hexToRgb(hex) ?? { r: 0, g: 0, b: 0 };
-  const r = rgb.r / 255, g = rgb.g / 255, b = rgb.b / 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h = 0, s = 0;
+  const r = rgb.r / 255,
+    g = rgb.g / 255,
+    b = rgb.b / 255;
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let h = 0,
+    s = 0;
   const l = (max + min) / 2;
   if (max !== min) {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
     switch (max) {
-      case r: h = ((g - b) / d + (g < b ? 6 : 0)); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
     }
     h /= 6;
   }
@@ -58,18 +75,24 @@ function hexToHsl(hex: string) {
 }
 
 function hslToHex(h: number, s: number, l: number) {
-  s /= 100; l /= 100;
+  s /= 100;
+  l /= 100;
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
-  let r = 0, g = 0, b = 0;
+  let r = 0,
+    g = 0,
+    b = 0;
   if (h < 60) [r, g, b] = [c, x, 0];
   else if (h < 120) [r, g, b] = [x, c, 0];
   else if (h < 180) [r, g, b] = [0, c, x];
   else if (h < 240) [r, g, b] = [0, x, c];
   else if (h < 300) [r, g, b] = [x, 0, c];
   else [r, g, b] = [c, 0, x];
-  const toHex = (v: number) => Math.round((v + m) * 255).toString(16).padStart(2, "0");
+  const toHex = (v: number) =>
+    Math.round((v + m) * 255)
+      .toString(16)
+      .padStart(2, "0");
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
@@ -160,7 +183,10 @@ module.exports = {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="Dark Mode CSS Variables" description="Pick a base palette; get matching light and dark CSS custom properties with a live UI preview." />
+      <ToolHeader
+        title="Dark Mode CSS Variables"
+        description="Pick a base palette; get matching light and dark CSS custom properties with a live UI preview."
+      />
 
       <div
         className="rounded-2xl border border-border p-6"
@@ -169,8 +195,15 @@ module.exports = {
         <div className="mb-3 flex items-center justify-between">
           <div className="text-xs uppercase tracking-wide opacity-70">Preview</div>
           <div className="flex items-center gap-2">
-            <Label htmlFor="dark-preview" className="text-xs" style={{ color: active.text }}>Dark preview</Label>
-            <Switch id="dark-preview" checked={darkPreview} onCheckedChange={setDarkPreview} aria-label="Toggle dark preview" />
+            <Label htmlFor="dark-preview" className="text-xs" style={{ color: active.text }}>
+              Dark preview
+            </Label>
+            <Switch
+              id="dark-preview"
+              checked={darkPreview}
+              onCheckedChange={setDarkPreview}
+              aria-label="Toggle dark preview"
+            />
           </div>
         </div>
         <div
@@ -178,12 +211,22 @@ module.exports = {
           style={{ background: active.surface, border: `1px solid ${active.border}` }}
         >
           <h3 className="mb-1 text-xl font-semibold">Themed card</h3>
-          <p className="mb-4 text-sm opacity-80">This card renders using only your generated CSS variables.</p>
+          <p className="mb-4 text-sm opacity-80">
+            This card renders using only your generated CSS variables.
+          </p>
           <div className="flex gap-2">
-            <button type="button" className="rounded-md px-3 py-2 text-sm font-medium" style={{ background: active.primary, color: active.background }}>
+            <button
+              type="button"
+              className="rounded-md px-3 py-2 text-sm font-medium"
+              style={{ background: active.primary, color: active.background }}
+            >
               Primary action
             </button>
-            <button type="button" className="rounded-md px-3 py-2 text-sm font-medium" style={{ background: active.secondary, color: active.background }}>
+            <button
+              type="button"
+              className="rounded-md px-3 py-2 text-sm font-medium"
+              style={{ background: active.secondary, color: active.background }}
+            >
               Secondary
             </button>
           </div>
@@ -198,7 +241,13 @@ module.exports = {
               {(Object.keys(light) as (keyof Palette)[]).map((k) => (
                 <div key={k}>
                   <Label className="text-xs">{LABELS[k]}</Label>
-                  <input type="color" value={light[k]} onChange={(e) => setLightVal(k, e.target.value)} aria-label={`Light ${LABELS[k]}`} className="mt-1 h-8 w-full rounded border border-input" />
+                  <input
+                    type="color"
+                    value={light[k]}
+                    onChange={(e) => setLightVal(k, e.target.value)}
+                    aria-label={`Light ${LABELS[k]}`}
+                    className="mt-1 h-8 w-full rounded border border-input"
+                  />
                 </div>
               ))}
             </div>
@@ -209,11 +258,21 @@ module.exports = {
               {(Object.keys(dark) as (keyof Palette)[]).map((k) => (
                 <div key={k}>
                   <Label className="text-xs">{LABELS[k]}</Label>
-                  <input type="color" value={dark[k]} onChange={(e) => setDark({ ...dark, [k]: e.target.value })} aria-label={`Dark ${LABELS[k]}`} className="mt-1 h-8 w-full rounded border border-input" />
+                  <input
+                    type="color"
+                    value={dark[k]}
+                    onChange={(e) => setDark({ ...dark, [k]: e.target.value })}
+                    aria-label={`Dark ${LABELS[k]}`}
+                    className="mt-1 h-8 w-full rounded border border-input"
+                  />
                 </div>
               ))}
             </div>
-            <button type="button" onClick={() => setDark(autoDark(light))} className="mt-3 rounded-md border border-border bg-background px-3 py-1.5 text-xs hover:bg-accent">
+            <button
+              type="button"
+              onClick={() => setDark(autoDark(light))}
+              className="mt-3 rounded-md border border-border bg-background px-3 py-1.5 text-xs hover:bg-accent"
+            >
               Re-auto from light
             </button>
           </div>

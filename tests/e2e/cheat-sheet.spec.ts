@@ -35,7 +35,9 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("navigation renders all 20 chapters but only one chapter's content at a time", async ({ page }) => {
+test("navigation renders all 20 chapters but only one chapter's content at a time", async ({
+  page,
+}) => {
   await page.goto("/cheat-sheet");
 
   const nav = page.getByTestId("cheat-sheet-nav");
@@ -52,7 +54,9 @@ test("navigation renders all 20 chapters but only one chapter's content at a tim
   await expect(page.getByText("container-type", { exact: false })).toHaveCount(0);
 });
 
-test("clicking every chapter in the navigation swaps to that chapter's content", async ({ page }) => {
+test("clicking every chapter in the navigation swaps to that chapter's content", async ({
+  page,
+}) => {
   await page.goto("/cheat-sheet");
 
   for (let i = 0; i < CHAPTER_TITLES.length; i++) {
@@ -171,9 +175,8 @@ test("PDF export contains all 20 chapters in order even when a middle chapter is
     expect(pos, `Chapter ${i + 1} header is present in the PDF`).toBeGreaterThan(-1);
   });
   for (let i = 1; i < positions.length; i++) {
-    expect(
-      positions[i],
-      `Chapter ${i + 1} header appears after Chapter ${i}`,
-    ).toBeGreaterThan(positions[i - 1]);
+    expect(positions[i], `Chapter ${i + 1} header appears after Chapter ${i}`).toBeGreaterThan(
+      positions[i - 1],
+    );
   }
 });

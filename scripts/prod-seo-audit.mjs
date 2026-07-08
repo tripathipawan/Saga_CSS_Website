@@ -14,7 +14,10 @@
 
 import { readFileSync } from "node:fs";
 
-const BASE = (process.argv[2] || process.env.BASE || "https://csscraft.lovable.app").replace(/\/$/, "");
+const BASE = (process.argv[2] || process.env.BASE || "https://csscraft.lovable.app").replace(
+  /\/$/,
+  "",
+);
 
 // Mirror src/lib/socials.ts without importing TS (script must run under plain node).
 const SOCIAL_HREFS = [
@@ -72,8 +75,18 @@ function pickCanonical(html) {
 }
 
 function pickJsonLd(html) {
-  const scripts = [...html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
-  return scripts.map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean);
+  const scripts = [
+    ...html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi),
+  ];
+  return scripts
+    .map((m) => {
+      try {
+        return JSON.parse(m[1]);
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
 }
 
 const seen = { titles: new Map(), descs: new Map() };
@@ -83,12 +96,12 @@ for (const route of ROUTES) {
   try {
     const html = await fetchText(url);
     const title = pickTitle(html);
-    const desc = pickMeta(html, 'name=["\']description["\']')[0] || "";
-    const ogTitle = pickMeta(html, 'property=["\']og:title["\']')[0];
-    const ogDesc = pickMeta(html, 'property=["\']og:description["\']')[0];
-    const ogUrl = pickMeta(html, 'property=["\']og:url["\']')[0];
-    const ogType = pickMeta(html, 'property=["\']og:type["\']')[0];
-    const twCard = pickMeta(html, 'name=["\']twitter:card["\']')[0];
+    const desc = pickMeta(html, "name=[\"']description[\"']")[0] || "";
+    const ogTitle = pickMeta(html, "property=[\"']og:title[\"']")[0];
+    const ogDesc = pickMeta(html, "property=[\"']og:description[\"']")[0];
+    const ogUrl = pickMeta(html, "property=[\"']og:url[\"']")[0];
+    const ogType = pickMeta(html, "property=[\"']og:type[\"']")[0];
+    const twCard = pickMeta(html, "name=[\"']twitter:card[\"']")[0];
     const canonical = pickCanonical(html);
 
     if (!title || /Lovable App|Vite App/i.test(title)) warn(route, `bad title: "${title}"`);

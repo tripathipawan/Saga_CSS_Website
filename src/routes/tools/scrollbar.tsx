@@ -12,9 +12,16 @@ export const Route = createFileRoute("/tools/scrollbar")({
   head: () => ({
     meta: [
       { title: "Scrollbar Styler — SagaCSS" },
-      { name: "description", content: "Design custom browser scrollbars visually. Tune width, thumb, track, radius and hover — copy WebKit and Firefox CSS." },
+      {
+        name: "description",
+        content:
+          "Design custom browser scrollbars visually. Tune width, thumb, track, radius and hover — copy WebKit and Firefox CSS.",
+      },
       { property: "og:title", content: "Scrollbar Styler — SagaCSS" },
-      { property: "og:description", content: "Live custom scrollbar preview with copy-ready WebKit + Firefox CSS." },
+      {
+        property: "og:description",
+        content: "Live custom scrollbar preview with copy-ready WebKit + Firefox CSS.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/scrollbar" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/scrollbar" }],
@@ -35,11 +42,76 @@ type Cfg = {
 };
 
 const PRESETS: { name: string; cfg: Cfg }[] = [
-  { name: "Minimal Thin", cfg: { width: 6, track: "#00000000", thumb: "#9ca3af", thumbHover: "#6b7280", thumbRadius: 8, trackRadius: 0, border: false, borderColor: "#ffffff", hidden: false } },
-  { name: "Rounded Pill", cfg: { width: 12, track: "#f1f5f9", thumb: "#8b5cf6", thumbHover: "#7c3aed", thumbRadius: 999, trackRadius: 999, border: true, borderColor: "#f1f5f9", hidden: false } },
-  { name: "Bold Colorful", cfg: { width: 16, track: "#fde68a", thumb: "#ef4444", thumbHover: "#b91c1c", thumbRadius: 4, trackRadius: 4, border: false, borderColor: "#ffffff", hidden: false } },
-  { name: "Dark Mode Subtle", cfg: { width: 10, track: "#1f2937", thumb: "#374151", thumbHover: "#4b5563", thumbRadius: 6, trackRadius: 6, border: false, borderColor: "#111827", hidden: false } },
-  { name: "Invisible / Hidden", cfg: { width: 0, track: "#00000000", thumb: "#00000000", thumbHover: "#00000000", thumbRadius: 0, trackRadius: 0, border: false, borderColor: "#ffffff", hidden: true } },
+  {
+    name: "Minimal Thin",
+    cfg: {
+      width: 6,
+      track: "#00000000",
+      thumb: "#9ca3af",
+      thumbHover: "#6b7280",
+      thumbRadius: 8,
+      trackRadius: 0,
+      border: false,
+      borderColor: "#ffffff",
+      hidden: false,
+    },
+  },
+  {
+    name: "Rounded Pill",
+    cfg: {
+      width: 12,
+      track: "#f1f5f9",
+      thumb: "#8b5cf6",
+      thumbHover: "#7c3aed",
+      thumbRadius: 999,
+      trackRadius: 999,
+      border: true,
+      borderColor: "#f1f5f9",
+      hidden: false,
+    },
+  },
+  {
+    name: "Bold Colorful",
+    cfg: {
+      width: 16,
+      track: "#fde68a",
+      thumb: "#ef4444",
+      thumbHover: "#b91c1c",
+      thumbRadius: 4,
+      trackRadius: 4,
+      border: false,
+      borderColor: "#ffffff",
+      hidden: false,
+    },
+  },
+  {
+    name: "Dark Mode Subtle",
+    cfg: {
+      width: 10,
+      track: "#1f2937",
+      thumb: "#374151",
+      thumbHover: "#4b5563",
+      thumbRadius: 6,
+      trackRadius: 6,
+      border: false,
+      borderColor: "#111827",
+      hidden: false,
+    },
+  },
+  {
+    name: "Invisible / Hidden",
+    cfg: {
+      width: 0,
+      track: "#00000000",
+      thumb: "#00000000",
+      thumbHover: "#00000000",
+      thumbRadius: 0,
+      trackRadius: 0,
+      border: false,
+      borderColor: "#ffffff",
+      hidden: true,
+    },
+  },
 ];
 
 function ScrollbarPage() {
@@ -86,17 +158,27 @@ function ScrollbarPage() {
               aria-label="Scrollbar preview area"
             >
               {Array.from({ length: 40 }).map((_, i) => (
-                <p key={i} className="text-sm">Line {i + 1} — scroll to see the custom scrollbar in action.</p>
+                <p key={i} className="text-sm">
+                  Line {i + 1} — scroll to see the custom scrollbar in action.
+                </p>
               ))}
             </div>
             <p className="mt-2 text-[11px] text-muted-foreground">
-              Preview uses WebKit rules only (Chromium ignores <code>::-webkit-scrollbar</code> when standard
-              <code> scrollbar-color</code> is set on the same element). The exported CSS ships both for full
-              Firefox + WebKit coverage.
+              Preview uses WebKit rules only (Chromium ignores <code>::-webkit-scrollbar</code> when
+              standard
+              <code> scrollbar-color</code> is set on the same element). The exported CSS ships both
+              for full Firefox + WebKit coverage.
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {PRESETS.map((p) => (
-                <Button key={p.name} size="sm" variant="outline" className="h-7 text-xs" onClick={() => setCfg(p.cfg)} aria-label={`Apply ${p.name} preset`}>
+                <Button
+                  key={p.name}
+                  size="sm"
+                  variant="outline"
+                  className="h-7 text-xs"
+                  onClick={() => setCfg(p.cfg)}
+                  aria-label={`Apply ${p.name} preset`}
+                >
                   {p.name}
                 </Button>
               ))}
@@ -105,44 +187,126 @@ function ScrollbarPage() {
 
           <div className="rounded-xl border border-border bg-card p-4 md:p-5">
             <div className="grid gap-4 sm:grid-cols-2">
-              <NumberControl label="Width (px)" value={cfg.width} min={0} max={24} onChange={(v) => set("width", v)} />
-              <NumberControl label="Thumb radius (px)" value={cfg.thumbRadius} min={0} max={999} onChange={(v) => set("thumbRadius", v)} />
-              <NumberControl label="Track radius (px)" value={cfg.trackRadius} min={0} max={999} onChange={(v) => set("trackRadius", v)} />
-              <ColorControl label="Track color" value={cfg.track} onChange={(v) => set("track", v)} />
-              <ColorControl label="Thumb color" value={cfg.thumb} onChange={(v) => set("thumb", v)} />
-              <ColorControl label="Thumb hover" value={cfg.thumbHover} onChange={(v) => set("thumbHover", v)} />
+              <NumberControl
+                label="Width (px)"
+                value={cfg.width}
+                min={0}
+                max={24}
+                onChange={(v) => set("width", v)}
+              />
+              <NumberControl
+                label="Thumb radius (px)"
+                value={cfg.thumbRadius}
+                min={0}
+                max={999}
+                onChange={(v) => set("thumbRadius", v)}
+              />
+              <NumberControl
+                label="Track radius (px)"
+                value={cfg.trackRadius}
+                min={0}
+                max={999}
+                onChange={(v) => set("trackRadius", v)}
+              />
+              <ColorControl
+                label="Track color"
+                value={cfg.track}
+                onChange={(v) => set("track", v)}
+              />
+              <ColorControl
+                label="Thumb color"
+                value={cfg.thumb}
+                onChange={(v) => set("thumb", v)}
+              />
+              <ColorControl
+                label="Thumb hover"
+                value={cfg.thumbHover}
+                onChange={(v) => set("thumbHover", v)}
+              />
               <div className="flex items-center gap-2 pt-2">
-                <Checkbox id="sb-border" checked={cfg.border} onCheckedChange={(v) => set("border", Boolean(v))} aria-label="Thumb border" />
-                <Label htmlFor="sb-border" className="cursor-pointer text-xs">Thumb border</Label>
+                <Checkbox
+                  id="sb-border"
+                  checked={cfg.border}
+                  onCheckedChange={(v) => set("border", Boolean(v))}
+                  aria-label="Thumb border"
+                />
+                <Label htmlFor="sb-border" className="cursor-pointer text-xs">
+                  Thumb border
+                </Label>
               </div>
-              {cfg.border && <ColorControl label="Border color" value={cfg.borderColor} onChange={(v) => set("borderColor", v)} />}
+              {cfg.border && (
+                <ColorControl
+                  label="Border color"
+                  value={cfg.borderColor}
+                  onChange={(v) => set("borderColor", v)}
+                />
+              )}
               <div className="flex items-center gap-2 pt-2">
-                <Checkbox id="sb-hidden" checked={cfg.hidden} onCheckedChange={(v) => set("hidden", Boolean(v))} aria-label="Hide scrollbar entirely" />
-                <Label htmlFor="sb-hidden" className="cursor-pointer text-xs">Hide scrollbar entirely</Label>
+                <Checkbox
+                  id="sb-hidden"
+                  checked={cfg.hidden}
+                  onCheckedChange={(v) => set("hidden", Boolean(v))}
+                  aria-label="Hide scrollbar entirely"
+                />
+                <Label htmlFor="sb-hidden" className="cursor-pointer text-xs">
+                  Hide scrollbar entirely
+                </Label>
               </div>
             </div>
           </div>
         </div>
 
-        <StickyCode code={outputCss} tailwind={tailwind} bootstrap={bootstrap} label="Scrollbar CSS" />
+        <StickyCode
+          code={outputCss}
+          tailwind={tailwind}
+          bootstrap={bootstrap}
+          label="Scrollbar CSS"
+        />
       </div>
     </div>
   );
 }
 
-function NumberControl({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (v: number) => void }) {
+function NumberControl({
+  label,
+  value,
+  min,
+  max,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
         <Label className="text-xs">{label}</Label>
         <span className="font-mono text-xs text-muted-foreground">{value}</span>
       </div>
-      <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v) => onChange(v[0] ?? 0)} aria-label={label} />
+      <Slider
+        value={[value]}
+        min={min}
+        max={max}
+        step={1}
+        onValueChange={(v) => onChange(v[0] ?? 0)}
+        aria-label={label}
+      />
     </div>
   );
 }
 
-function ColorControl({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+function ColorControl({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   const isTransparent = value === "#00000000" || value === "transparent";
   const colorValue = isTransparent ? "#ffffff" : value.length === 9 ? value.slice(0, 7) : value;
   return (
@@ -156,7 +320,12 @@ function ColorControl({ label, value, onChange }: { label: string; value: string
           aria-label={label}
           className="h-8 w-10 shrink-0 cursor-pointer rounded border border-border bg-background"
         />
-        <Input value={value} onChange={(e) => onChange(e.target.value)} className="h-8 font-mono text-xs" aria-label={`${label} value`} />
+        <Input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-8 font-mono text-xs"
+          aria-label={`${label} value`}
+        />
       </div>
     </div>
   );
@@ -166,7 +335,9 @@ function buildCss(cfg: Cfg, selector: string, opts: { webkitOnly?: boolean } = {
   if (cfg.hidden) {
     return `/* Hide scrollbar (Firefox + WebKit). Content still scrolls. */\n${selector} {\n  scrollbar-width: none;          /* Firefox */\n  -ms-overflow-style: none;       /* IE 10+ */\n}\n${selector}::-webkit-scrollbar {\n  display: none;                  /* Chrome, Safari, Edge */\n}`;
   }
-  const border = cfg.border ? `\n  border: 2px solid ${cfg.borderColor};\n  background-clip: padding-box;` : "";
+  const border = cfg.border
+    ? `\n  border: 2px solid ${cfg.borderColor};\n  background-clip: padding-box;`
+    : "";
   const track = cfg.track === "#00000000" ? "transparent" : cfg.track;
   const webkit = `${selector}::-webkit-scrollbar {\n  width: ${cfg.width}px;\n  height: ${cfg.width}px;\n}\n${selector}::-webkit-scrollbar-track {\n  background: ${track};\n  border-radius: ${cfg.trackRadius}px;\n}\n${selector}::-webkit-scrollbar-thumb {\n  background: ${cfg.thumb};\n  border-radius: ${cfg.thumbRadius}px;${border}\n}\n${selector}::-webkit-scrollbar-thumb:hover {\n  background: ${cfg.thumbHover};\n}`;
   if (opts.webkitOnly) {

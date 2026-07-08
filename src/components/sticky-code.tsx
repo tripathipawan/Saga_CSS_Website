@@ -50,7 +50,7 @@ function extractCss(css: string): Extracted {
   const keyframes: { name: string; body: string }[] = [];
   // Pull out @keyframes blocks (balanced braces, single level of nesting).
   const kfRe = /@keyframes\s+([\w-]+)\s*\{([\s\S]*?)\n\}/g;
-  let stripped = css.replace(kfRe, (_m, name: string, body: string) => {
+  const stripped = css.replace(kfRe, (_m, name: string, body: string) => {
     keyframes.push({ name, body: body.trim() });
     return "";
   });
@@ -69,7 +69,6 @@ function extractCss(css: string): Extracted {
   const decls = splitDeclarations(source);
   return { decls, keyframes };
 }
-
 
 function tailwindArbitrary(prop: string, value: string): string {
   // Tailwind arbitrary values: spaces → underscores, real underscores escaped.
@@ -91,9 +90,7 @@ function toTailwind(css: string): { code: string; note?: string } {
           .map((f) => {
             const [selector, ...rest] = f.split("{");
             const decls = splitDeclarations(rest.join("{"));
-            const body = decls
-              .map(([p, v]) => `        "${p}": "${v}"`)
-              .join(",\n");
+            const body = decls.map(([p, v]) => `        "${p}": "${v}"`).join(",\n");
             return `      "${selector.trim()}": {\n${body}\n      }`;
           })
           .join(",\n");
@@ -110,12 +107,9 @@ function toTailwind(css: string): { code: string; note?: string } {
     const utilityClass = `animate-${animName}`;
 
     const otherDecls = decls.filter(([p]) => p !== "animation");
-    const otherClasses = otherDecls
-      .map(([p, v]) => tailwindArbitrary(p, v))
-      .join(" ");
+    const otherClasses = otherDecls.map(([p, v]) => tailwindArbitrary(p, v)).join(" ");
 
-    const code =
-      `// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      keyframes: {\n${kfConfig}\n      },\n      animation: {\n        "${animName}": "${animName} ${restShorthand}"\n      }\n    }\n  }\n}\n\n<!-- markup -->\n<div class="${utilityClass}${otherClasses ? " " + otherClasses : ""}">…</div>`;
+    const code = `// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      keyframes: {\n${kfConfig}\n      },\n      animation: {\n        "${animName}": "${animName} ${restShorthand}"\n      }\n    }\n  }\n}\n\n<!-- markup -->\n<div class="${utilityClass}${otherClasses ? " " + otherClasses : ""}">…</div>`;
     return { code, note: "Tailwind config extension for the keyframes + animate-* utility class." };
   }
   if (!decls.length) {
@@ -136,9 +130,7 @@ function toBootstrap(css: string): { code: string; note?: string } {
   if (keyframes.length) {
     // Bootstrap has no animation utilities — inline the keyframes and apply
     // an animation shorthand via inline style. Emitted as valid HTML markup.
-    const kfCss = keyframes
-      .map((k) => `@keyframes ${k.name} {\n${k.body}\n}`)
-      .join("\n\n");
+    const kfCss = keyframes.map((k) => `@keyframes ${k.name} {\n${k.body}\n}`).join("\n\n");
     const anim = decls.find(([p]) => p === "animation");
     const animValue = anim ? anim[1] : `${keyframes[0].name} 1s ease-in-out infinite`;
     const otherInline = decls
@@ -314,10 +306,8 @@ function CodePanel({
   const outputs = useMemo(() => {
     return {
       css: { code, note: undefined as string | undefined },
-      tailwind:
-        tailwind !== undefined ? { code: tailwind, note: undefined } : toTailwind(code),
-      bootstrap:
-        bootstrap !== undefined ? { code: bootstrap, note: undefined } : toBootstrap(code),
+      tailwind: tailwind !== undefined ? { code: tailwind, note: undefined } : toTailwind(code),
+      bootstrap: bootstrap !== undefined ? { code: bootstrap, note: undefined } : toBootstrap(code),
     };
   }, [code, tailwind, bootstrap]);
 
@@ -346,9 +336,10 @@ function CodePanel({
   const handleSave = () => {
     const source = sourceFromPath(pathname);
     const suggested = `${source} snippet`;
-    const input = typeof window !== "undefined"
-      ? window.prompt("Label this snippet for My Kit", suggested)
-      : suggested;
+    const input =
+      typeof window !== "undefined"
+        ? window.prompt("Label this snippet for My Kit", suggested)
+        : suggested;
     if (input === null) return;
     addSnippet({
       label: input.trim() || suggested,
@@ -399,7 +390,11 @@ function CodePanel({
             aria-label={`Copy ${labelFor(format)} to clipboard`}
             className="h-7 gap-1.5 text-xs"
           >
-            {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
+            {copied ? (
+              <Check className="h-3.5 w-3.5 text-primary" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
+            )}
             {copied ? "Copied" : "Copy"}
           </Button>
         </div>

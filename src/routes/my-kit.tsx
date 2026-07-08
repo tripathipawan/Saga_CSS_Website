@@ -11,21 +11,23 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { ToolHeader } from "@/components/tool-header";
 import { CodeBlock } from "@/components/sticky-code";
-import {
-  clearKit,
-  loadKit,
-  removeSnippet,
-  type KitSnippet,
-} from "@/lib/my-kit";
+import { clearKit, loadKit, removeSnippet, type KitSnippet } from "@/lib/my-kit";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/my-kit")({
   head: () => ({
     meta: [
       { title: "My Kit — Saved CSS Snippets — SagaCSS" },
-      { name: "description", content: "Your personal collection of saved CSS, Tailwind and Bootstrap snippets — combine and export as a single stylesheet." },
+      {
+        name: "description",
+        content:
+          "Your personal collection of saved CSS, Tailwind and Bootstrap snippets — combine and export as a single stylesheet.",
+      },
       { property: "og:title", content: "My Kit — SagaCSS" },
-      { property: "og:description", content: "Save, preview and combine your favourite SagaCSS snippets." },
+      {
+        property: "og:description",
+        content: "Save, preview and combine your favourite SagaCSS snippets.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/my-kit" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/my-kit" }],
@@ -52,7 +54,8 @@ function MyKitPage() {
   const toggle = (id: string) => {
     setSelected((s) => {
       const next = new Set(s);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   };
@@ -81,17 +84,25 @@ function MyKitPage() {
   const exportTabStyleHtml = () => {
     const chosen = items.filter((i) => selected.has(i.id));
     if (chosen.length === 0) return toast.error("Select at least one snippet");
-    const escape = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]!));
+    const escape = (s: string) =>
+      s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
     const tabs = chosen
       .map(
-        (s, i) => `<input type="radio" name="ktab" id="ktab-${i}" ${i === 0 ? "checked" : ""}/><label for="ktab-${i}">${escape(s.label)}<span class="fmt">${s.format.toUpperCase()}</span></label>`,
+        (s, i) =>
+          `<input type="radio" name="ktab" id="ktab-${i}" ${i === 0 ? "checked" : ""}/><label for="ktab-${i}">${escape(s.label)}<span class="fmt">${s.format.toUpperCase()}</span></label>`,
       )
       .join("\n");
     const panels = chosen
-      .map((s, i) => `<pre class="panel panel-${i}" data-idx="${i}"><code>${escape(s.code)}</code></pre>`)
+      .map(
+        (s, i) =>
+          `<pre class="panel panel-${i}" data-idx="${i}"><code>${escape(s.code)}</code></pre>`,
+      )
       .join("\n");
     const rules = chosen
-      .map((_, i) => `#ktab-${i}:checked ~ .panels .panel-${i} { display: block; }\n#ktab-${i}:checked ~ .tabs label[for="ktab-${i}"] { background: #111827; color: #fff; }`)
+      .map(
+        (_, i) =>
+          `#ktab-${i}:checked ~ .panels .panel-${i} { display: block; }\n#ktab-${i}:checked ~ .tabs label[for="ktab-${i}"] { background: #111827; color: #fff; }`,
+      )
       .join("\n");
     const html = `<!doctype html>
 <html lang="en"><meta charset="utf-8"><title>My Kit — Combined Snippets</title>
@@ -129,7 +140,10 @@ function MyKitPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="My Kit" description="Your saved CSS snippets — organize, combine and export them as a personal starter stylesheet." />
+      <ToolHeader
+        title="My Kit"
+        description="Your saved CSS snippets — organize, combine and export them as a personal starter stylesheet."
+      />
 
       {items.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border bg-card p-10 text-center">
@@ -138,9 +152,13 @@ function MyKitPage() {
           </div>
           <h2 className="text-lg font-semibold">Your kit is empty</h2>
           <p className="max-w-md text-sm text-muted-foreground">
-            Open any tool and click <strong>Save</strong> next to the Copy button to add a snippet here. Everything is stored locally in your browser.
+            Open any tool and click <strong>Save</strong> next to the Copy button to add a snippet
+            here. Everything is stored locally in your browser.
           </p>
-          <Link to="/tools/gradient" className="mt-2 inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+          <Link
+            to="/tools/gradient"
+            className="mt-2 inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          >
             Try the Gradient Generator
           </Link>
         </div>
@@ -154,12 +172,15 @@ function MyKitPage() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button size="sm" variant="outline" className="gap-1.5">
-                    <Download className="h-4 w-4" /> Combine &amp; export <ChevronDown className="h-3 w-3" />
+                    <Download className="h-4 w-4" /> Combine &amp; export{" "}
+                    <ChevronDown className="h-3 w-3" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem onClick={exportRawCss}>Raw CSS (.css)</DropdownMenuItem>
-                  <DropdownMenuItem onClick={exportTabStyleHtml}>Tabbed HTML (.html)</DropdownMenuItem>
+                  <DropdownMenuItem onClick={exportTabStyleHtml}>
+                    Tabbed HTML (.html)
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button
@@ -176,7 +197,13 @@ function MyKitPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             {items.map((s) => (
-              <KitCard key={s.id} snippet={s} selected={selected.has(s.id)} onToggle={toggle} onDelete={() => removeSnippet(s.id)} />
+              <KitCard
+                key={s.id}
+                snippet={s}
+                selected={selected.has(s.id)}
+                onToggle={toggle}
+                onDelete={() => removeSnippet(s.id)}
+              />
             ))}
           </div>
         </>
@@ -185,7 +212,17 @@ function MyKitPage() {
   );
 }
 
-function KitCard({ snippet, selected, onToggle, onDelete }: { snippet: KitSnippet; selected: boolean; onToggle: (id: string) => void; onDelete: () => void }) {
+function KitCard({
+  snippet,
+  selected,
+  onToggle,
+  onDelete,
+}: {
+  snippet: KitSnippet;
+  selected: boolean;
+  onToggle: (id: string) => void;
+  onDelete: () => void;
+}) {
   const previewStyle = useMemo(() => {
     if (snippet.format !== "css") return null;
     if (/[{}]/.test(snippet.code)) return null;
@@ -205,11 +242,18 @@ function KitCard({ snippet, selected, onToggle, onDelete }: { snippet: KitSnippe
           <div>
             <div className="font-medium">{snippet.label}</div>
             <div className="text-xs text-muted-foreground">
-              {snippet.source} · {snippet.format.toUpperCase()} · {new Date(snippet.createdAt).toLocaleDateString()}
+              {snippet.source} · {snippet.format.toUpperCase()} ·{" "}
+              {new Date(snippet.createdAt).toLocaleDateString()}
             </div>
           </div>
         </div>
-        <Button size="icon" variant="ghost" onClick={onDelete} aria-label="Delete snippet" className="h-8 w-8">
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={onDelete}
+          aria-label="Delete snippet"
+          className="h-8 w-8"
+        >
           <Trash2 className="h-4 w-4" />
         </Button>
       </div>
@@ -228,7 +272,8 @@ function KitCard({ snippet, selected, onToggle, onDelete }: { snippet: KitSnippe
 function CssPreview({ css }: { css: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (ref.current) ref.current.style.cssText = `width:64px;height:64px;background:linear-gradient(135deg,#8b5cf6,#22d3ee);${css}`;
+    if (ref.current)
+      ref.current.style.cssText = `width:64px;height:64px;background:linear-gradient(135deg,#8b5cf6,#22d3ee);${css}`;
   }, [css]);
   return <div ref={ref} aria-hidden="true" />;
 }

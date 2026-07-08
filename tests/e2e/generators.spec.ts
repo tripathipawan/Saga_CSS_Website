@@ -59,9 +59,7 @@ test.describe("Border Radius Generator presets", () => {
     await page.getByRole("button", { name: "Load Blob preset" }).click();
     const css = await readVisibleCss(page);
     // Organic mode uses the four-h / four-v syntax.
-    expect(css).toMatch(
-      /^border-radius:\s*\d+% \d+% \d+% \d+%\s*\/\s*\d+% \d+% \d+% \d+%;$/,
-    );
+    expect(css).toMatch(/^border-radius:\s*\d+% \d+% \d+% \d+%\s*\/\s*\d+% \d+% \d+% \d+%;$/);
     expect(css).toContain(" / ");
   });
 });
@@ -76,9 +74,7 @@ test.describe("Gradient Generator presets", () => {
     await page.getByRole("button", { name: "Load preset Sunset" }).click();
 
     const css = await readVisibleCss(page);
-    expect(css).toBe(
-      "background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);",
-    );
+    expect(css).toBe("background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);");
 
     const clipboard = await copyAndReadClipboard(page);
     expect(clipboard).toBe(css);

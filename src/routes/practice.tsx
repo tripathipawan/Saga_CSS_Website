@@ -1,12 +1,39 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
-import { Search, Bookmark, BookmarkCheck, CheckCircle2, Circle, ChevronLeft, ChevronRight, Eye, EyeOff, RotateCcw, X, Link as LinkIcon, Download, CheckCircle, XCircle } from "lucide-react";
+import {
+  Search,
+  Bookmark,
+  BookmarkCheck,
+  CheckCircle2,
+  Circle,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  EyeOff,
+  RotateCcw,
+  X,
+  Link as LinkIcon,
+  Download,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ToolHeader } from "@/components/tool-header";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CHALLENGES, CHALLENGE_CATEGORIES, type Challenge, type ChallengeLevel } from "@/lib/practice-challenges";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  CHALLENGES,
+  CHALLENGE_CATEGORIES,
+  type Challenge,
+  type ChallengeLevel,
+} from "@/lib/practice-challenges";
 import { resolveChecks, runChecks, type CheckResult } from "@/lib/practice-checks";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -21,9 +48,17 @@ export const Route = createFileRoute("/practice")({
   head: () => ({
     meta: [
       { title: "CSS Practice Challenges — 150 Live Coding Exercises — SagaCSS" },
-      { name: "description", content: "150 hands-on CSS challenges with a live code editor, target preview, automated pass/fail checks, solutions and PDF export. Practice Flexbox, Grid, animations, selectors and more." },
+      {
+        name: "description",
+        content:
+          "150 hands-on CSS challenges with a live code editor, target preview, automated pass/fail checks, solutions and PDF export. Practice Flexbox, Grid, animations, selectors and more.",
+      },
       { property: "og:title", content: "CSS Practice Challenges — SagaCSS" },
-      { property: "og:description", content: "150 live-editor CSS challenges with automated checks — Flexbox, Grid, animations, selectors, responsive design." },
+      {
+        property: "og:description",
+        content:
+          "150 live-editor CSS challenges with automated checks — Flexbox, Grid, animations, selectors, responsive design.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/practice" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/practice" }],
@@ -40,24 +75,34 @@ function loadSet(key: string): Set<string> {
   if (typeof window === "undefined") return new Set();
   try {
     return new Set(JSON.parse(window.localStorage.getItem(key) ?? "[]"));
-  } catch { return new Set(); }
+  } catch {
+    return new Set();
+  }
 }
 function saveSet(key: string, s: Set<string>) {
-  try { window.localStorage.setItem(key, JSON.stringify(Array.from(s))); } catch { /* ignore */ }
+  try {
+    window.localStorage.setItem(key, JSON.stringify(Array.from(s)));
+  } catch {
+    /* ignore */
+  }
 }
 function loadCode(id: string, fallback: string): string {
   if (typeof window === "undefined") return fallback;
   try {
     const map = JSON.parse(window.localStorage.getItem(CODE_KEY) ?? "{}");
     return typeof map[id] === "string" ? map[id] : fallback;
-  } catch { return fallback; }
+  } catch {
+    return fallback;
+  }
 }
 function saveCode(id: string, code: string) {
   try {
     const map = JSON.parse(window.localStorage.getItem(CODE_KEY) ?? "{}");
     map[id] = code;
     window.localStorage.setItem(CODE_KEY, JSON.stringify(map));
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }
 
 const LEVEL_COLORS: Record<ChallengeLevel, string> = {
@@ -105,7 +150,7 @@ function PracticePage() {
     return CHALLENGES.filter((c) => {
       if (level !== "all" && c.level !== level) return false;
       if (category !== "all" && c.category !== category) return false;
-      if (q && !(`${c.title} ${c.description} ${c.category}`.toLowerCase().includes(q))) return false;
+      if (q && !`${c.title} ${c.description} ${c.category}`.toLowerCase().includes(q)) return false;
       return true;
     });
   }, [level, category, query]);
@@ -170,7 +215,9 @@ function PracticePage() {
         </div>
         <div>
           <div className="text-xs uppercase tracking-wider text-muted-foreground">Completed</div>
-          <div className="mt-1 text-2xl font-bold text-primary">{stats.done} <span className="text-sm text-muted-foreground">({pct}%)</span></div>
+          <div className="mt-1 text-2xl font-bold text-primary">
+            {stats.done} <span className="text-sm text-muted-foreground">({pct}%)</span>
+          </div>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
             <div className="h-full bg-primary transition-all" style={{ width: `${pct}%` }} />
           </div>
@@ -192,7 +239,12 @@ function PracticePage() {
           size="sm"
           className="gap-1.5"
           disabled={bookmarks.size === 0}
-          onClick={() => exportPracticePdf(CHALLENGES.filter((c) => bookmarks.has(c.id)), "bookmarked")}
+          onClick={() =>
+            exportPracticePdf(
+              CHALLENGES.filter((c) => bookmarks.has(c.id)),
+              "bookmarked",
+            )
+          }
         >
           <Download className="h-4 w-4" /> Export bookmarked ({bookmarks.size})
         </Button>
@@ -200,7 +252,12 @@ function PracticePage() {
           variant="outline"
           size="sm"
           className="gap-1.5"
-          onClick={() => exportPracticePdf(CHALLENGES.filter((c) => done.has(c.id)), "completed")}
+          onClick={() =>
+            exportPracticePdf(
+              CHALLENGES.filter((c) => done.has(c.id)),
+              "completed",
+            )
+          }
           disabled={done.size === 0}
         >
           <Download className="h-4 w-4" /> Export completed ({done.size})
@@ -218,13 +275,19 @@ function PracticePage() {
             aria-label="Search challenges"
           />
           {query && (
-            <button onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:bg-muted">
+            <button
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:bg-muted"
+            >
               <X className="h-3.5 w-3.5" />
             </button>
           )}
         </div>
         <Select value={level} onValueChange={(v) => setLevel(v as any)}>
-          <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All levels</SelectItem>
             <SelectItem value="Basic">Basic</SelectItem>
@@ -233,18 +296,23 @@ function PracticePage() {
           </SelectContent>
         </Select>
         <Select value={category} onValueChange={setCategory}>
-          <SelectTrigger className="w-full sm:w-44" aria-label="Filter by category"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-44" aria-label="Filter by category">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All categories</SelectItem>
             {CHALLENGE_CATEGORIES.map((c) => (
-              <SelectItem key={c} value={c}>{c}</SelectItem>
+              <SelectItem key={c} value={c}>
+                {c}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </section>
 
       <div className="mb-3 text-xs text-muted-foreground">
-        Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
+        Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–
+        {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
       </div>
 
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -257,7 +325,10 @@ function PracticePage() {
           const isDone = done.has(c.id);
           const isBookmarked = bookmarks.has(c.id);
           return (
-            <li key={c.id} className={`group flex flex-col overflow-hidden rounded-xl border bg-card transition-colors ${isDone ? "border-primary/40" : "border-border hover:border-primary/30"}`}>
+            <li
+              key={c.id}
+              className={`group flex flex-col overflow-hidden rounded-xl border bg-card transition-colors ${isDone ? "border-primary/40" : "border-border hover:border-primary/30"}`}
+            >
               <button
                 onClick={() => openChallenge(c)}
                 className="flex flex-1 flex-col text-left"
@@ -268,8 +339,12 @@ function PracticePage() {
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-4">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[c.level]}`}>{c.level}</Badge>
-                    <Badge variant="outline" className="text-[10px]">{c.category}</Badge>
+                    <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[c.level]}`}>
+                      {c.level}
+                    </Badge>
+                    <Badge variant="outline" className="text-[10px]">
+                      {c.category}
+                    </Badge>
                   </div>
                   <div className="font-semibold leading-snug">{c.title}</div>
                   <p className="text-xs text-muted-foreground line-clamp-2">{c.description}</p>
@@ -282,7 +357,11 @@ function PracticePage() {
                   aria-label={isDone ? "Mark not completed" : "Mark completed"}
                   className="inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
                 >
-                  {isDone ? <CheckCircle2 className="h-4 w-4 text-primary" /> : <Circle className="h-4 w-4" />}
+                  {isDone ? (
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                  ) : (
+                    <Circle className="h-4 w-4" />
+                  )}
                   {isDone ? "Completed" : "Mark done"}
                 </button>
                 <button
@@ -291,7 +370,11 @@ function PracticePage() {
                   aria-label={isBookmarked ? "Remove bookmark" : "Bookmark"}
                   className="rounded p-1 text-muted-foreground hover:bg-muted"
                 >
-                  {isBookmarked ? <BookmarkCheck className="h-4 w-4 text-primary" /> : <Bookmark className="h-4 w-4" />}
+                  {isBookmarked ? (
+                    <BookmarkCheck className="h-4 w-4 text-primary" />
+                  ) : (
+                    <Bookmark className="h-4 w-4" />
+                  )}
                 </button>
               </div>
             </li>
@@ -301,11 +384,23 @@ function PracticePage() {
 
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-between" aria-label="Pagination">
-          <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
             <ChevronLeft className="h-4 w-4" /> Prev
           </Button>
-          <div className="text-sm text-muted-foreground">Page {page} of {totalPages}</div>
-          <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
+          <div className="text-sm text-muted-foreground">
+            Page {page} of {totalPages}
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >
             Next <ChevronRight className="h-4 w-4" />
           </Button>
         </nav>
@@ -314,9 +409,18 @@ function PracticePage() {
   );
 }
 
-function ChallengePreview({ challenge, css, height = 200 }: { challenge: Challenge; css: string; height?: number }) {
+function ChallengePreview({
+  challenge,
+  css,
+  height = 200,
+}: {
+  challenge: Challenge;
+  css: string;
+  height?: number;
+}) {
   const srcDoc = React.useMemo(
-    () => `<!doctype html><html><head><style>html,body{margin:0;padding:8px;font-family:system-ui,sans-serif;font-size:13px;background:transparent;overflow:hidden;}${css}</style></head><body>${challenge.html}</body></html>`,
+    () =>
+      `<!doctype html><html><head><style>html,body{margin:0;padding:8px;font-family:system-ui,sans-serif;font-size:13px;background:transparent;overflow:hidden;}${css}</style></head><body>${challenge.html}</body></html>`,
     [css, challenge.html],
   );
   return (
@@ -347,7 +451,9 @@ function ChallengeView({
 }) {
   const [code, setCode] = React.useState(() => loadCode(challenge.id, challenge.starterCss));
   const [showSolution, setShowSolution] = React.useState(false);
-  const [results, setResults] = React.useState<{ results: CheckResult[]; note?: string } | null>(null);
+  const [results, setResults] = React.useState<{ results: CheckResult[]; note?: string } | null>(
+    null,
+  );
 
   React.useEffect(() => saveCode(challenge.id, code), [challenge.id, code]);
   React.useEffect(() => {
@@ -363,10 +469,18 @@ function ChallengeView({
 
   const checks = React.useMemo(() => resolveChecks(challenge), [challenge]);
   const runCheck = () => {
-    const iframe = document.getElementById(`user-preview-${challenge.id}`) as HTMLIFrameElement | null;
-    if (!iframe) { setResults(null); return; }
+    const iframe = document.getElementById(
+      `user-preview-${challenge.id}`,
+    ) as HTMLIFrameElement | null;
+    if (!iframe) {
+      setResults(null);
+      return;
+    }
     if (checks.length === 0) {
-      setResults({ results: [], note: "No automated checks for this challenge — compare visually." });
+      setResults({
+        results: [],
+        note: "No automated checks for this challenge — compare visually.",
+      });
       return;
     }
     const res = runChecks(iframe, checks);
@@ -375,26 +489,58 @@ function ChallengeView({
 
   const shareLink = async () => {
     const url = `${window.location.origin}/practice?c=${challenge.id}`;
-    try { await navigator.clipboard.writeText(url); toast.success("Link copied"); } catch { toast.error("Copy failed"); }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied");
+    } catch {
+      toast.error("Copy failed");
+    }
   };
 
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-4 flex flex-wrap items-center gap-3">
-        <Button variant="ghost" size="sm" onClick={onBack} className="gap-1"><ChevronLeft className="h-4 w-4" /> All challenges</Button>
+        <Button variant="ghost" size="sm" onClick={onBack} className="gap-1">
+          <ChevronLeft className="h-4 w-4" /> All challenges
+        </Button>
         <div className="flex flex-wrap items-center gap-1.5">
-          <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[challenge.level]}`}>{challenge.level}</Badge>
-          <Badge variant="outline" className="text-[10px]">{challenge.category}</Badge>
+          <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[challenge.level]}`}>
+            {challenge.level}
+          </Badge>
+          <Badge variant="outline" className="text-[10px]">
+            {challenge.category}
+          </Badge>
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={shareLink} aria-label="Copy shareable link" className="gap-1.5">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={shareLink}
+            aria-label="Copy shareable link"
+            className="gap-1.5"
+          >
             <LinkIcon className="h-4 w-4" /> Copy link
           </Button>
-          <Button variant="outline" size="sm" onClick={onToggleBookmark} aria-pressed={isBookmarked} className="gap-1.5">
-            {isBookmarked ? <BookmarkCheck className="h-4 w-4 text-primary" /> : <Bookmark className="h-4 w-4" />}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onToggleBookmark}
+            aria-pressed={isBookmarked}
+            className="gap-1.5"
+          >
+            {isBookmarked ? (
+              <BookmarkCheck className="h-4 w-4 text-primary" />
+            ) : (
+              <Bookmark className="h-4 w-4" />
+            )}
             {isBookmarked ? "Bookmarked" : "Bookmark"}
           </Button>
-          <Button variant={isDone ? "default" : "outline"} size="sm" onClick={onToggleDone} className="gap-1.5">
+          <Button
+            variant={isDone ? "default" : "outline"}
+            size="sm"
+            onClick={onToggleDone}
+            className="gap-1.5"
+          >
             {isDone ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
             {isDone ? "Completed" : "Mark done"}
           </Button>
@@ -408,7 +554,9 @@ function ChallengeView({
         <section className="rounded-xl border border-border bg-card p-4">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-sm font-semibold">🎯 Target</h2>
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">what to reproduce</span>
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              what to reproduce
+            </span>
           </div>
           <ChallengePreview challenge={challenge} css={challenge.solutionCss} height={220} />
         </section>
@@ -417,8 +565,12 @@ function ChallengeView({
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-sm font-semibold">✏️ Your result</h2>
             <div className="flex gap-1">
-              <Button size="sm" variant="ghost" onClick={runCheck} className="h-7 px-2 text-xs">Check</Button>
-              <Button size="sm" variant="ghost" onClick={reset} className="h-7 gap-1 px-2 text-xs"><RotateCcw className="h-3 w-3" /> Reset</Button>
+              <Button size="sm" variant="ghost" onClick={runCheck} className="h-7 px-2 text-xs">
+                Check
+              </Button>
+              <Button size="sm" variant="ghost" onClick={reset} className="h-7 gap-1 px-2 text-xs">
+                <RotateCcw className="h-3 w-3" /> Reset
+              </Button>
             </div>
           </div>
           <iframe
@@ -460,7 +612,9 @@ function ChallengeView({
         {showSolution && (
           <div id={`sol-${challenge.id}`} className="mt-3">
             <p className="mb-3 text-sm text-muted-foreground">{challenge.explanation}</p>
-            <pre className="overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed"><code>{challenge.solutionCss}</code></pre>
+            <pre className="overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed">
+              <code>{challenge.solutionCss}</code>
+            </pre>
             <Button
               size="sm"
               variant="outline"
@@ -477,13 +631,18 @@ function ChallengeView({
 }
 
 function CheckResultsPanel({ data }: { data: { results: CheckResult[]; note?: string } }) {
-  if (data.note) return <div className="mt-2 rounded-md bg-muted px-3 py-2 text-xs">{data.note}</div>;
+  if (data.note)
+    return <div className="mt-2 rounded-md bg-muted px-3 py-2 text-xs">{data.note}</div>;
   const passed = data.results.filter((r) => r.pass).length;
   const total = data.results.length;
   const allPass = passed === total && total > 0;
   return (
-    <div className={`mt-2 rounded-md border p-2 text-xs ${allPass ? "border-emerald-500/30 bg-emerald-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
-      <div className={`mb-2 flex items-center gap-1.5 font-semibold ${allPass ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}>
+    <div
+      className={`mt-2 rounded-md border p-2 text-xs ${allPass ? "border-emerald-500/30 bg-emerald-500/5" : "border-rose-500/30 bg-rose-500/5"}`}
+    >
+      <div
+        className={`mb-2 flex items-center gap-1.5 font-semibold ${allPass ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}
+      >
         {allPass ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
         {allPass ? `Passed — all ${total} checks` : `Failed — ${passed}/${total} checks pass`}
       </div>
@@ -504,8 +663,16 @@ function CheckResultsPanel({ data }: { data: { results: CheckResult[]; note?: st
                 <td className="p-1 font-mono">{r.check.selector}</td>
                 <td className="p-1 font-mono">{r.check.prop}</td>
                 <td className="p-1 font-mono text-muted-foreground">{r.check.matcher.value}</td>
-                <td className="p-1 font-mono">{r.actual ?? <span className="text-muted-foreground">{r.reason}</span>}</td>
-                <td className="p-1">{r.pass ? <CheckCircle className="h-3.5 w-3.5 text-emerald-500" /> : <XCircle className="h-3.5 w-3.5 text-rose-500" />}</td>
+                <td className="p-1 font-mono">
+                  {r.actual ?? <span className="text-muted-foreground">{r.reason}</span>}
+                </td>
+                <td className="p-1">
+                  {r.pass ? (
+                    <CheckCircle className="h-3.5 w-3.5 text-emerald-500" />
+                  ) : (
+                    <XCircle className="h-3.5 w-3.5 text-rose-500" />
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -516,7 +683,10 @@ function CheckResultsPanel({ data }: { data: { results: CheckResult[]; note?: st
 }
 
 async function exportPracticePdf(items: Challenge[], scope: string) {
-  if (items.length === 0) { toast.error("Nothing to export"); return; }
+  if (items.length === 0) {
+    toast.error("Nothing to export");
+    return;
+  }
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
@@ -526,19 +696,30 @@ async function exportPracticePdf(items: Challenge[], scope: string) {
   let y = margin;
   let pageNum = 1;
   const footer = () => {
-    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(120);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(120);
     doc.text(`SagaCSS · Practice Challenges (${scope})`, margin, pageH - 20);
     doc.text(`Page ${pageNum}`, pageW - margin, pageH - 20, { align: "right" });
     pageNum++;
   };
-  const ensure = (n: number) => { if (y + n > pageH - margin) { footer(); doc.addPage(); y = margin; } };
+  const ensure = (n: number) => {
+    if (y + n > pageH - margin) {
+      footer();
+      doc.addPage();
+      y = margin;
+    }
+  };
 
   // Cover
   doc.setFillColor(99, 102, 241);
   doc.rect(0, 0, pageW, 180, "F");
-  doc.setTextColor(255); doc.setFont("helvetica", "bold"); doc.setFontSize(32);
+  doc.setTextColor(255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(32);
   doc.text("SagaCSS", margin, 90);
-  doc.setFont("helvetica", "normal"); doc.setFontSize(16);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(16);
   doc.text(`Practice Challenges — ${scope}`, margin, 120);
   doc.setFontSize(11);
   doc.text(`${items.length} challenges · ${new Date().toLocaleDateString()}`, margin, 145);
@@ -546,21 +727,64 @@ async function exportPracticePdf(items: Challenge[], scope: string) {
 
   for (const c of items) {
     ensure(60);
-    doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "bold"); doc.setFontSize(13);
+    doc.setTextColor(15, 23, 42);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
     const title = doc.splitTextToSize(`${c.title}  (${c.level} · ${c.category})`, contentW);
-    doc.text(title, margin, y); y += title.length * 15 + 4;
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.setTextColor(51, 65, 85);
+    doc.text(title, margin, y);
+    y += title.length * 15 + 4;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10.5);
+    doc.setTextColor(51, 65, 85);
     const desc = doc.splitTextToSize(c.description, contentW);
-    for (const l of desc) { ensure(13); doc.text(l, margin, y); y += 13; }
+    for (const l of desc) {
+      ensure(13);
+      doc.text(l, margin, y);
+      y += 13;
+    }
     y += 4;
     // HTML block
-    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(100);
-    ensure(14); doc.text("HTML", margin, y); y += 12;
-    renderCode(doc, c.html, margin, contentW, () => ensure(14), () => { y += 12; }, () => y, (v) => { y = v; });
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    ensure(14);
+    doc.text("HTML", margin, y);
+    y += 12;
+    renderCode(
+      doc,
+      c.html,
+      margin,
+      contentW,
+      () => ensure(14),
+      () => {
+        y += 12;
+      },
+      () => y,
+      (v) => {
+        y = v;
+      },
+    );
     // Solution CSS block
-    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(100);
-    ensure(14); doc.text("Solution CSS", margin, y); y += 12;
-    renderCode(doc, c.solutionCss, margin, contentW, () => ensure(14), () => { y += 12; }, () => y, (v) => { y = v; });
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    ensure(14);
+    doc.text("Solution CSS", margin, y);
+    y += 12;
+    renderCode(
+      doc,
+      c.solutionCss,
+      margin,
+      contentW,
+      () => ensure(14),
+      () => {
+        y += 12;
+      },
+      () => y,
+      (v) => {
+        y = v;
+      },
+    );
     y += 12;
   }
   footer();
@@ -568,8 +792,14 @@ async function exportPracticePdf(items: Challenge[], scope: string) {
 }
 
 function renderCode(
-  doc: any, code: string, margin: number, contentW: number,
-  ensure: () => void, _bump: () => void, getY: () => number, setY: (n: number) => void,
+  doc: any,
+  code: string,
+  margin: number,
+  contentW: number,
+  ensure: () => void,
+  _bump: () => void,
+  getY: () => number,
+  setY: (n: number) => void,
 ) {
   const lines: string[] = [];
   for (const raw of code.split("\n")) {
@@ -580,8 +810,13 @@ function renderCode(
   ensure();
   const y0 = getY();
   doc.roundedRect(margin, y0, contentW, boxH, 4, 4, "F");
-  doc.setFont("courier", "normal"); doc.setFontSize(8.5); doc.setTextColor(51, 65, 85);
+  doc.setFont("courier", "normal");
+  doc.setFontSize(8.5);
+  doc.setTextColor(51, 65, 85);
   let cy = y0 + 12;
-  for (const line of lines) { doc.text(line, margin + 8, cy); cy += 11; }
+  for (const line of lines) {
+    doc.text(line, margin + 8, cy);
+    cy += 11;
+  }
   setY(y0 + boxH + 4);
 }

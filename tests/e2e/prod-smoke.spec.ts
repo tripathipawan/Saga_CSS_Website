@@ -53,7 +53,10 @@ test("prod: Cheat Sheet PDF downloads", async ({ page }) => {
   await page.goto("/cheat-sheet");
   await page.waitForLoadState("networkidle");
   const downloadPromise = page.waitForEvent("download", { timeout: 45_000 });
-  await page.getByRole("button", { name: /download.*pdf/i }).first().click();
+  await page
+    .getByRole("button", { name: /download.*pdf/i })
+    .first()
+    .click();
   const download = await downloadPromise;
   const tmpPath = path.join(os.tmpdir(), `prod-cheat-${Date.now()}.pdf`);
   await download.saveAs(tmpPath);

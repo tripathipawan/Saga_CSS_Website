@@ -20,7 +20,9 @@ export function CodeBlock({ code, label = "CSS" }: { code: string; label?: strin
   return (
     <div className="relative overflow-hidden rounded-lg border border-border bg-card">
       <div className="flex items-center justify-between border-b border-border bg-muted/40 px-3 py-1.5">
-        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</span>
+        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {label}
+        </span>
         <Button
           size="sm"
           variant="ghost"
@@ -28,7 +30,11 @@ export function CodeBlock({ code, label = "CSS" }: { code: string; label?: strin
           aria-label="Copy CSS to clipboard"
           className="h-7 gap-1.5 text-xs"
         >
-          {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? (
+            <Check className="h-3.5 w-3.5 text-primary" />
+          ) : (
+            <Copy className="h-3.5 w-3.5" />
+          )}
           {copied ? "Copied" : "Copy"}
         </Button>
       </div>

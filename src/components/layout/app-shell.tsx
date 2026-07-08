@@ -19,7 +19,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const toggleCollapsed = () => {
     setCollapsed((prev) => {
       const next = !prev;
-      try { localStorage.setItem("sagacss.sidebarCollapsed", next ? "1" : "0"); } catch {}
+      try {
+        localStorage.setItem("sagacss.sidebarCollapsed", next ? "1" : "0");
+      } catch {}
       return next;
     });
   };

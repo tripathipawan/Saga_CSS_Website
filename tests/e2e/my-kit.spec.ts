@@ -14,12 +14,18 @@ test.describe("My Kit", () => {
     // 1. Save a snippet from the Border Radius tool
     await page.goto("/tools/border-radius");
     await page.waitForLoadState("networkidle");
-    await page.getByRole("button", { name: /save snippet to my kit/i }).first().click();
+    await page
+      .getByRole("button", { name: /save snippet to my kit/i })
+      .first()
+      .click();
 
     // 2. Save a snippet from the Box Shadow tool
     await page.goto("/tools/box-shadow");
     await page.waitForLoadState("networkidle");
-    await page.getByRole("button", { name: /save snippet to my kit/i }).first().click();
+    await page
+      .getByRole("button", { name: /save snippet to my kit/i })
+      .first()
+      .click();
 
     // 3. Navigate to My Kit — both snippets should appear
     await page.goto("/my-kit");
@@ -45,7 +51,10 @@ test.describe("My Kit", () => {
     expect(download.suggestedFilename()).toBe("my-kit.css");
 
     // 6. Delete one snippet
-    await page.getByRole("button", { name: /delete snippet/i }).first().click();
+    await page
+      .getByRole("button", { name: /delete snippet/i })
+      .first()
+      .click();
     await expect(page.getByText(/1 snippet/i)).toBeVisible();
 
     // 7. Clear all (two-step confirm)
@@ -58,7 +67,10 @@ test.describe("My Kit", () => {
     page.on("dialog", (d) => d.accept("Test"));
     await page.goto("/tools/gradient");
     await page.waitForLoadState("networkidle");
-    await page.getByRole("button", { name: /save snippet to my kit/i }).first().click();
+    await page
+      .getByRole("button", { name: /save snippet to my kit/i })
+      .first()
+      .click();
 
     await page.goto("/my-kit");
     await page.waitForLoadState("networkidle");

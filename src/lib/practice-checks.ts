@@ -1,6 +1,10 @@
 import type { Challenge } from "./practice-challenges";
 
-export type Matcher = { kind: "exact" | "contains" | "regex" | "near"; value: string; tolerance?: number };
+export type Matcher = {
+  kind: "exact" | "contains" | "regex" | "near";
+  value: string;
+  tolerance?: number;
+};
 export type ResolvedCheck = { selector: string; prop: string; matcher: Matcher; label?: string };
 
 /**
@@ -33,14 +37,57 @@ function buildMatcher(expected: string): Matcher {
  * can reliably compare via getComputedStyle.
  */
 const CHECKABLE_PROPS = new Set([
-  "display", "position", "flex-direction", "flex-wrap", "justify-content", "align-items", "align-content",
-  "align-self", "gap", "row-gap", "column-gap", "grid-template-columns", "grid-template-rows",
-  "grid-auto-flow", "place-items", "place-content", "text-align", "text-transform", "text-decoration-line",
-  "font-weight", "font-style", "letter-spacing", "line-height", "white-space", "overflow", "overflow-x", "overflow-y",
-  "object-fit", "aspect-ratio", "border-radius", "opacity", "visibility", "z-index",
-  "cursor", "pointer-events", "user-select", "text-overflow", "word-break", "writing-mode",
-  "transform", "transition-property", "animation-name", "backdrop-filter", "filter",
-  "box-shadow", "background-color", "background-image", "color", "flex-grow", "flex-shrink", "flex-basis",
+  "display",
+  "position",
+  "flex-direction",
+  "flex-wrap",
+  "justify-content",
+  "align-items",
+  "align-content",
+  "align-self",
+  "gap",
+  "row-gap",
+  "column-gap",
+  "grid-template-columns",
+  "grid-template-rows",
+  "grid-auto-flow",
+  "place-items",
+  "place-content",
+  "text-align",
+  "text-transform",
+  "text-decoration-line",
+  "font-weight",
+  "font-style",
+  "letter-spacing",
+  "line-height",
+  "white-space",
+  "overflow",
+  "overflow-x",
+  "overflow-y",
+  "object-fit",
+  "aspect-ratio",
+  "border-radius",
+  "opacity",
+  "visibility",
+  "z-index",
+  "cursor",
+  "pointer-events",
+  "user-select",
+  "text-overflow",
+  "word-break",
+  "writing-mode",
+  "transform",
+  "transition-property",
+  "animation-name",
+  "backdrop-filter",
+  "filter",
+  "box-shadow",
+  "background-color",
+  "background-image",
+  "color",
+  "flex-grow",
+  "flex-shrink",
+  "flex-basis",
 ]);
 
 function deriveFromCss(css: string): ResolvedCheck[] {
@@ -51,7 +98,8 @@ function deriveFromCss(css: string): ResolvedCheck[] {
   while ((m = ruleRe.exec(css))) {
     const selector = m[1].trim();
     // skip complex selectors we can't safely query in iframe
-    if (!selector || selector.includes("@") || /::|:hover|:focus|:active|:checked/.test(selector)) continue;
+    if (!selector || selector.includes("@") || /::|:hover|:focus|:active|:checked/.test(selector))
+      continue;
     // handle simple comma-lists by taking the first
     const primary = selector.split(",")[0].trim();
     const body = m[2];
@@ -80,10 +128,20 @@ export type CheckResult = {
 export function runChecks(iframe: HTMLIFrameElement, checks: ResolvedCheck[]): CheckResult[] {
   const doc = iframe.contentDocument;
   const win = iframe.contentWindow;
-  if (!doc || !win) return checks.map((c) => ({ check: c, actual: null, pass: false, reason: "Preview not ready" }));
+  if (!doc || !win)
+    return checks.map((c) => ({
+      check: c,
+      actual: null,
+      pass: false,
+      reason: "Preview not ready",
+    }));
   return checks.map((check) => {
     let el: Element | null = null;
-    try { el = doc.querySelector(check.selector); } catch { /* invalid selector */ }
+    try {
+      el = doc.querySelector(check.selector);
+    } catch {
+      /* invalid selector */
+    }
     if (!el) return { check, actual: null, pass: false, reason: "Element not found" };
     const actual = win.getComputedStyle(el).getPropertyValue(check.prop).trim();
     return matchCheck(check, actual);

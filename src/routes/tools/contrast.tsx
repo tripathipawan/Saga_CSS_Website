@@ -12,9 +12,16 @@ export const Route = createFileRoute("/tools/contrast")({
   head: () => ({
     meta: [
       { title: "WCAG Contrast Checker — Accessibility Ratio | SagaCSS" },
-      { name: "description", content: "Check text and background color contrast against WCAG 2.1 AA and AAA thresholds for normal and large text, with live suggestion to fix failing combinations." },
+      {
+        name: "description",
+        content:
+          "Check text and background color contrast against WCAG 2.1 AA and AAA thresholds for normal and large text, with live suggestion to fix failing combinations.",
+      },
       { property: "og:title", content: "Contrast Checker — SagaCSS" },
-      { property: "og:description", content: "WCAG AA/AAA contrast checker with automatic fix suggestions." },
+      {
+        property: "og:description",
+        content: "WCAG AA/AAA contrast checker with automatic fix suggestions.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/contrast" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/contrast" }],
@@ -31,7 +38,8 @@ function lum(hex: string) {
   return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
 }
 function ratio(fg: string, bg: string) {
-  const l1 = lum(fg), l2 = lum(bg);
+  const l1 = lum(fg),
+    l2 = lum(bg);
   const [a, b] = l1 > l2 ? [l1, l2] : [l2, l1];
   return (a + 0.05) / (b + 0.05);
 }
@@ -54,7 +62,9 @@ function adjustToPass(fg: string, bg: string, target: number) {
 
 function Badge({ label, pass }: { label: string; pass: boolean }) {
   return (
-    <div className={`flex items-center gap-2 rounded-lg border p-3 ${pass ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : "border-destructive/40 bg-destructive/10 text-destructive"}`}>
+    <div
+      className={`flex items-center gap-2 rounded-lg border p-3 ${pass ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : "border-destructive/40 bg-destructive/10 text-destructive"}`}
+    >
       {pass ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
       <div>
         <div className="text-xs uppercase tracking-wide">{label}</div>
@@ -81,40 +91,85 @@ function ContrastPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="Contrast Checker" description="Verify text and background pairings against WCAG 2.1 AA and AAA thresholds — with an automatic fix suggestion when a combination fails." />
+      <ToolHeader
+        title="Contrast Checker"
+        description="Verify text and background pairings against WCAG 2.1 AA and AAA thresholds — with an automatic fix suggestion when a combination fails."
+      />
 
       <div className="rounded-2xl border border-border p-6" style={{ background: bg }}>
-        <p className="text-2xl font-normal" style={{ color: fg }}>{sample}</p>
-        <p className="mt-2 text-4xl font-bold" style={{ color: fg }}>{sample}</p>
+        <p className="text-2xl font-normal" style={{ color: fg }}>
+          {sample}
+        </p>
+        <p className="mt-2 text-4xl font-bold" style={{ color: fg }}>
+          {sample}
+        </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
           <div className="flex items-center gap-2">
             <Label className="w-28 text-sm">Foreground</Label>
-            <input type="color" value={fg} onChange={(e) => setFg(e.target.value)} className="h-10 w-14 cursor-pointer rounded border border-border bg-transparent" aria-label="Foreground color" />
-            <Input value={fg} onChange={(e) => setFg(e.target.value)} className="font-mono" aria-label="Foreground hex" />
+            <input
+              type="color"
+              value={fg}
+              onChange={(e) => setFg(e.target.value)}
+              className="h-10 w-14 cursor-pointer rounded border border-border bg-transparent"
+              aria-label="Foreground color"
+            />
+            <Input
+              value={fg}
+              onChange={(e) => setFg(e.target.value)}
+              className="font-mono"
+              aria-label="Foreground hex"
+            />
           </div>
           <div className="flex items-center gap-2">
             <Label className="w-28 text-sm">Background</Label>
-            <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} className="h-10 w-14 cursor-pointer rounded border border-border bg-transparent" aria-label="Background color" />
-            <Input value={bg} onChange={(e) => setBg(e.target.value)} className="font-mono" aria-label="Background hex" />
+            <input
+              type="color"
+              value={bg}
+              onChange={(e) => setBg(e.target.value)}
+              className="h-10 w-14 cursor-pointer rounded border border-border bg-transparent"
+              aria-label="Background color"
+            />
+            <Input
+              value={bg}
+              onChange={(e) => setBg(e.target.value)}
+              className="font-mono"
+              aria-label="Background hex"
+            />
           </div>
           <div>
             <Label className="mb-1 block text-sm">Sample text</Label>
-            <Input value={sample} onChange={(e) => setSample(e.target.value)} aria-label="Sample text" />
+            <Input
+              value={sample}
+              onChange={(e) => setSample(e.target.value)}
+              aria-label="Sample text"
+            />
           </div>
 
           <div className="mt-2 flex items-center justify-between rounded-lg bg-muted p-4">
             <div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground">Contrast ratio</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                Contrast ratio
+              </div>
               <div className="text-3xl font-bold">{rounded}:1</div>
             </div>
             {suggested && (
               <div className="text-right">
-                <div className="text-xs text-muted-foreground">Suggested {r < 4.5 ? "AA-pass" : ""} FG</div>
-                <Button size="sm" variant="outline" onClick={() => setFg(suggested)} className="mt-1 gap-2 font-mono">
-                  <span className="inline-block h-3 w-3 rounded-full border border-border" style={{ background: suggested }} />
+                <div className="text-xs text-muted-foreground">
+                  Suggested {r < 4.5 ? "AA-pass" : ""} FG
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setFg(suggested)}
+                  className="mt-1 gap-2 font-mono"
+                >
+                  <span
+                    className="inline-block h-3 w-3 rounded-full border border-border"
+                    style={{ background: suggested }}
+                  />
                   {suggested}
                 </Button>
               </div>

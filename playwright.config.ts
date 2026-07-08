@@ -14,9 +14,7 @@ export default defineConfig({
     trace: "retain-on-failure",
     viewport: { width: 1280, height: 900 },
   },
-  projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-  ],
+  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     // TanStack Start's `vite preview` currently mismatches the nitro server entry
     // (looks for dist/server/server.js, build emits index.mjs), so we start the

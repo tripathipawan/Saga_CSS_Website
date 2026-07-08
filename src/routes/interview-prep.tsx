@@ -1,13 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
-import { Search, Bookmark, BookmarkCheck, CheckCircle2, Circle, ChevronDown, Download, ChevronLeft, ChevronRight, X, Link as LinkIcon } from "lucide-react";
+import {
+  Search,
+  Bookmark,
+  BookmarkCheck,
+  CheckCircle2,
+  Circle,
+  ChevronDown,
+  Download,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Link as LinkIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ToolHeader } from "@/components/tool-header";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { INTERVIEW_QUESTIONS, type InterviewQuestion, type QLevel, type QLang } from "@/lib/interview-questions";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  INTERVIEW_QUESTIONS,
+  type InterviewQuestion,
+  type QLevel,
+  type QLang,
+} from "@/lib/interview-questions";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
@@ -21,9 +52,16 @@ export const Route = createFileRoute("/interview-prep")({
   head: () => ({
     meta: [
       { title: "HTML & CSS Interview Prep — 200 Questions & Answers — SagaCSS" },
-      { name: "description", content: "Practice for frontend interviews with 200 HTML and CSS questions and answers — filter by level, search by keyword, mark reviewed, and download a study guide PDF in one click." },
+      {
+        name: "description",
+        content:
+          "Practice for frontend interviews with 200 HTML and CSS questions and answers — filter by level, search by keyword, mark reviewed, and download a study guide PDF in one click.",
+      },
       { property: "og:title", content: "HTML & CSS Interview Prep — SagaCSS" },
-      { property: "og:description", content: "200 HTML and CSS interview questions with in-depth answers and code examples." },
+      {
+        property: "og:description",
+        content: "200 HTML and CSS interview questions with in-depth answers and code examples.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/interview-prep" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/interview-prep" }],
@@ -76,7 +114,7 @@ function InterviewPrepPage() {
     return INTERVIEW_QUESTIONS.filter((it) => {
       if (lang !== "all" && it.lang !== lang) return false;
       if (level !== "all" && it.level !== level) return false;
-      if (q && !(`${it.question} ${it.answer} ${it.topic}`.toLowerCase().includes(q))) return false;
+      if (q && !`${it.question} ${it.answer} ${it.topic}`.toLowerCase().includes(q)) return false;
       return true;
     });
   }, [lang, level, query]);
@@ -89,7 +127,9 @@ function InterviewPrepPage() {
     if (!id) return;
     const idx = INTERVIEW_QUESTIONS.findIndex((it) => it.id === id);
     if (idx < 0) return;
-    setLang("all"); setLevel("all"); setQuery("");
+    setLang("all");
+    setLevel("all");
+    setQuery("");
     setPage(Math.floor(idx / PAGE_SIZE) + 1);
     setOpenIds((p) => new Set(p).add(id));
     setTimeout(() => {
@@ -100,7 +140,6 @@ function InterviewPrepPage() {
         setTimeout(() => el.classList.remove("ring-2", "ring-primary"), 2500);
       }
     }, 60);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search.q]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -144,7 +183,12 @@ function InterviewPrepPage() {
 
   const copyLink = async (id: string) => {
     const url = `${window.location.origin}/interview-prep?q=${id}`;
-    try { await navigator.clipboard.writeText(url); toast.success("Link copied"); } catch { toast.error("Copy failed"); }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied");
+    } catch {
+      toast.error("Copy failed");
+    }
   };
 
   const pct = stats.total ? Math.round((stats.reviewed / stats.total) * 100) : 0;
@@ -164,7 +208,9 @@ function InterviewPrepPage() {
         </div>
         <div>
           <div className="text-xs uppercase tracking-wider text-muted-foreground">Reviewed</div>
-          <div className="mt-1 text-2xl font-bold text-primary">{stats.reviewed} <span className="text-sm text-muted-foreground">({pct}%)</span></div>
+          <div className="mt-1 text-2xl font-bold text-primary">
+            {stats.reviewed} <span className="text-sm text-muted-foreground">({pct}%)</span>
+          </div>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
             <div className="h-full bg-primary transition-all" style={{ width: `${pct}%` }} />
           </div>
@@ -202,7 +248,9 @@ function InterviewPrepPage() {
           )}
         </div>
         <Select value={lang} onValueChange={(v) => setLang(v as any)}>
-          <SelectTrigger className="w-full sm:w-32" aria-label="Filter by language"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-32" aria-label="Filter by language">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All langs</SelectItem>
             <SelectItem value="CSS">CSS</SelectItem>
@@ -210,7 +258,9 @@ function InterviewPrepPage() {
           </SelectContent>
         </Select>
         <Select value={level} onValueChange={(v) => setLevel(v as any)}>
-          <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level">
+            <SelectValue />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All levels</SelectItem>
             <SelectItem value="Basic">Basic</SelectItem>
@@ -228,7 +278,8 @@ function InterviewPrepPage() {
       </section>
 
       <div className="mb-3 text-xs text-muted-foreground">
-        Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
+        Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–
+        {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
       </div>
 
       {/* Questions */}
@@ -255,7 +306,11 @@ function InterviewPrepPage() {
                   aria-pressed={isReviewed}
                   className="mt-0.5 shrink-0 text-muted-foreground hover:text-primary"
                 >
-                  {isReviewed ? <CheckCircle2 className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5" />}
+                  {isReviewed ? (
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                  ) : (
+                    <Circle className="h-5 w-5" />
+                  )}
                 </button>
                 <button
                   onClick={() => toggleOpen(it.id)}
@@ -265,13 +320,19 @@ function InterviewPrepPage() {
                 >
                   <div className="min-w-0">
                     <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
-                      <Badge variant="outline" className="text-[10px]">{it.lang}</Badge>
-                      <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[it.level]}`}>{it.level}</Badge>
+                      <Badge variant="outline" className="text-[10px]">
+                        {it.lang}
+                      </Badge>
+                      <Badge variant="outline" className={`text-[10px] ${LEVEL_COLORS[it.level]}`}>
+                        {it.level}
+                      </Badge>
                       <span className="text-[10px] text-muted-foreground">{it.topic}</span>
                     </div>
                     <div className="font-medium leading-snug">{it.question}</div>
                   </div>
-                  <ChevronDown className={`mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
                 <button
                   onClick={() => toggleBookmark(it.id)}
@@ -279,7 +340,11 @@ function InterviewPrepPage() {
                   aria-pressed={isBookmarked}
                   className="mt-0.5 shrink-0 text-muted-foreground hover:text-primary"
                 >
-                  {isBookmarked ? <BookmarkCheck className="h-5 w-5 text-primary" /> : <Bookmark className="h-5 w-5" />}
+                  {isBookmarked ? (
+                    <BookmarkCheck className="h-5 w-5 text-primary" />
+                  ) : (
+                    <Bookmark className="h-5 w-5" />
+                  )}
                 </button>
                 <button
                   onClick={() => copyLink(it.id)}
@@ -291,9 +356,13 @@ function InterviewPrepPage() {
               </div>
               {isOpen && (
                 <div id={`ans-${it.id}`} className="border-t border-border px-4 py-4 text-sm">
-                  <p className="whitespace-pre-line leading-relaxed text-foreground/90">{it.answer}</p>
+                  <p className="whitespace-pre-line leading-relaxed text-foreground/90">
+                    {it.answer}
+                  </p>
                   {it.code && (
-                    <pre className="mt-3 overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed"><code>{it.code}</code></pre>
+                    <pre className="mt-3 overflow-auto rounded-lg bg-muted p-3 text-xs leading-relaxed">
+                      <code>{it.code}</code>
+                    </pre>
                   )}
                 </div>
               )}
@@ -305,11 +374,23 @@ function InterviewPrepPage() {
       {/* Pagination */}
       {totalPages > 1 && (
         <nav className="mt-6 flex items-center justify-between" aria-label="Pagination">
-          <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+          >
             <ChevronLeft className="h-4 w-4" /> Prev
           </Button>
-          <div className="text-sm text-muted-foreground">Page {page} of {totalPages}</div>
-          <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
+          <div className="text-sm text-muted-foreground">
+            Page {page} of {totalPages}
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+          >
             Next <ChevronRight className="h-4 w-4" />
           </Button>
         </nav>
@@ -356,11 +437,7 @@ async function exportInterviewPdf(items: InterviewQuestion[]) {
   doc.setFont("helvetica", "normal");
   doc.text("Interview Prep Study Guide", margin, 150);
   doc.setFontSize(12);
-  doc.text(
-    `${items.length} curated HTML & CSS questions`,
-    margin,
-    180,
-  );
+  doc.text(`${items.length} curated HTML & CSS questions`, margin, 180);
   doc.setTextColor(30, 41, 59);
   doc.setFontSize(11);
   doc.text(
@@ -465,7 +542,11 @@ async function exportInterviewPdf(items: InterviewQuestion[]) {
 type Scope = "filtered" | "all" | "bookmarked" | "reviewed";
 
 function ExportDialog({
-  open, onOpenChange, filtered, reviewed, bookmarks,
+  open,
+  onOpenChange,
+  filtered,
+  reviewed,
+  bookmarks,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
@@ -475,24 +556,35 @@ function ExportDialog({
 }) {
   const [scope, setScope] = React.useState<Scope>("filtered");
   const [langs, setLangs] = React.useState<Record<QLang, boolean>>({ HTML: true, CSS: true });
-  const [levels, setLevels] = React.useState<Record<QLevel, boolean>>({ Basic: true, Medium: true, Advanced: true });
+  const [levels, setLevels] = React.useState<Record<QLevel, boolean>>({
+    Basic: true,
+    Medium: true,
+    Advanced: true,
+  });
 
   const base: InterviewQuestion[] = React.useMemo(() => {
     switch (scope) {
-      case "filtered": return filtered;
-      case "all": return INTERVIEW_QUESTIONS;
-      case "bookmarked": return INTERVIEW_QUESTIONS.filter((q) => bookmarks.has(q.id));
-      case "reviewed": return INTERVIEW_QUESTIONS.filter((q) => reviewed.has(q.id));
+      case "filtered":
+        return filtered;
+      case "all":
+        return INTERVIEW_QUESTIONS;
+      case "bookmarked":
+        return INTERVIEW_QUESTIONS.filter((q) => bookmarks.has(q.id));
+      case "reviewed":
+        return INTERVIEW_QUESTIONS.filter((q) => reviewed.has(q.id));
     }
   }, [scope, filtered, reviewed, bookmarks]);
 
-  const selected = React.useMemo(() =>
-    base.filter((q) => langs[q.lang] && levels[q.level]),
+  const selected = React.useMemo(
+    () => base.filter((q) => langs[q.lang] && levels[q.level]),
     [base, langs, levels],
   );
 
   const download = async () => {
-    if (selected.length === 0) { toast.error("Nothing to export"); return; }
+    if (selected.length === 0) {
+      toast.error("Nothing to export");
+      return;
+    }
     await exportInterviewPdf(selected);
     onOpenChange(false);
   };
@@ -507,42 +599,71 @@ function ExportDialog({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Export study guide</DialogTitle>
-          <DialogDescription>Pick which questions to include, then download a formatted PDF.</DialogDescription>
+          <DialogDescription>
+            Pick which questions to include, then download a formatted PDF.
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-2 text-sm">
           <div>
-            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Scope</div>
+            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Scope
+            </div>
             <div className="grid grid-cols-2 gap-2">
-              {([
-                { id: "filtered", label: `Current results (${filtered.length})` },
-                { id: "all", label: `All (${INTERVIEW_QUESTIONS.length})` },
-                { id: "bookmarked", label: `Bookmarked (${bookmarks.size})` },
-                { id: "reviewed", label: `Reviewed (${reviewed.size})` },
-              ] as { id: Scope; label: string }[]).map((s) => (
-                <label key={s.id} className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-xs ${scope === s.id ? "border-primary bg-primary/5" : "border-border"}`}>
-                  <input type="radio" name="scope" checked={scope === s.id} onChange={() => setScope(s.id)} className="accent-primary" />
+              {(
+                [
+                  { id: "filtered", label: `Current results (${filtered.length})` },
+                  { id: "all", label: `All (${INTERVIEW_QUESTIONS.length})` },
+                  { id: "bookmarked", label: `Bookmarked (${bookmarks.size})` },
+                  { id: "reviewed", label: `Reviewed (${reviewed.size})` },
+                ] as { id: Scope; label: string }[]
+              ).map((s) => (
+                <label
+                  key={s.id}
+                  className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-xs ${scope === s.id ? "border-primary bg-primary/5" : "border-border"}`}
+                >
+                  <input
+                    type="radio"
+                    name="scope"
+                    checked={scope === s.id}
+                    onChange={() => setScope(s.id)}
+                    className="accent-primary"
+                  />
                   {s.label}
                 </label>
               ))}
             </div>
           </div>
           <div>
-            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Languages</div>
+            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Languages
+            </div>
             <div className="flex gap-3">
               {(["HTML", "CSS"] as QLang[]).map((l) => (
                 <label key={l} className="inline-flex cursor-pointer items-center gap-1.5 text-xs">
-                  <input type="checkbox" checked={langs[l]} onChange={(e) => setLangs((p) => ({ ...p, [l]: e.target.checked }))} className="accent-primary" />
+                  <input
+                    type="checkbox"
+                    checked={langs[l]}
+                    onChange={(e) => setLangs((p) => ({ ...p, [l]: e.target.checked }))}
+                    className="accent-primary"
+                  />
                   {l}
                 </label>
               ))}
             </div>
           </div>
           <div>
-            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Levels</div>
+            <div className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Levels
+            </div>
             <div className="flex flex-wrap gap-3">
               {(["Basic", "Medium", "Advanced"] as QLevel[]).map((lv) => (
                 <label key={lv} className="inline-flex cursor-pointer items-center gap-1.5 text-xs">
-                  <input type="checkbox" checked={levels[lv]} onChange={(e) => setLevels((p) => ({ ...p, [lv]: e.target.checked }))} className="accent-primary" />
+                  <input
+                    type="checkbox"
+                    checked={levels[lv]}
+                    onChange={(e) => setLevels((p) => ({ ...p, [lv]: e.target.checked }))}
+                    className="accent-primary"
+                  />
                   {lv}
                 </label>
               ))}
@@ -553,7 +674,9 @@ function ExportDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button variant="ghost" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
           <Button onClick={download} disabled={selected.length === 0} className="gap-1.5">
             <Download className="h-4 w-4" /> Download PDF
           </Button>

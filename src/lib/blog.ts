@@ -18,29 +18,32 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "why-sagacss",
     title: "Why SagaCSS exists",
-    description: "A short story about frustration with copy-paste CSS and how a weekend tool grew into a full visual toolkit.",
+    description:
+      "A short story about frustration with copy-paste CSS and how a weekend tool grew into a full visual toolkit.",
     readMinutes: 4,
     category: "Product",
     tags: ["story", "product"],
-    content: `Every developer has that moment. You are staring at a hero section that is almost right, the gradient is close but not quite, the shadow is heavier than it should be, and you have five browser tabs open cross-referencing MDN, a Stack Overflow answer from 2014, and someone's CodePen.\n\nSagaCSS started as a personal escape hatch from that loop. The idea was small: a single page with sliders for a gradient and a copy button. That was it.\n\n## From one tool to many\n\nOnce the gradient tool existed, the border-radius tool was obvious. Then box-shadow. Then a color palette generator, because picking a five-color palette by typing hex codes into a text box is not a great user experience.\n\nEach tool solved one small problem. Together they became a toolkit.\n\n## The principles\n\n- Everything runs in your browser. No sign up, no tracking, no cloud.\n- Every value you tweak has a live preview.\n- Every output has a one-click copy button that gives you production-ready CSS.\n- Tailwind and Bootstrap tabs sit next to the raw CSS so you can paste into whatever your project actually uses.\n\nThat's the whole product. No roadmap deck, no growth chart, just tools that respect your time.`
+    content: `Every developer has that moment. You are staring at a hero section that is almost right, the gradient is close but not quite, the shadow is heavier than it should be, and you have five browser tabs open cross-referencing MDN, a Stack Overflow answer from 2014, and someone's CodePen.\n\nSagaCSS started as a personal escape hatch from that loop. The idea was small: a single page with sliders for a gradient and a copy button. That was it.\n\n## From one tool to many\n\nOnce the gradient tool existed, the border-radius tool was obvious. Then box-shadow. Then a color palette generator, because picking a five-color palette by typing hex codes into a text box is not a great user experience.\n\nEach tool solved one small problem. Together they became a toolkit.\n\n## The principles\n\n- Everything runs in your browser. No sign up, no tracking, no cloud.\n- Every value you tweak has a live preview.\n- Every output has a one-click copy button that gives you production-ready CSS.\n- Tailwind and Bootstrap tabs sit next to the raw CSS so you can paste into whatever your project actually uses.\n\nThat's the whole product. No roadmap deck, no growth chart, just tools that respect your time.`,
   },
   {
     slug: "gradients-that-do-not-look-muddy",
     title: "Gradients that do not look muddy",
-    description: "Why blending two random colors usually produces gray, and the three-stop trick that fixes it.",
+    description:
+      "Why blending two random colors usually produces gray, and the three-stop trick that fixes it.",
     readMinutes: 5,
     category: "Color",
     tags: ["gradients", "color-theory"],
-    content: `Take two colors from opposite sides of the color wheel — say a warm orange and a cool teal — and blend them in a linear gradient. Somewhere in the middle you'll get a grayish brown that looks like wet cardboard.\n\nThis is not your fault. It is math.\n\n## What is actually happening\n\nCSS gradients interpolate in sRGB by default. Interpolating two complementary colors in sRGB passes through the neutral axis, which is gray. The wider the hue jump, the more gray you get in the middle.\n\n## The three-stop trick\n\nInsert a middle stop that shares saturation and lightness with the endpoints but sits between them on the hue wheel.\n\n\`\`\`css\nbackground: linear-gradient(90deg, #ff7a45 0%, #d94f8c 50%, #6b5bff 100%);\n\`\`\`\n\nThe midpoint is doing the heavy lifting. It keeps chroma high across the whole transition instead of collapsing to gray.\n\n## Or use a modern color space\n\nOn browsers that support it, tell CSS to interpolate in a perceptually uniform space:\n\n\`\`\`css\nbackground: linear-gradient(in oklch 90deg, #ff7a45, #6b5bff);\n\`\`\`\n\nThat single \`in oklch\` keyword removes the muddy midpoint without needing a manual middle stop.`
+    content: `Take two colors from opposite sides of the color wheel — say a warm orange and a cool teal — and blend them in a linear gradient. Somewhere in the middle you'll get a grayish brown that looks like wet cardboard.\n\nThis is not your fault. It is math.\n\n## What is actually happening\n\nCSS gradients interpolate in sRGB by default. Interpolating two complementary colors in sRGB passes through the neutral axis, which is gray. The wider the hue jump, the more gray you get in the middle.\n\n## The three-stop trick\n\nInsert a middle stop that shares saturation and lightness with the endpoints but sits between them on the hue wheel.\n\n\`\`\`css\nbackground: linear-gradient(90deg, #ff7a45 0%, #d94f8c 50%, #6b5bff 100%);\n\`\`\`\n\nThe midpoint is doing the heavy lifting. It keeps chroma high across the whole transition instead of collapsing to gray.\n\n## Or use a modern color space\n\nOn browsers that support it, tell CSS to interpolate in a perceptually uniform space:\n\n\`\`\`css\nbackground: linear-gradient(in oklch 90deg, #ff7a45, #6b5bff);\n\`\`\`\n\nThat single \`in oklch\` keyword removes the muddy midpoint without needing a manual middle stop.`,
   },
   {
     slug: "shadow-layering",
     title: "Layered shadows: the one habit that makes UI feel expensive",
-    description: "A single box-shadow always looks flat. Stacking two or three cheap shadows gives you depth for free.",
+    description:
+      "A single box-shadow always looks flat. Stacking two or three cheap shadows gives you depth for free.",
     readMinutes: 3,
     category: "Design Trends",
     tags: ["shadows", "polish"],
-    content: `Compare these two cards side by side and one of them will always look more expensive:\n\n\`\`\`css\n/* Flat */\nbox-shadow: 0 8px 24px rgba(0,0,0,.2);\n\n/* Layered */\nbox-shadow:\n  0 1px 2px rgba(0,0,0,.06),\n  0 4px 12px rgba(0,0,0,.08),\n  0 16px 40px rgba(0,0,0,.12);\n\`\`\`\n\n## Why layering works\n\nReal-world shadows are never a single blur. They are a sharp contact shadow directly under the object, a medium ambient shadow a few centimeters out, and a soft cast shadow further away. Stacking three shadows in CSS mimics that.\n\n## A rule of thumb\n\n- One tight, low-opacity shadow for the contact edge (1-2px offset, 2-4px blur)\n- One medium shadow for ambient depth (4-8px offset, 12-20px blur)\n- One large soft shadow for atmosphere (12-24px offset, 32-60px blur)\n\nKeep every layer under 15 percent opacity. The eye reads three subtle shadows as depth, but one heavy shadow as a sticker.`
+    content: `Compare these two cards side by side and one of them will always look more expensive:\n\n\`\`\`css\n/* Flat */\nbox-shadow: 0 8px 24px rgba(0,0,0,.2);\n\n/* Layered */\nbox-shadow:\n  0 1px 2px rgba(0,0,0,.06),\n  0 4px 12px rgba(0,0,0,.08),\n  0 16px 40px rgba(0,0,0,.12);\n\`\`\`\n\n## Why layering works\n\nReal-world shadows are never a single blur. They are a sharp contact shadow directly under the object, a medium ambient shadow a few centimeters out, and a soft cast shadow further away. Stacking three shadows in CSS mimics that.\n\n## A rule of thumb\n\n- One tight, low-opacity shadow for the contact edge (1-2px offset, 2-4px blur)\n- One medium shadow for ambient depth (4-8px offset, 12-20px blur)\n- One large soft shadow for atmosphere (12-24px offset, 32-60px blur)\n\nKeep every layer under 15 percent opacity. The eye reads three subtle shadows as depth, but one heavy shadow as a sticker.`,
   },
   ...NEW_BLOG_POSTS,
 ];
@@ -72,10 +75,7 @@ export function getAllTags(): { tag: string; count: number }[] {
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
 
-export function filterPosts(
-  categoryOrTag: string | null,
-  query: string | null = null,
-): BlogPost[] {
+export function filterPosts(categoryOrTag: string | null, query: string | null = null): BlogPost[] {
   let posts = getSortedPosts();
   if (categoryOrTag) {
     const key = categoryOrTag.toLowerCase();
@@ -198,6 +198,8 @@ export function parseBlogContent(content: string): BlogBlock[] {
 
 export function extractToc(content: string): { id: string; text: string; level: 2 | 3 }[] {
   return parseBlogContent(content)
-    .filter((b): b is Extract<BlogBlock, { type: "h2" | "h3" }> => b.type === "h2" || b.type === "h3")
+    .filter(
+      (b): b is Extract<BlogBlock, { type: "h2" | "h3" }> => b.type === "h2" || b.type === "h3",
+    )
     .map((b) => ({ id: b.id, text: b.text, level: b.type === "h2" ? 2 : 3 }));
 }

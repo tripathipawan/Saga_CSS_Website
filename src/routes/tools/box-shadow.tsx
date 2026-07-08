@@ -20,7 +20,10 @@ export const Route = createFileRoute("/tools/box-shadow")({
           "Layer multiple CSS box-shadows with per-layer offset, blur, spread, color, alpha and inset toggle. Live preview and copy-ready code.",
       },
       { property: "og:title", content: "Box Shadow Generator — SagaCSS" },
-      { property: "og:description", content: "Multi-layer box-shadow generator with live preview." },
+      {
+        property: "og:description",
+        content: "Multi-layer box-shadow generator with live preview.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/box-shadow" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/box-shadow" }],
@@ -154,7 +157,9 @@ function BoxShadowPage() {
                       onCheckedChange={(v) => update(l.id, { inset: v })}
                       aria-label="Inset shadow"
                     />
-                    <Label htmlFor={`inset-${l.id}`} className="text-xs">Inset</Label>
+                    <Label htmlFor={`inset-${l.id}`} className="text-xs">
+                      Inset
+                    </Label>
                   </div>
                   <Button
                     variant="ghost"
@@ -170,12 +175,14 @@ function BoxShadowPage() {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                {([
-                  { key: "x", label: "Offset X", min: -100, max: 100 },
-                  { key: "y", label: "Offset Y", min: -100, max: 100 },
-                  { key: "blur", label: "Blur", min: 0, max: 200 },
-                  { key: "spread", label: "Spread", min: -50, max: 100 },
-                ] as const).map(({ key, label, min, max }) => (
+                {(
+                  [
+                    { key: "x", label: "Offset X", min: -100, max: 100 },
+                    { key: "y", label: "Offset Y", min: -100, max: 100 },
+                    { key: "blur", label: "Blur", min: 0, max: 200 },
+                    { key: "spread", label: "Spread", min: -50, max: 100 },
+                  ] as const
+                ).map(({ key, label, min, max }) => (
                   <div key={key}>
                     <div className="mb-1 flex items-center justify-between">
                       <Label className="text-xs">{label}</Label>

@@ -10,9 +10,16 @@ export const Route = createFileRoute("/tools/preprocessor")({
   head: () => ({
     meta: [
       { title: "SCSS / LESS to CSS Compiler — SagaCSS" },
-      { name: "description", content: "Compile SCSS or LESS to plain CSS in your browser — variables, nesting, mixins and basic functions supported." },
+      {
+        name: "description",
+        content:
+          "Compile SCSS or LESS to plain CSS in your browser — variables, nesting, mixins and basic functions supported.",
+      },
       { property: "og:title", content: "SCSS / LESS to CSS Compiler — SagaCSS" },
-      { property: "og:description", content: "In-browser SCSS and LESS compiler with instant CSS output." },
+      {
+        property: "og:description",
+        content: "In-browser SCSS and LESS compiler with instant CSS output.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/preprocessor" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/preprocessor" }],
@@ -62,11 +69,21 @@ function PreprocessorPage() {
       try {
         if (lang === "scss") {
           const css = compileScss(input);
-          if (!cancelled) { setOutput(css); setError(null); }
+          if (!cancelled) {
+            setOutput(css);
+            setError(null);
+          }
         } else {
-          const less = ((await import("less")) as unknown as { default: { render: (s: string) => Promise<{ css: string }> } }).default;
+          const less = (
+            (await import("less")) as unknown as {
+              default: { render: (s: string) => Promise<{ css: string }> };
+            }
+          ).default;
           const res = await less.render(input);
-          if (!cancelled) { setOutput(res.css); setError(null); }
+          if (!cancelled) {
+            setOutput(res.css);
+            setError(null);
+          }
         }
       } catch (e) {
         if (!cancelled) {
@@ -75,7 +92,9 @@ function PreprocessorPage() {
         }
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [lang, input]);
 
   const switchLang = (l: "scss" | "less") => {
@@ -85,7 +104,10 @@ function PreprocessorPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="SCSS / LESS to CSS Compiler" description="Paste SCSS or LESS and get compiled plain CSS live in your browser." />
+      <ToolHeader
+        title="SCSS / LESS to CSS Compiler"
+        description="Paste SCSS or LESS and get compiled plain CSS live in your browser."
+      />
 
       <div className="flex items-center gap-2">
         <div className="flex gap-0.5 rounded-md border border-border p-0.5">
@@ -101,12 +123,23 @@ function PreprocessorPage() {
             </button>
           ))}
         </div>
-        <Button size="sm" variant="ghost" onClick={() => setInput(lang === "scss" ? SCSS_SAMPLE : LESS_SAMPLE)}>Load sample</Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => setInput(lang === "scss" ? SCSS_SAMPLE : LESS_SAMPLE)}
+        >
+          Load sample
+        </Button>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="src-input" className="text-xs uppercase tracking-wide text-muted-foreground">{lang.toUpperCase()} input</Label>
+          <Label
+            htmlFor="src-input"
+            className="text-xs uppercase tracking-wide text-muted-foreground"
+          >
+            {lang.toUpperCase()} input
+          </Label>
           <Textarea
             id="src-input"
             value={input}
@@ -117,9 +150,14 @@ function PreprocessorPage() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label className="text-xs uppercase tracking-wide text-muted-foreground">Compiled CSS</Label>
+          <Label className="text-xs uppercase tracking-wide text-muted-foreground">
+            Compiled CSS
+          </Label>
           {error ? (
-            <div role="alert" className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive whitespace-pre-wrap font-mono">
+            <div
+              role="alert"
+              className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive whitespace-pre-wrap font-mono"
+            >
               {error}
             </div>
           ) : (
@@ -137,9 +175,7 @@ function PreprocessorPage() {
  * subset that SagaCSS demos.
  */
 function compileScss(src: string): string {
-  const stripped = src
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const stripped = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
 
   const vars: Record<string, string> = {};
   const varLine = /^\s*\$([\w-]+)\s*:\s*([^;]+);\s*$/gm;
@@ -148,15 +184,21 @@ function compileScss(src: string): string {
     return "";
   });
 
-  const resolveVars = (s: string) =>
-    s.replace(/\$([\w-]+)/g, (_, k) => vars[k] ?? `$${k}`);
+  const resolveVars = (s: string) => s.replace(/\$([\w-]+)/g, (_, k) => vars[k] ?? `$${k}`);
 
   const nodes = parseBlocks(resolveVars(withoutVars));
   const rules: { sel: string; body: string }[] = [];
   flatten(nodes, [], rules);
   return rules
     .filter((r) => r.body.trim())
-    .map((r) => `${r.sel} {\n${r.body.trim().split("\n").map((l) => "  " + l.trim()).join("\n")}\n}`)
+    .map(
+      (r) =>
+        `${r.sel} {\n${r.body
+          .trim()
+          .split("\n")
+          .map((l) => "  " + l.trim())
+          .join("\n")}\n}`,
+    )
     .join("\n\n");
 }
 
@@ -210,7 +252,10 @@ function parseBlocks(input: string): Node[] {
 }
 
 function combineSelectors(parents: string[], selector: string): string {
-  const cur = selector.split(",").map((s) => s.trim()).filter(Boolean);
+  const cur = selector
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
   if (parents.length === 0) return cur.join(", ");
   const combined: string[] = [];
   for (const p of parents) {
@@ -238,7 +283,10 @@ function flatten(nodes: Node[], parentSelectors: string[], out: { sel: string; b
     if (r.type !== "rule") continue;
     const nextParents = parentSelectors.length
       ? [combineSelectors(parentSelectors, r.selector)]
-      : r.selector.split(",").map((s) => s.trim()).filter(Boolean);
+      : r.selector
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
     flatten(r.children, nextParents, out);
   }
 }

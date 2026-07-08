@@ -12,9 +12,16 @@ export const Route = createFileRoute("/tools/image-text")({
   head: () => ({
     meta: [
       { title: "Clipped Text / Image Fill Text Generator — SagaCSS" },
-      { name: "description", content: "Design trendy text with an image or gradient clipped inside the letters using background-clip: text. Copy production-ready CSS." },
+      {
+        name: "description",
+        content:
+          "Design trendy text with an image or gradient clipped inside the letters using background-clip: text. Copy production-ready CSS.",
+      },
       { property: "og:title", content: "Clipped Text Effect — SagaCSS" },
-      { property: "og:description", content: "Fill text with an image or gradient using background-clip: text." },
+      {
+        property: "og:description",
+        content: "Fill text with an image or gradient using background-clip: text.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/image-text" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/image-text" }],
@@ -69,7 +76,7 @@ const GRADIENT_PRESETS: { name: string; value: string }[] = [
 const FONT_FAMILIES = [
   { label: "Sans (system)", value: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif" },
   { label: "Serif", value: 'Georgia, "Times New Roman", serif' },
-  { label: "Mono", value: 'ui-monospace, SFMono-Regular, Menlo, monospace' },
+  { label: "Mono", value: "ui-monospace, SFMono-Regular, Menlo, monospace" },
   { label: "Display", value: '"Helvetica Neue", Impact, sans-serif' },
 ];
 
@@ -181,16 +188,47 @@ function ImageTextPage() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 md:p-5">
           <div>
-            <Label htmlFor="clip-text" className="text-xs">Text</Label>
-            <Input id="clip-text" value={text} onChange={(e) => setText(e.target.value)} className="mt-1" />
+            <Label htmlFor="clip-text" className="text-xs">
+              Text
+            </Label>
+            <Input
+              id="clip-text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              className="mt-1"
+            />
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
-            <SliderRow label="Font size" value={size} setValue={setSize} min={24} max={220} unit="px" />
-            <SliderRow label="Weight" value={weight} setValue={setWeight} min={100} max={900} step={100} unit="" />
-            <SliderRow label="Letter spacing" value={letterSpacing} setValue={setLetterSpacing} min={-10} max={20} unit="px" />
+            <SliderRow
+              label="Font size"
+              value={size}
+              setValue={setSize}
+              min={24}
+              max={220}
+              unit="px"
+            />
+            <SliderRow
+              label="Weight"
+              value={weight}
+              setValue={setWeight}
+              min={100}
+              max={900}
+              step={100}
+              unit=""
+            />
+            <SliderRow
+              label="Letter spacing"
+              value={letterSpacing}
+              setValue={setLetterSpacing}
+              min={-10}
+              max={20}
+              unit="px"
+            />
             <div>
-              <Label htmlFor="clip-font" className="text-xs">Font family</Label>
+              <Label htmlFor="clip-font" className="text-xs">
+                Font family
+              </Label>
               <select
                 id="clip-font"
                 value={family}
@@ -199,7 +237,9 @@ function ImageTextPage() {
                 aria-label="Font family"
               >
                 {FONT_FAMILIES.map((f) => (
-                  <option key={f.label} value={f.value}>{f.label}</option>
+                  <option key={f.label} value={f.value}>
+                    {f.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -223,7 +263,9 @@ function ImageTextPage() {
                 onClick={() => setMode(m)}
                 aria-pressed={mode === m}
                 className={`flex-1 rounded px-3 py-1.5 text-xs font-medium capitalize ${
-                  mode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"
+                  mode === m
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent"
                 }`}
               >
                 {m} fill
@@ -242,16 +284,24 @@ function ImageTextPage() {
                     onClick={() => setGradient(g.value)}
                     aria-pressed={gradient === g.value}
                     className={`flex flex-col items-stretch gap-1 rounded-md border p-1 text-left text-[11px] ${
-                      gradient === g.value ? "border-primary" : "border-border hover:border-primary/50"
+                      gradient === g.value
+                        ? "border-primary"
+                        : "border-border hover:border-primary/50"
                     }`}
                   >
-                    <div className="h-8 w-full rounded" style={{ background: g.value }} aria-hidden="true" />
+                    <div
+                      className="h-8 w-full rounded"
+                      style={{ background: g.value }}
+                      aria-hidden="true"
+                    />
                     <span className="px-1">{g.name}</span>
                   </button>
                 ))}
               </div>
               <div className="mt-3">
-                <Label htmlFor="grad-custom" className="text-xs">Custom gradient CSS</Label>
+                <Label htmlFor="grad-custom" className="text-xs">
+                  Custom gradient CSS
+                </Label>
                 <Input
                   id="grad-custom"
                   value={gradient}
@@ -273,7 +323,12 @@ function ImageTextPage() {
                     onChange={(e) => onUpload(e.target.files?.[0] ?? null)}
                     aria-label="Upload image"
                   />
-                  <Button size="sm" variant="outline" onClick={() => inputRef.current?.click()} className="h-7 gap-1.5">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => inputRef.current?.click()}
+                    className="h-7 gap-1.5"
+                  >
                     <Upload className="h-3.5 w-3.5" /> Upload
                   </Button>
                 </div>
@@ -292,9 +347,30 @@ function ImageTextPage() {
                 ))}
               </div>
               <div className="grid gap-3 sm:grid-cols-3">
-                <SliderRow label="Zoom" value={bgSize} setValue={setBgSize} min={50} max={400} unit="%" />
-                <SliderRow label="Pan X" value={posX} setValue={setPosX} min={0} max={100} unit="%" />
-                <SliderRow label="Pan Y" value={posY} setValue={setPosY} min={0} max={100} unit="%" />
+                <SliderRow
+                  label="Zoom"
+                  value={bgSize}
+                  setValue={setBgSize}
+                  min={50}
+                  max={400}
+                  unit="%"
+                />
+                <SliderRow
+                  label="Pan X"
+                  value={posX}
+                  setValue={setPosX}
+                  min={0}
+                  max={100}
+                  unit="%"
+                />
+                <SliderRow
+                  label="Pan Y"
+                  value={posY}
+                  setValue={setPosY}
+                  min={0}
+                  max={100}
+                  unit="%"
+                />
               </div>
             </div>
           )}
@@ -306,14 +382,40 @@ function ImageTextPage() {
   );
 }
 
-function SliderRow({ label, value, setValue, min, max, step, unit }: { label: string; value: number; setValue: (n: number) => void; min: number; max: number; step?: number; unit: string }) {
+function SliderRow({
+  label,
+  value,
+  setValue,
+  min,
+  max,
+  step,
+  unit,
+}: {
+  label: string;
+  value: number;
+  setValue: (n: number) => void;
+  min: number;
+  max: number;
+  step?: number;
+  unit: string;
+}) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
         <Label className="text-xs">{label}</Label>
-        <span className="font-mono text-xs text-muted-foreground">{value}{unit}</span>
+        <span className="font-mono text-xs text-muted-foreground">
+          {value}
+          {unit}
+        </span>
       </div>
-      <Slider value={[value]} min={min} max={max} step={step ?? 1} onValueChange={(v) => setValue(v[0] ?? 0)} aria-label={label} />
+      <Slider
+        value={[value]}
+        min={min}
+        max={max}
+        step={step ?? 1}
+        onValueChange={(v) => setValue(v[0] ?? 0)}
+        aria-label={label}
+      />
     </div>
   );
 }

@@ -29,7 +29,9 @@ export const Route = createFileRoute("/blog/page/$page")({
     const qs = [
       category ? `category=${encodeURIComponent(category)}` : null,
       q ? `q=${encodeURIComponent(q)}` : null,
-    ].filter(Boolean).join("&");
+    ]
+      .filter(Boolean)
+      .join("&");
     const queryString = qs ? `?${qs}` : "";
     const prevHref =
       current - 1 === 1 ? `/blog${queryString}` : `/blog/page/${current - 1}${queryString}`;

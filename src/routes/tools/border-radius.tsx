@@ -30,12 +30,27 @@ export const Route = createFileRoute("/tools/border-radius")({
 });
 
 type Corners = { tl: number; tr: number; br: number; bl: number };
-type Organic = { tlh: number; trh: number; brh: number; blh: number; tlv: number; trv: number; brv: number; blv: number };
+type Organic = {
+  tlh: number;
+  trh: number;
+  brh: number;
+  blh: number;
+  tlv: number;
+  trv: number;
+  brv: number;
+  blv: number;
+};
 
 const DEFAULT_CORNERS: Corners = { tl: 30, tr: 30, br: 30, bl: 30 };
 const DEFAULT_ORGANIC: Organic = {
-  tlh: 30, trh: 70, brh: 70, blh: 30,
-  tlv: 30, trv: 30, brv: 70, blv: 70,
+  tlh: 30,
+  trh: 70,
+  brh: 70,
+  blh: 30,
+  tlv: 30,
+  trv: 30,
+  brv: 70,
+  blv: 70,
 };
 
 const PRESETS = {
@@ -45,11 +60,29 @@ const PRESETS = {
   Teardrop: { organic: false, corners: { tl: 50, tr: 50, br: 50, bl: 0 } as Corners },
   Blob: {
     organic: true,
-    organicVals: { tlh: 63, trh: 37, brh: 45, blh: 55, tlv: 30, trv: 30, brv: 70, blv: 70 } as Organic,
+    organicVals: {
+      tlh: 63,
+      trh: 37,
+      brh: 45,
+      blh: 55,
+      tlv: 30,
+      trv: 30,
+      brv: 70,
+      blv: 70,
+    } as Organic,
   },
   "Soft Blob": {
     organic: true,
-    organicVals: { tlh: 40, trh: 60, brh: 50, blh: 50, tlv: 50, trv: 30, brv: 70, blv: 50 } as Organic,
+    organicVals: {
+      tlh: 40,
+      trh: 60,
+      brh: 50,
+      blh: 50,
+      tlv: 50,
+      trv: 30,
+      brv: 70,
+      blv: 50,
+    } as Organic,
   },
 } as const;
 
@@ -124,8 +157,14 @@ function BorderRadiusPage() {
     if (organic) {
       const rnd = () => Math.floor(20 + Math.random() * 60);
       setOrganicVals({
-        tlh: rnd(), trh: rnd(), brh: rnd(), blh: rnd(),
-        tlv: rnd(), trv: rnd(), brv: rnd(), blv: rnd(),
+        tlh: rnd(),
+        trh: rnd(),
+        brh: rnd(),
+        blh: rnd(),
+        tlv: rnd(),
+        trv: rnd(),
+        brv: rnd(),
+        blv: rnd(),
       });
     } else {
       const rnd = () => Math.floor(Math.random() * 60);

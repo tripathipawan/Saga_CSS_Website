@@ -11,9 +11,16 @@ export const Route = createFileRoute("/tools/3d-shapes")({
   head: () => ({
     meta: [
       { title: "3D CSS Shape Generator — SagaCSS" },
-      { name: "description", content: "Build rotatable CSS 3D cubes with per-face colors, perspective and auto-spin. Copy production-ready transform CSS." },
+      {
+        name: "description",
+        content:
+          "Build rotatable CSS 3D cubes with per-face colors, perspective and auto-spin. Copy production-ready transform CSS.",
+      },
       { property: "og:title", content: "3D Shape Generator — SagaCSS" },
-      { property: "og:description", content: "Interactive CSS-only 3D cube preview with copy-ready code." },
+      {
+        property: "og:description",
+        content: "Interactive CSS-only 3D cube preview with copy-ready code.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/3d-shapes" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/3d-shapes" }],
@@ -38,18 +45,97 @@ function ThreeDPage() {
   const [perspective, setPerspective] = useState(800);
   const [spin, setSpin] = useState(false);
   const [colors, setColors] = useState<Record<string, string>>({
-    front: "#8b5cf6", back: "#22d3ee", right: "#ec4899", left: "#f59e0b", top: "#10b981", bottom: "#ef4444",
+    front: "#8b5cf6",
+    back: "#22d3ee",
+    right: "#ec4899",
+    left: "#f59e0b",
+    top: "#10b981",
+    bottom: "#ef4444",
   });
 
   const presets = [
-    { name: "Isometric", rx: -20, ry: 30, rz: 0, perspective: 800, colors: { front: "#8b5cf6", back: "#22d3ee", right: "#ec4899", left: "#f59e0b", top: "#10b981", bottom: "#ef4444" } },
-    { name: "Flip Card", rx: 0, ry: 180, rz: 0, perspective: 1200, colors: { front: "#0ea5e9", back: "#f43f5e", right: "#334155", left: "#334155", top: "#334155", bottom: "#334155" } },
-    { name: "Spinning Die", rx: -25, ry: 45, rz: 0, perspective: 600, colors: { front: "#f8fafc", back: "#f8fafc", right: "#f8fafc", left: "#f8fafc", top: "#f8fafc", bottom: "#f8fafc" } },
-    { name: "Neon Cube", rx: -30, ry: 45, rz: 0, perspective: 900, colors: { front: "#22d3ee", back: "#a855f7", right: "#ec4899", left: "#22c55e", top: "#fde047", bottom: "#f97316" } },
-    { name: "Monochrome", rx: -15, ry: 25, rz: 0, perspective: 1000, colors: { front: "#1f2937", back: "#4b5563", right: "#374151", left: "#4b5563", top: "#111827", bottom: "#6b7280" } },
+    {
+      name: "Isometric",
+      rx: -20,
+      ry: 30,
+      rz: 0,
+      perspective: 800,
+      colors: {
+        front: "#8b5cf6",
+        back: "#22d3ee",
+        right: "#ec4899",
+        left: "#f59e0b",
+        top: "#10b981",
+        bottom: "#ef4444",
+      },
+    },
+    {
+      name: "Flip Card",
+      rx: 0,
+      ry: 180,
+      rz: 0,
+      perspective: 1200,
+      colors: {
+        front: "#0ea5e9",
+        back: "#f43f5e",
+        right: "#334155",
+        left: "#334155",
+        top: "#334155",
+        bottom: "#334155",
+      },
+    },
+    {
+      name: "Spinning Die",
+      rx: -25,
+      ry: 45,
+      rz: 0,
+      perspective: 600,
+      colors: {
+        front: "#f8fafc",
+        back: "#f8fafc",
+        right: "#f8fafc",
+        left: "#f8fafc",
+        top: "#f8fafc",
+        bottom: "#f8fafc",
+      },
+    },
+    {
+      name: "Neon Cube",
+      rx: -30,
+      ry: 45,
+      rz: 0,
+      perspective: 900,
+      colors: {
+        front: "#22d3ee",
+        back: "#a855f7",
+        right: "#ec4899",
+        left: "#22c55e",
+        top: "#fde047",
+        bottom: "#f97316",
+      },
+    },
+    {
+      name: "Monochrome",
+      rx: -15,
+      ry: 25,
+      rz: 0,
+      perspective: 1000,
+      colors: {
+        front: "#1f2937",
+        back: "#4b5563",
+        right: "#374151",
+        left: "#4b5563",
+        top: "#111827",
+        bottom: "#6b7280",
+      },
+    },
   ];
-  const apply = (p: typeof presets[number]) => {
-    setRx(p.rx); setRy(p.ry); setRz(p.rz); setPerspective(p.perspective); setColors(p.colors);
+  const apply = (p: (typeof presets)[number]) => {
+    setRx(p.rx);
+    setRy(p.ry);
+    setRz(p.rz);
+    setPerspective(p.perspective);
+    setColors(p.colors);
   };
 
   useEffect(() => {
@@ -57,7 +143,8 @@ function ThreeDPage() {
     let raf = 0;
     let last = performance.now();
     const tick = (t: number) => {
-      const dt = t - last; last = t;
+      const dt = t - last;
+      last = t;
       setRy((y) => (y + dt * 0.06) % 360);
       raf = requestAnimationFrame(tick);
     };
@@ -81,12 +168,36 @@ ${FACES.map((f) => `.face.${f.key} { background: ${colors[f.key]}; transform: ${
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="3D Shape Generator" description="Rotate a CSS 3D cube on X/Y/Z, customize each face, and copy the transform stack." />
+      <ToolHeader
+        title="3D Shape Generator"
+        description="Rotate a CSS 3D cube on X/Y/Z, customize each face, and copy the transform stack."
+      />
 
-      <div className="relative flex min-h-[16rem] max-h-[18rem] items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-6" style={{ perspective: `${perspective}px` }}>
-        <div className="relative" style={{ width: size, height: size, transformStyle: "preserve-3d", transform: `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`, transition: spin ? "none" : "transform 200ms" }}>
+      <div
+        className="relative flex min-h-[16rem] max-h-[18rem] items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-6"
+        style={{ perspective: `${perspective}px` }}
+      >
+        <div
+          className="relative"
+          style={{
+            width: size,
+            height: size,
+            transformStyle: "preserve-3d",
+            transform: `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`,
+            transition: spin ? "none" : "transform 200ms",
+          }}
+        >
           {FACES.map((f) => (
-            <div key={f.key} className="absolute inset-0 border border-white/20 flex items-center justify-center text-white text-sm font-medium" style={{ background: colors[f.key], transform: f.transform.replace("var(--half)", `${size / 2}px`) }}>{f.label}</div>
+            <div
+              key={f.key}
+              className="absolute inset-0 border border-white/20 flex items-center justify-center text-white text-sm font-medium"
+              style={{
+                background: colors[f.key],
+                transform: f.transform.replace("var(--half)", `${size / 2}px`),
+              }}
+            >
+              {f.label}
+            </div>
           ))}
         </div>
       </div>
@@ -97,28 +208,69 @@ ${FACES.map((f) => `.face.${f.key} { background: ${colors[f.key]}; transform: ${
             <Label className="mb-1 block text-xs">Presets</Label>
             <div className="flex flex-wrap gap-1.5">
               {presets.map((p) => (
-                <button key={p.name} type="button" onClick={() => apply(p)} className="rounded-md border border-border px-2 py-1 text-xs hover:bg-accent">{p.name}</button>
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => apply(p)}
+                  className="rounded-md border border-border px-2 py-1 text-xs hover:bg-accent"
+                >
+                  {p.name}
+                </button>
               ))}
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            {([{ label: "Rotate X", val: rx, set: setRx, min: -180, max: 180, unit: "deg" },
-               { label: "Rotate Y", val: ry, set: setRy, min: -180, max: 180, unit: "deg" },
-               { label: "Rotate Z", val: rz, set: setRz, min: -180, max: 180, unit: "deg" },
-               { label: "Size", val: size, set: setSize, min: 60, max: 180, unit: "px" },
-               { label: "Perspective", val: perspective, set: setPerspective, min: 400, max: 2000, unit: "px" }] as const).map((c) => (
+            {(
+              [
+                { label: "Rotate X", val: rx, set: setRx, min: -180, max: 180, unit: "deg" },
+                { label: "Rotate Y", val: ry, set: setRy, min: -180, max: 180, unit: "deg" },
+                { label: "Rotate Z", val: rz, set: setRz, min: -180, max: 180, unit: "deg" },
+                { label: "Size", val: size, set: setSize, min: 60, max: 180, unit: "px" },
+                {
+                  label: "Perspective",
+                  val: perspective,
+                  set: setPerspective,
+                  min: 400,
+                  max: 2000,
+                  unit: "px",
+                },
+              ] as const
+            ).map((c) => (
               <div key={c.label}>
                 <div className="mb-1 flex items-center justify-between">
                   <Label className="text-xs">{c.label}</Label>
-                  <span className="font-mono text-xs text-muted-foreground">{Math.round(c.val)}{c.unit}</span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {Math.round(c.val)}
+                    {c.unit}
+                  </span>
                 </div>
-                <Slider value={[c.val]} min={c.min} max={c.max} step={1} onValueChange={(v) => c.set(v[0] ?? 0)} aria-label={c.label} />
+                <Slider
+                  value={[c.val]}
+                  min={c.min}
+                  max={c.max}
+                  step={1}
+                  onValueChange={(v) => c.set(v[0] ?? 0)}
+                  aria-label={c.label}
+                />
               </div>
             ))}
             <div className="flex items-center gap-2 sm:col-span-2">
               <Switch id="spin" checked={spin} onCheckedChange={setSpin} aria-label="Auto spin" />
-              <Label htmlFor="spin" className="text-sm">Auto-spin</Label>
-              <Button variant="outline" size="sm" className="ml-auto" onClick={() => { setRx(-20); setRy(30); setRz(0); }}>Reset</Button>
+              <Label htmlFor="spin" className="text-sm">
+                Auto-spin
+              </Label>
+              <Button
+                variant="outline"
+                size="sm"
+                className="ml-auto"
+                onClick={() => {
+                  setRx(-20);
+                  setRy(30);
+                  setRz(0);
+                }}
+              >
+                Reset
+              </Button>
             </div>
           </div>
 
@@ -126,8 +278,17 @@ ${FACES.map((f) => `.face.${f.key} { background: ${colors[f.key]}; transform: ${
             <Label className="mb-2 block text-xs">Face colors</Label>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {FACES.map((f) => (
-                <div key={f.key} className="flex items-center gap-2 rounded-md border border-border p-2">
-                  <input type="color" value={colors[f.key]} onChange={(e) => setColors((c) => ({ ...c, [f.key]: e.target.value }))} aria-label={`${f.label} color`} className="h-7 w-9 cursor-pointer rounded border border-border bg-transparent" />
+                <div
+                  key={f.key}
+                  className="flex items-center gap-2 rounded-md border border-border p-2"
+                >
+                  <input
+                    type="color"
+                    value={colors[f.key]}
+                    onChange={(e) => setColors((c) => ({ ...c, [f.key]: e.target.value }))}
+                    aria-label={`${f.label} color`}
+                    className="h-7 w-9 cursor-pointer rounded border border-border bg-transparent"
+                  />
                   <span className="text-xs">{f.label}</span>
                 </div>
               ))}

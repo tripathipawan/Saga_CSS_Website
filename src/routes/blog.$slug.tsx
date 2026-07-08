@@ -13,10 +13,7 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [
-          { title: "Post not found — SagaCSS" },
-          { name: "robots", content: "noindex" },
-        ],
+        meta: [{ title: "Post not found — SagaCSS" }, { name: "robots", content: "noindex" }],
       };
     }
     const { post } = loaderData;

@@ -28,17 +28,23 @@ const BOOTSTRAP_TOOLS = [
 ];
 
 async function selectBootstrap(page: Page) {
-  const btn = page.getByRole("button", { name: "Bootstrap", exact: true }).locator("visible=true").first();
+  const btn = page
+    .getByRole("button", { name: "Bootstrap", exact: true })
+    .locator("visible=true")
+    .first();
   await btn.click();
   await page.waitForFunction(() => {
-    const b = [...document.querySelectorAll('button[aria-pressed="true"]')]
-      .find((el) => el.textContent?.trim() === "Bootstrap");
+    const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
+      (el) => el.textContent?.trim() === "Bootstrap",
+    );
     return Boolean(b);
   });
 }
 
 for (const path of BOOTSTRAP_TOOLS) {
-  test(`bootstrap tab on ${path} contains no inline style attributes on markup lines`, async ({ page }) => {
+  test(`bootstrap tab on ${path} contains no inline style attributes on markup lines`, async ({
+    page,
+  }) => {
     await page.goto(path);
     await expect(page.locator("pre code:visible").first()).toBeVisible();
     await selectBootstrap(page);
@@ -47,15 +53,15 @@ for (const path of BOOTSTRAP_TOOLS) {
     expect(code.length).toBeGreaterThan(0);
 
     // Look at markup lines only (starting with `<` and NOT a CSS/HTML comment).
-    const markupLines = code
-      .split(/\r?\n/)
-      .filter((l) => /^\s*<[a-zA-Z]/.test(l));
+    const markupLines = code.split(/\r?\n/).filter((l) => /^\s*<[a-zA-Z]/.test(l));
     const withInlineStyle = markupLines.filter((l) => /\sstyle="/.test(l));
     expect(withInlineStyle, `inline style= should not appear on markup in ${path}`).toEqual([]);
 
     // Bootstrap output should include at least one Bootstrap utility class
     // (d-*, p-*, m-*, rounded*, bg-*, text-*, fw-*, w-*, h-*, position-*, animate-*, craft-*).
-    expect(code).toMatch(/class="[^"]*(?:d-|p-|m-|rounded|bg-|text-|fw-|w-|h-|position-|border|craft-|animate-|img-)/);
+    expect(code).toMatch(
+      /class="[^"]*(?:d-|p-|m-|rounded|bg-|text-|fw-|w-|h-|position-|border|craft-|animate-|img-)/,
+    );
   });
 }
 
@@ -77,7 +83,9 @@ for (const vp of VIEWPORTS) {
     // Panel must fit within the viewport (allow 4px slack for scrollbars).
     expect(box!.width).toBeLessThanOrEqual(vp.w + 4);
     // No horizontal page scroll.
-    const scrolls = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    const scrolls = await page.evaluate(
+      () => document.documentElement.scrollWidth - window.innerWidth,
+    );
     expect(scrolls).toBeLessThanOrEqual(1);
   });
 }

@@ -10,9 +10,16 @@ export const Route = createFileRoute("/tools/bezier")({
   head: () => ({
     meta: [
       { title: "Cubic Bezier & Easing Curve Generator | SagaCSS" },
-      { name: "description", content: "Design custom CSS cubic-bezier easing curves with a draggable control-point editor, animated preview and a library of named easings." },
+      {
+        name: "description",
+        content:
+          "Design custom CSS cubic-bezier easing curves with a draggable control-point editor, animated preview and a library of named easings.",
+      },
       { property: "og:title", content: "Cubic Bezier Generator — SagaCSS" },
-      { property: "og:description", content: "Interactive cubic-bezier editor with live animated preview." },
+      {
+        property: "og:description",
+        content: "Interactive cubic-bezier editor with live animated preview.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/bezier" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/bezier" }],
@@ -56,7 +63,8 @@ function BezierPage() {
     const x = ((e.clientX - rect.left) / rect.width) * 200;
     const y = ((e.clientY - rect.top) / rect.height) * 200;
     const pt = fromSvg(x, y);
-    if (drag.current === "p1") setP1(pt); else setP2(pt);
+    if (drag.current === "p1") setP1(pt);
+    else setP2(pt);
   };
 
   const path = useMemo(() => {
@@ -67,7 +75,8 @@ function BezierPage() {
     return `M ${a.x} ${a.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${b.x} ${b.y}`;
   }, [p1, p2]);
 
-  const s1 = toSvg(p1), s2 = toSvg(p2);
+  const s1 = toSvg(p1),
+    s2 = toSvg(p2);
 
   const css = `transition: transform 0.6s ${bezier};\n/* or */\nanimation-timing-function: ${bezier};`;
   const tailwind = `<div class="transition-transform duration-500 ease-[${bezier.replace(/\s+/g, "_")}]">…</div>`;
@@ -75,7 +84,10 @@ function BezierPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="Cubic Bezier & Easing Curves" description="Design custom CSS easing curves visually — drag the control points, preview on a live animation and load named presets." />
+      <ToolHeader
+        title="Cubic Bezier & Easing Curves"
+        description="Design custom CSS easing curves visually — drag the control points, preview on a live animation and load named presets."
+      />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="rounded-xl border border-border bg-card p-4">
@@ -100,41 +112,102 @@ function BezierPage() {
               </g>
             ))}
             {/* axis box */}
-            <rect x={0} y={0} width={200} height={200} fill="none" stroke="currentColor" strokeOpacity="0.25" />
+            <rect
+              x={0}
+              y={0}
+              width={200}
+              height={200}
+              fill="none"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+            />
             {/* handles */}
-            <line x1={0} y1={200} x2={s1.x} y2={s1.y} stroke="currentColor" strokeOpacity="0.4" strokeDasharray="3 3" />
-            <line x1={200} y1={0} x2={s2.x} y2={s2.y} stroke="currentColor" strokeOpacity="0.4" strokeDasharray="3 3" />
+            <line
+              x1={0}
+              y1={200}
+              x2={s1.x}
+              y2={s1.y}
+              stroke="currentColor"
+              strokeOpacity="0.4"
+              strokeDasharray="3 3"
+            />
+            <line
+              x1={200}
+              y1={0}
+              x2={s2.x}
+              y2={s2.y}
+              stroke="currentColor"
+              strokeOpacity="0.4"
+              strokeDasharray="3 3"
+            />
             {/* curve */}
-            <path d={path} fill="none" stroke="currentColor" strokeWidth={2.5} className="text-primary" />
+            <path
+              d={path}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              className="text-primary"
+            />
             {/* points */}
-            <circle cx={s1.x} cy={s1.y} r={8} role="button" className="cursor-grab fill-primary outline-none focus-visible:stroke-primary focus-visible:[stroke-width:3]" onPointerDown={() => (drag.current = "p1")} tabIndex={0}
-              onKeyDown={(e) => { const s = e.shiftKey ? 0.1 : 0.02;
+            <circle
+              cx={s1.x}
+              cy={s1.y}
+              r={8}
+              role="button"
+              className="cursor-grab fill-primary outline-none focus-visible:stroke-primary focus-visible:[stroke-width:3]"
+              onPointerDown={() => (drag.current = "p1")}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                const s = e.shiftKey ? 0.1 : 0.02;
                 if (e.key === "ArrowUp") setP1((p) => ({ ...p, y: Math.min(1.5, p.y + s) }));
                 if (e.key === "ArrowDown") setP1((p) => ({ ...p, y: Math.max(-0.5, p.y - s) }));
                 if (e.key === "ArrowLeft") setP1((p) => ({ ...p, x: Math.max(-0.5, p.x - s) }));
                 if (e.key === "ArrowRight") setP1((p) => ({ ...p, x: Math.min(1.5, p.x + s) }));
               }}
-              aria-label={`Control point P1 at ${p1.x.toFixed(2)}, ${p1.y.toFixed(2)}. Arrow keys to nudge.`} />
-            <circle cx={s2.x} cy={s2.y} r={8} role="button" className="cursor-grab fill-accent outline-none focus-visible:stroke-accent focus-visible:[stroke-width:3]" onPointerDown={() => (drag.current = "p2")} tabIndex={0}
-              onKeyDown={(e) => { const s = e.shiftKey ? 0.1 : 0.02;
+              aria-label={`Control point P1 at ${p1.x.toFixed(2)}, ${p1.y.toFixed(2)}. Arrow keys to nudge.`}
+            />
+            <circle
+              cx={s2.x}
+              cy={s2.y}
+              r={8}
+              role="button"
+              className="cursor-grab fill-accent outline-none focus-visible:stroke-accent focus-visible:[stroke-width:3]"
+              onPointerDown={() => (drag.current = "p2")}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                const s = e.shiftKey ? 0.1 : 0.02;
                 if (e.key === "ArrowUp") setP2((p) => ({ ...p, y: Math.min(1.5, p.y + s) }));
                 if (e.key === "ArrowDown") setP2((p) => ({ ...p, y: Math.max(-0.5, p.y - s) }));
                 if (e.key === "ArrowLeft") setP2((p) => ({ ...p, x: Math.max(-0.5, p.x - s) }));
                 if (e.key === "ArrowRight") setP2((p) => ({ ...p, x: Math.min(1.5, p.x + s) }));
               }}
-              aria-label={`Control point P2 at ${p2.x.toFixed(2)}, ${p2.y.toFixed(2)}. Arrow keys to nudge.`} />
+              aria-label={`Control point P2 at ${p2.x.toFixed(2)}, ${p2.y.toFixed(2)}. Arrow keys to nudge.`}
+            />
             {/* labels */}
-            <text x={-6} y={205} fontSize={10} textAnchor="end" fill="currentColor" opacity="0.5">0,0</text>
-            <text x={205} y={-2} fontSize={10} fill="currentColor" opacity="0.5">1,1</text>
+            <text x={-6} y={205} fontSize={10} textAnchor="end" fill="currentColor" opacity="0.5">
+              0,0
+            </text>
+            <text x={205} y={-2} fontSize={10} fill="currentColor" opacity="0.5">
+              1,1
+            </text>
           </svg>
 
           <div className="mt-4">
             <Label className="mb-2 block text-sm font-semibold">Presets</Label>
             <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
               {PRESETS.map((p) => (
-                <button key={p.name} type="button" onClick={() => { setP1(p.p1); setP2(p.p2); }}
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => {
+                    setP1(p.p1);
+                    setP2(p.p2);
+                  }}
                   className="rounded-md border border-border bg-background px-2 py-1.5 text-left text-xs font-mono hover:bg-accent"
-                  aria-label={`Load ${p.name} preset`}>{p.name}</button>
+                  aria-label={`Load ${p.name} preset`}
+                >
+                  {p.name}
+                </button>
               ))}
             </div>
           </div>
@@ -144,7 +217,12 @@ function BezierPage() {
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="mb-3 flex items-center justify-between">
               <Label className="text-sm font-semibold">Live preview</Label>
-              <Button size="sm" variant="outline" onClick={() => setTick((t) => t + 1)} className="gap-1.5">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setTick((t) => t + 1)}
+                className="gap-1.5"
+              >
                 <Play className="h-4 w-4" /> Replay
               </Button>
             </div>
@@ -156,7 +234,9 @@ function BezierPage() {
               />
             </div>
             <style>{`@keyframes bezierRun { from { left: 4px } to { left: calc(100% - 44px) } }`}</style>
-            <p className="mt-2 text-xs text-muted-foreground">Ball travels using your current easing curve, alternating each cycle.</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Ball travels using your current easing curve, alternating each cycle.
+            </p>
           </div>
 
           <StickyCode code={css} tailwind={tailwind} bootstrap={bootstrap} />

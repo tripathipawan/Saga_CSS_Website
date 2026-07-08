@@ -24,7 +24,10 @@ test("Cheat Sheet PDF export contains expected chapter content", async ({ page }
   await page.waitForLoadState("networkidle");
 
   const downloadPromise = page.waitForEvent("download");
-  await page.getByRole("button", { name: /download.*pdf/i }).first().click();
+  await page
+    .getByRole("button", { name: /download.*pdf/i })
+    .first()
+    .click();
   const download = await downloadPromise;
 
   const tmpPath = path.join(os.tmpdir(), `cheat-sheet-${Date.now()}.pdf`);

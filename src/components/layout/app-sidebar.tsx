@@ -144,18 +144,50 @@ function Group({
   );
 }
 
-export function AppSidebar({ onNavigate, collapsed }: { onNavigate?: () => void; collapsed?: boolean }) {
+export function AppSidebar({
+  onNavigate,
+  collapsed,
+}: {
+  onNavigate?: () => void;
+  collapsed?: boolean;
+}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
     <nav aria-label="Primary" className="py-3">
-      <div className={`mb-2 flex items-center gap-2 px-5 text-sm font-semibold text-sidebar-foreground lg:hidden`}>
+      <div
+        className={`mb-2 flex items-center gap-2 px-5 text-sm font-semibold text-sidebar-foreground lg:hidden`}
+      >
         <Sparkles className="h-4 w-4 text-primary" />
         SagaCSS
       </div>
-      <Group title="Core Tools" items={CORE_TOOLS} onNavigate={onNavigate} activePath={pathname} collapsed={collapsed} />
-      <Group title="Design Styles" items={DESIGN_STYLES} onNavigate={onNavigate} activePath={pathname} collapsed={collapsed} />
-      <Group title="Learn" items={LEARN} onNavigate={onNavigate} activePath={pathname} collapsed={collapsed} />
-      <Group title="Extras" items={EXTRAS} onNavigate={onNavigate} activePath={pathname} collapsed={collapsed} />
+      <Group
+        title="Core Tools"
+        items={CORE_TOOLS}
+        onNavigate={onNavigate}
+        activePath={pathname}
+        collapsed={collapsed}
+      />
+      <Group
+        title="Design Styles"
+        items={DESIGN_STYLES}
+        onNavigate={onNavigate}
+        activePath={pathname}
+        collapsed={collapsed}
+      />
+      <Group
+        title="Learn"
+        items={LEARN}
+        onNavigate={onNavigate}
+        activePath={pathname}
+        collapsed={collapsed}
+      />
+      <Group
+        title="Extras"
+        items={EXTRAS}
+        onNavigate={onNavigate}
+        activePath={pathname}
+        collapsed={collapsed}
+      />
       {!collapsed && (
         <div className="mx-5 mt-4 rounded-lg border border-sidebar-border/60 bg-sidebar-accent/40 p-3 text-xs text-sidebar-foreground/80">
           <div className="mb-1 flex items-center gap-1.5 font-medium">

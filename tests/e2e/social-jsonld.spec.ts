@@ -11,10 +11,7 @@ test("JSON-LD sameAs and footer contain every SOCIAL_HREF", async ({ page }) => 
   await page.waitForLoadState("networkidle");
 
   // JSON-LD block from the root route.
-  const ldJson = await page
-    .locator('script[type="application/ld+json"]')
-    .first()
-    .textContent();
+  const ldJson = await page.locator('script[type="application/ld+json"]').first().textContent();
   expect(ldJson, "root JSON-LD script exists").toBeTruthy();
   const parsed = JSON.parse(ldJson!);
   const sameAs: string[] = parsed?.author?.sameAs ?? [];

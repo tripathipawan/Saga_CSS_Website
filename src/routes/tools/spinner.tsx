@@ -12,9 +12,17 @@ export const Route = createFileRoute("/tools/spinner")({
   head: () => ({
     meta: [
       { title: "CSS Loader / Spinner Generator — SagaCSS" },
-      { name: "description", content: "23 pure-CSS loaders: rings, dots, bars, pulses, skeletons and more. Play/pause preview, tweak size, speed, colors and copy CSS + HTML." },
+      {
+        name: "description",
+        content:
+          "23 pure-CSS loaders: rings, dots, bars, pulses, skeletons and more. Play/pause preview, tweak size, speed, colors and copy CSS + HTML.",
+      },
       { property: "og:title", content: "CSS Loader / Spinner Generator — SagaCSS" },
-      { property: "og:description", content: "23+ pure-CSS loaders with live play/pause preview and copy-ready CSS, Tailwind and Bootstrap." },
+      {
+        property: "og:description",
+        content:
+          "23+ pure-CSS loaders with live play/pause preview and copy-ready CSS, Tailwind and Bootstrap.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/spinner" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/spinner" }],
@@ -23,14 +31,29 @@ export const Route = createFileRoute("/tools/spinner")({
 });
 
 type LoaderType =
-  | "ring" | "ring-dual" | "ring-dashed" | "ring-gradient"
-  | "dots-pulse" | "dots-bounce" | "dots-wave"
-  | "bars-eq" | "bars-grow"
-  | "pulse" | "ripple"
-  | "bounce" | "orbit"
-  | "spin-square" | "flip" | "triangle" | "clock"
-  | "grid-9" | "hourglass" | "heart"
-  | "progress" | "skeleton" | "skeleton-card";
+  | "ring"
+  | "ring-dual"
+  | "ring-dashed"
+  | "ring-gradient"
+  | "dots-pulse"
+  | "dots-bounce"
+  | "dots-wave"
+  | "bars-eq"
+  | "bars-grow"
+  | "pulse"
+  | "ripple"
+  | "bounce"
+  | "orbit"
+  | "spin-square"
+  | "flip"
+  | "triangle"
+  | "clock"
+  | "grid-9"
+  | "hourglass"
+  | "heart"
+  | "progress"
+  | "skeleton"
+  | "skeleton-card";
 
 type Cfg = {
   type: LoaderType;
@@ -132,7 +155,9 @@ function LoaderPage() {
             <div className="flex flex-col gap-3">
               {categories.map((cat) => (
                 <div key={cat}>
-                  <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{cat}</div>
+                  <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {cat}
+                  </div>
                   <div className="flex flex-wrap gap-1.5">
                     {CATALOG.filter((c) => c.category === cat).map((c) => {
                       const active = c.type === cfg.type;
@@ -160,12 +185,39 @@ function LoaderPage() {
 
           <div className="rounded-xl border border-border bg-card p-4 md:p-5">
             <div className="grid gap-4 sm:grid-cols-2">
-              <NumberControl label="Size (px)" value={cfg.size} min={8} max={320} onChange={(v) => set("size", v)} />
-              <NumberControl label="Speed (s)" value={cfg.duration} min={0.2} max={4} step={0.1} onChange={(v) => set("duration", v)} />
-              <ColorControl label="Primary color" value={cfg.primary} onChange={(v) => set("primary", v)} />
-              <ColorControl label="Secondary color" value={cfg.secondary} onChange={(v) => set("secondary", v)} />
+              <NumberControl
+                label="Size (px)"
+                value={cfg.size}
+                min={8}
+                max={320}
+                onChange={(v) => set("size", v)}
+              />
+              <NumberControl
+                label="Speed (s)"
+                value={cfg.duration}
+                min={0.2}
+                max={4}
+                step={0.1}
+                onChange={(v) => set("duration", v)}
+              />
+              <ColorControl
+                label="Primary color"
+                value={cfg.primary}
+                onChange={(v) => set("primary", v)}
+              />
+              <ColorControl
+                label="Secondary color"
+                value={cfg.secondary}
+                onChange={(v) => set("secondary", v)}
+              />
               {meta.count && (
-                <NumberControl label="Element count" value={cfg.count} min={2} max={8} onChange={(v) => set("count", v)} />
+                <NumberControl
+                  label="Element count"
+                  value={cfg.count}
+                  min={2}
+                  max={8}
+                  onChange={(v) => set("count", v)}
+                />
               )}
             </div>
           </div>
@@ -177,35 +229,81 @@ function LoaderPage() {
   );
 }
 
-function NumberControl({ label, value, min, max, step = 1, onChange }: { label: string; value: number; min: number; max: number; step?: number; onChange: (v: number) => void }) {
+function NumberControl({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
         <Label className="text-xs">{label}</Label>
         <span className="font-mono text-xs text-muted-foreground">{value}</span>
       </div>
-      <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => onChange(v[0] ?? min)} aria-label={label} />
+      <Slider
+        value={[value]}
+        min={min}
+        max={max}
+        step={step}
+        onValueChange={(v) => onChange(v[0] ?? min)}
+        aria-label={label}
+      />
     </div>
   );
 }
 
-function ColorControl({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+function ColorControl({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <div>
       <Label className="mb-1 block text-xs">{label}</Label>
       <div className="flex items-center gap-2">
-        <input type="color" value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="h-8 w-10 shrink-0 cursor-pointer rounded border border-border bg-background" />
-        <Input value={value} onChange={(e) => onChange(e.target.value)} className="h-8 font-mono text-xs" aria-label={`${label} value`} />
+        <input
+          type="color"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={label}
+          className="h-8 w-10 shrink-0 cursor-pointer rounded border border-border bg-background"
+        />
+        <Input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="h-8 font-mono text-xs"
+          aria-label={`${label} value`}
+        />
       </div>
     </div>
   );
 }
 
 function build(cfg: Cfg): { css: string; html: string } {
-  const s = cfg.size, d = cfg.duration, p = cfg.primary, sc = cfg.secondary, n = cfg.count;
+  const s = cfg.size,
+    d = cfg.duration,
+    p = cfg.primary,
+    sc = cfg.secondary,
+    n = cfg.count;
   const border = Math.max(2, Math.round(s / 8));
   const spans = (count: number, delay: (i: number) => string) =>
-    Array.from({ length: count }).map((_, i) => `  <span style="animation-delay: ${delay(i)}s"></span>`).join("\n");
+    Array.from({ length: count })
+      .map((_, i) => `  <span style="animation-delay: ${delay(i)}s"></span>`)
+      .join("\n");
 
   switch (cfg.type) {
     case "ring":
@@ -315,10 +413,12 @@ function build(cfg: Cfg): { css: string; html: string } {
     case "grid-9": {
       const cell = Math.round(s / 3);
       const gap = Math.max(2, Math.round(cell / 6));
-      const items = Array.from({ length: 9 }).map((_, i) => {
-        const delay = (((i % 3) + Math.floor(i / 3)) * (d / 6)).toFixed(2);
-        return `  <span style="animation-delay: ${delay}s"></span>`;
-      }).join("\n");
+      const items = Array.from({ length: 9 })
+        .map((_, i) => {
+          const delay = (((i % 3) + Math.floor(i / 3)) * (d / 6)).toFixed(2);
+          return `  <span style="animation-delay: ${delay}s"></span>`;
+        })
+        .join("\n");
       return {
         html: `<div class="craft-loader" role="status" aria-label="Loading">\n${items}\n</div>`,
         css: `.craft-loader {\n  display: grid; grid-template-columns: repeat(3, 1fr); gap: ${gap}px;\n  width: ${s}px; height: ${s}px;\n}\n.craft-loader span {\n  background: ${p}; border-radius: ${gap}px;\n  animation: craft-fade ${d}s ease-in-out infinite;\n}\n@keyframes craft-fade {\n  0%, 100% { opacity: 0.2; transform: scale(0.7); }\n  50% { opacity: 1; transform: scale(1); }\n}`,
@@ -374,7 +474,13 @@ function buildTailwind(cfg: Cfg, css: string, html: string): string {
 
 function buildBootstrap(cfg: Cfg, css: string, html: string): string {
   const name = labelFor(cfg.type);
-  if (cfg.type === "ring" || cfg.type === "ring-dashed" || cfg.type === "ring-dual" || cfg.type === "ring-gradient" || cfg.type === "spin-square") {
+  if (
+    cfg.type === "ring" ||
+    cfg.type === "ring-dashed" ||
+    cfg.type === "ring-dual" ||
+    cfg.type === "ring-gradient" ||
+    cfg.type === "spin-square"
+  ) {
     return `<!-- Bootstrap — ${name}: closest built-in is the border spinner (.spinner-border). -->\n<div class="spinner-border" role="status" style="width:${cfg.size}px;height:${cfg.size}px;color:${cfg.primary}">\n  <span class="visually-hidden">Loading...</span>\n</div>`;
   }
   if (cfg.type === "pulse" || cfg.type === "ripple") {

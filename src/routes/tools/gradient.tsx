@@ -237,7 +237,9 @@ function GradientPage() {
                   min={0}
                   max={360}
                   value={angle}
-                  onChange={(e) => setAngle(Math.min(360, Math.max(0, Number(e.target.value) || 0)))}
+                  onChange={(e) =>
+                    setAngle(Math.min(360, Math.max(0, Number(e.target.value) || 0)))
+                  }
                   className="h-8 w-20 text-right"
                   aria-label="Gradient angle in degrees"
                 />
@@ -302,9 +304,7 @@ function GradientPage() {
                   />
                   <div className="flex items-center gap-1 rounded border border-border px-2 text-xs text-muted-foreground">
                     <span className="hidden sm:inline">rgb</span>
-                    <span className="font-mono">
-                      {rgb ? `${rgb.r},${rgb.g},${rgb.b}` : "—"}
-                    </span>
+                    <span className="font-mono">{rgb ? `${rgb.r},${rgb.g},${rgb.b}` : "—"}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Input
@@ -372,4 +372,3 @@ function GradientPage() {
     </div>
   );
 }
-

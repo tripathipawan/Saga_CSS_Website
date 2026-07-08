@@ -28,15 +28,13 @@ const TOOLS = [
 
 async function readTab(page: Page, name: "CSS" | "Tailwind" | "Bootstrap") {
   // Click the visible tab button inside the sticky code panel.
-  const btn = page
-    .getByRole("button", { name, exact: true })
-    .locator("visible=true")
-    .first();
+  const btn = page.getByRole("button", { name, exact: true }).locator("visible=true").first();
   await btn.click();
   // Wait one animation frame for React to flush.
   await page.waitForFunction((n) => {
-    const b = [...document.querySelectorAll('button[aria-pressed="true"]')]
-      .find((el) => el.textContent?.trim() === n);
+    const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
+      (el) => el.textContent?.trim() === n,
+    );
     return Boolean(b);
   }, name);
   const code = await page.locator("pre code:visible").first().innerText();
@@ -71,7 +69,10 @@ for (const path of TOOLS) {
   });
 }
 
-test("copy-to-clipboard writes the visible code (Gradient / Tailwind)", async ({ page, context }) => {
+test("copy-to-clipboard writes the visible code (Gradient / Tailwind)", async ({
+  page,
+  context,
+}) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/tools/gradient");
   await readTab(page, "Tailwind");
@@ -85,7 +86,10 @@ test("copy-to-clipboard writes the visible code (Gradient / Tailwind)", async ({
   expect(clipboard.trim()).toBe(expected);
 });
 
-test("color-converter renders every format row with a working copy button", async ({ page, context }) => {
+test("color-converter renders every format row with a working copy button", async ({
+  page,
+  context,
+}) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(String(e)));

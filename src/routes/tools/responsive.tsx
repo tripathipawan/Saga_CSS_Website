@@ -4,16 +4,30 @@ import { ToolHeader } from "@/components/tool-header";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { loadKit, type KitSnippet } from "@/lib/my-kit";
 
 export const Route = createFileRoute("/tools/responsive")({
   head: () => ({
     meta: [
       { title: "Responsive Preview Tester — Multi-Device Live Preview — SagaCSS" },
-      { name: "description", content: "Preview your HTML and CSS across mobile, tablet, laptop and desktop widths simultaneously. Toggle breakpoints, add custom widths and sync-scroll across frames." },
+      {
+        name: "description",
+        content:
+          "Preview your HTML and CSS across mobile, tablet, laptop and desktop widths simultaneously. Toggle breakpoints, add custom widths and sync-scroll across frames.",
+      },
       { property: "og:title", content: "Responsive Preview Tester — SagaCSS" },
-      { property: "og:description", content: "Side-by-side multi-device preview for HTML+CSS, with sync-scroll and custom breakpoints." },
+      {
+        property: "og:description",
+        content:
+          "Side-by-side multi-device preview for HTML+CSS, with sync-scroll and custom breakpoints.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/responsive" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/responsive" }],
@@ -55,12 +69,16 @@ function ResponsivePage() {
   }, []);
 
   const srcDoc = React.useMemo(
-    () => `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style></head><body>${html}</body></html>`,
+    () =>
+      `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style></head><body>${html}</body></html>`,
     [html, css],
   );
 
   const activeBps = bps.filter((b) => b.enabled);
-  const custom = customW && !isNaN(Number(customW)) ? { id: `custom-${customW}`, label: "Custom", width: Number(customW), enabled: true } : null;
+  const custom =
+    customW && !isNaN(Number(customW))
+      ? { id: `custom-${customW}`, label: "Custom", width: Number(customW), enabled: true }
+      : null;
   const shown: Bp[] = custom ? [...activeBps, custom] : activeBps;
 
   const loadFromKit = (id: string) => {
@@ -71,7 +89,8 @@ function ResponsivePage() {
     else setCss(item.code);
   };
 
-  const toggleBp = (id: string) => setBps((p) => p.map((b) => (b.id === id ? { ...b, enabled: !b.enabled } : b)));
+  const toggleBp = (id: string) =>
+    setBps((p) => p.map((b) => (b.id === id ? { ...b, enabled: !b.enabled } : b)));
 
   return (
     <div className="mx-auto max-w-7xl">
@@ -82,43 +101,89 @@ function ResponsivePage() {
 
       <section className="mb-4 grid gap-4 lg:grid-cols-2">
         <div className="rounded-xl border border-border bg-card p-3">
-          <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">HTML</label>
-          <Textarea value={html} onChange={(e) => setHtml(e.target.value)} className="min-h-[140px] font-mono text-xs" spellCheck={false} />
+          <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            HTML
+          </label>
+          <Textarea
+            value={html}
+            onChange={(e) => setHtml(e.target.value)}
+            className="min-h-[140px] font-mono text-xs"
+            spellCheck={false}
+          />
         </div>
         <div className="rounded-xl border border-border bg-card p-3">
-          <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">CSS</label>
-          <Textarea value={css} onChange={(e) => setCss(e.target.value)} className="min-h-[140px] font-mono text-xs" spellCheck={false} />
+          <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            CSS
+          </label>
+          <Textarea
+            value={css}
+            onChange={(e) => setCss(e.target.value)}
+            className="min-h-[140px] font-mono text-xs"
+            spellCheck={false}
+          />
         </div>
       </section>
 
       <section className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3">
         <div className="flex flex-wrap gap-2">
           {bps.map((b) => (
-            <label key={b.id} className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 text-xs">
-              <input type="checkbox" checked={b.enabled} onChange={() => toggleBp(b.id)} className="accent-primary" />
+            <label
+              key={b.id}
+              className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 text-xs"
+            >
+              <input
+                type="checkbox"
+                checked={b.enabled}
+                onChange={() => toggleBp(b.id)}
+                className="accent-primary"
+              />
               {b.label} <span className="text-muted-foreground">{b.width}px</span>
             </label>
           ))}
         </div>
         <div className="flex items-center gap-2">
           <label className="text-xs text-muted-foreground">Custom width</label>
-          <Input value={customW} onChange={(e) => setCustomW(e.target.value.replace(/[^\d]/g, ""))} placeholder="e.g. 600" className="h-8 w-24 text-xs" />
+          <Input
+            value={customW}
+            onChange={(e) => setCustomW(e.target.value.replace(/[^\d]/g, ""))}
+            placeholder="e.g. 600"
+            className="h-8 w-24 text-xs"
+          />
         </div>
         <label className="inline-flex cursor-pointer items-center gap-1.5 text-xs">
-          <input type="checkbox" checked={syncScroll} onChange={(e) => setSyncScroll(e.target.checked)} className="accent-primary" />
+          <input
+            type="checkbox"
+            checked={syncScroll}
+            onChange={(e) => setSyncScroll(e.target.checked)}
+            className="accent-primary"
+          />
           Sync scroll
         </label>
         {kit.length > 0 && (
           <Select value={pickId} onValueChange={loadFromKit}>
-            <SelectTrigger className="ml-auto h-8 w-56 text-xs" aria-label="Load from My Kit"><SelectValue placeholder="Load from My Kit…" /></SelectTrigger>
+            <SelectTrigger className="ml-auto h-8 w-56 text-xs" aria-label="Load from My Kit">
+              <SelectValue placeholder="Load from My Kit…" />
+            </SelectTrigger>
             <SelectContent>
               {kit.map((k) => (
-                <SelectItem key={k.id} value={k.id}>{k.label} <span className="ml-1 text-muted-foreground">({k.format})</span></SelectItem>
+                <SelectItem key={k.id} value={k.id}>
+                  {k.label} <span className="ml-1 text-muted-foreground">({k.format})</span>
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
         )}
-        <Button size="sm" variant="ghost" onClick={() => { setHtml(DEFAULT_HTML); setCss(DEFAULT_CSS); }} className="h-8 text-xs">Reset</Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => {
+            setHtml(DEFAULT_HTML);
+            setCss(DEFAULT_CSS);
+          }}
+          className="h-8 text-xs"
+        >
+          Reset
+        </Button>
       </section>
 
       <FramesGrid frames={shown} srcDoc={srcDoc} syncScroll={syncScroll} />
@@ -126,7 +191,15 @@ function ResponsivePage() {
   );
 }
 
-function FramesGrid({ frames, srcDoc, syncScroll }: { frames: Bp[]; srcDoc: string; syncScroll: boolean }) {
+function FramesGrid({
+  frames,
+  srcDoc,
+  syncScroll,
+}: {
+  frames: Bp[];
+  srcDoc: string;
+  syncScroll: boolean;
+}) {
   const refs = React.useRef<Record<string, HTMLIFrameElement | null>>({});
   const guard = React.useRef(false);
 
@@ -150,7 +223,9 @@ function FramesGrid({ frames, srcDoc, syncScroll }: { frames: Bp[]; srcDoc: stri
           if (!odoc || !owin) continue;
           owin.scrollTo(0, y);
         }
-        requestAnimationFrame(() => { guard.current = false; });
+        requestAnimationFrame(() => {
+          guard.current = false;
+        });
       };
       win.addEventListener("scroll", onScroll);
       handlers.push(() => win.removeEventListener("scroll", onScroll));
@@ -159,7 +234,11 @@ function FramesGrid({ frames, srcDoc, syncScroll }: { frames: Bp[]; srcDoc: stri
   }, [frames, syncScroll, srcDoc]);
 
   if (frames.length === 0) {
-    return <div className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">Enable at least one breakpoint to preview.</div>;
+    return (
+      <div className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+        Enable at least one breakpoint to preview.
+      </div>
+    );
   }
 
   return (
@@ -169,14 +248,24 @@ function FramesGrid({ frames, srcDoc, syncScroll }: { frames: Bp[]; srcDoc: stri
           key={f.id}
           bp={f}
           srcDoc={srcDoc}
-          iframeRef={(el) => { refs.current[f.id] = el; }}
+          iframeRef={(el) => {
+            refs.current[f.id] = el;
+          }}
         />
       ))}
     </div>
   );
 }
 
-function FrameCard({ bp, srcDoc, iframeRef }: { bp: Bp; srcDoc: string; iframeRef: (el: HTMLIFrameElement | null) => void }) {
+function FrameCard({
+  bp,
+  srcDoc,
+  iframeRef,
+}: {
+  bp: Bp;
+  srcDoc: string;
+  iframeRef: (el: HTMLIFrameElement | null) => void;
+}) {
   const wrapRef = React.useRef<HTMLDivElement>(null);
   const [scale, setScale] = React.useState(1);
   React.useEffect(() => {
@@ -201,7 +290,11 @@ function FrameCard({ bp, srcDoc, iframeRef }: { bp: Bp; srcDoc: string; iframeRe
         <span className="font-medium">{bp.label}</span>
         <span className="text-muted-foreground">{bp.width}px</span>
       </div>
-      <div ref={wrapRef} className="w-full overflow-hidden rounded-md border border-border bg-white" style={{ height: scaledH }}>
+      <div
+        ref={wrapRef}
+        className="w-full overflow-hidden rounded-md border border-border bg-white"
+        style={{ height: scaledH }}
+      >
         <iframe
           ref={iframeRef}
           title={`${bp.label} preview at ${bp.width}px`}

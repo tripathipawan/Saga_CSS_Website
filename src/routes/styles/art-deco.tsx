@@ -11,9 +11,16 @@ export const Route = createFileRoute("/styles/art-deco")({
   head: () => ({
     meta: [
       { title: "Art Deco Style Generator — SagaCSS" },
-      { name: "description", content: "Design elegant Art Deco cards with gold-on-black palettes, geometric corner accents and serif typography." },
+      {
+        name: "description",
+        content:
+          "Design elegant Art Deco cards with gold-on-black palettes, geometric corner accents and serif typography.",
+      },
       { property: "og:title", content: "Art Deco — SagaCSS" },
-      { property: "og:description", content: "Elegant Art Deco card generator with symmetrical corner accents." },
+      {
+        property: "og:description",
+        content: "Elegant Art Deco card generator with symmetrical corner accents.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/styles/art-deco" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/art-deco" }],
@@ -37,8 +44,11 @@ function ArtDecoPage() {
     { name: "Cream & Ink", bg: "#f5f1e8", gold: "#0f0d0a", thickness: 3, corner: 30 },
     { name: "Sapphire", bg: "#0a1a3a", gold: "#e0c674", thickness: 2, corner: 24 },
   ];
-  const apply = (p: typeof presets[number]) => {
-    setBg(p.bg); setGold(p.gold); setThickness(p.thickness); setCorner(p.corner);
+  const apply = (p: (typeof presets)[number]) => {
+    setBg(p.bg);
+    setGold(p.gold);
+    setThickness(p.thickness);
+    setCorner(p.corner);
   };
 
   const css = useMemo(
@@ -74,9 +84,15 @@ position: relative;
 
   return (
     <div className="flex flex-col gap-6">
-      <ToolHeader title="Art Deco Style" description="Symmetrical corner accents, gold-on-black palettes and elegant serif typography." />
+      <ToolHeader
+        title="Art Deco Style"
+        description="Symmetrical corner accents, gold-on-black palettes and elegant serif typography."
+      />
 
-      <div className="flex min-h-[20rem] items-center justify-center rounded-2xl border border-border p-10" style={{ background: "#1a1712" }}>
+      <div
+        className="flex min-h-[20rem] items-center justify-center rounded-2xl border border-border p-10"
+        style={{ background: "#1a1712" }}
+      >
         <div
           className="relative"
           style={{
@@ -92,12 +108,61 @@ position: relative;
           }}
           aria-label="Art Deco preview"
         >
-          <span style={{ position: "absolute", top: corner / 3, left: corner / 3, width: corner, height: corner, borderTop: `${thickness}px solid ${gold}`, borderLeft: `${thickness}px solid ${gold}` }} />
-          <span style={{ position: "absolute", top: corner / 3, right: corner / 3, width: corner, height: corner, borderTop: `${thickness}px solid ${gold}`, borderRight: `${thickness}px solid ${gold}` }} />
-          <span style={{ position: "absolute", bottom: corner / 3, left: corner / 3, width: corner, height: corner, borderBottom: `${thickness}px solid ${gold}`, borderLeft: `${thickness}px solid ${gold}` }} />
-          <span style={{ position: "absolute", bottom: corner / 3, right: corner / 3, width: corner, height: corner, borderBottom: `${thickness}px solid ${gold}`, borderRight: `${thickness}px solid ${gold}` }} />
+          <span
+            style={{
+              position: "absolute",
+              top: corner / 3,
+              left: corner / 3,
+              width: corner,
+              height: corner,
+              borderTop: `${thickness}px solid ${gold}`,
+              borderLeft: `${thickness}px solid ${gold}`,
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              top: corner / 3,
+              right: corner / 3,
+              width: corner,
+              height: corner,
+              borderTop: `${thickness}px solid ${gold}`,
+              borderRight: `${thickness}px solid ${gold}`,
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              bottom: corner / 3,
+              left: corner / 3,
+              width: corner,
+              height: corner,
+              borderBottom: `${thickness}px solid ${gold}`,
+              borderLeft: `${thickness}px solid ${gold}`,
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              bottom: corner / 3,
+              right: corner / 3,
+              width: corner,
+              height: corner,
+              borderBottom: `${thickness}px solid ${gold}`,
+              borderRight: `${thickness}px solid ${gold}`,
+            }}
+          />
           <h3 style={{ margin: 0, fontSize: "1.75rem", fontWeight: 700 }}>{title || "\u00a0"}</h3>
-          <p style={{ marginTop: "0.75rem", letterSpacing: ".4em", fontSize: ".8rem", opacity: 0.85 }}>{subtitle}</p>
+          <p
+            style={{
+              marginTop: "0.75rem",
+              letterSpacing: ".4em",
+              fontSize: ".8rem",
+              opacity: 0.85,
+            }}
+          >
+            {subtitle}
+          </p>
         </div>
       </div>
 
@@ -107,33 +172,82 @@ position: relative;
             <Label className="mb-1 block text-xs">Presets</Label>
             <div className="flex flex-wrap gap-1.5">
               {presets.map((p) => (
-                <button key={p.name} type="button" onClick={() => apply(p)} className="rounded-md border border-border px-2 py-1 text-xs hover:bg-accent">{p.name}</button>
+                <button
+                  key={p.name}
+                  type="button"
+                  onClick={() => apply(p)}
+                  className="rounded-md border border-border px-2 py-1 text-xs hover:bg-accent"
+                >
+                  {p.name}
+                </button>
               ))}
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <Label htmlFor="ad-title" className="text-xs">Title</Label>
-              <Input id="ad-title" value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1" />
+              <Label htmlFor="ad-title" className="text-xs">
+                Title
+              </Label>
+              <Input
+                id="ad-title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="mt-1"
+              />
             </div>
             <div>
-              <Label htmlFor="ad-sub" className="text-xs">Subtitle</Label>
-              <Input id="ad-sub" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="mt-1" />
+              <Label htmlFor="ad-sub" className="text-xs">
+                Subtitle
+              </Label>
+              <Input
+                id="ad-sub"
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
+                className="mt-1"
+              />
             </div>
             <div>
               <Label className="text-xs">Background</Label>
-              <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} aria-label="Background" className="mt-1 h-8 w-full rounded border border-input" />
+              <input
+                type="color"
+                value={bg}
+                onChange={(e) => setBg(e.target.value)}
+                aria-label="Background"
+                className="mt-1 h-8 w-full rounded border border-input"
+              />
             </div>
             <div>
               <Label className="text-xs">Gold accent</Label>
-              <input type="color" value={gold} onChange={(e) => setGold(e.target.value)} aria-label="Gold" className="mt-1 h-8 w-full rounded border border-input" />
+              <input
+                type="color"
+                value={gold}
+                onChange={(e) => setGold(e.target.value)}
+                aria-label="Gold"
+                className="mt-1 h-8 w-full rounded border border-input"
+              />
             </div>
           </div>
-          <SR label="Border thickness" value={thickness} setValue={setThickness} min={1} max={6} unit="px" />
-          <SR label="Corner accent size" value={corner} setValue={setCorner} min={12} max={60} unit="px" />
+          <SR
+            label="Border thickness"
+            value={thickness}
+            setValue={setThickness}
+            min={1}
+            max={6}
+            unit="px"
+          />
+          <SR
+            label="Corner accent size"
+            value={corner}
+            setValue={setCorner}
+            min={12}
+            max={60}
+            unit="px"
+          />
           <div className="flex items-center gap-2">
             <Switch id="serif" checked={serif} onCheckedChange={setSerif} aria-label="Serif font" />
-            <Label htmlFor="serif" className="text-sm">Serif font</Label>
+            <Label htmlFor="serif" className="text-sm">
+              Serif font
+            </Label>
           </div>
         </div>
         <StickyCode code={css} tailwind={tailwind} bootstrap={bootstrap} />
@@ -142,14 +256,38 @@ position: relative;
   );
 }
 
-function SR({ label, value, setValue, min, max, unit }: { label: string; value: number; setValue: (n: number) => void; min: number; max: number; unit: string }) {
+function SR({
+  label,
+  value,
+  setValue,
+  min,
+  max,
+  unit,
+}: {
+  label: string;
+  value: number;
+  setValue: (n: number) => void;
+  min: number;
+  max: number;
+  unit: string;
+}) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
         <Label className="text-xs">{label}</Label>
-        <span className="font-mono text-xs text-muted-foreground">{value}{unit}</span>
+        <span className="font-mono text-xs text-muted-foreground">
+          {value}
+          {unit}
+        </span>
       </div>
-      <Slider value={[value]} min={min} max={max} step={1} onValueChange={(v) => setValue(v[0] ?? 0)} aria-label={label} />
+      <Slider
+        value={[value]}
+        min={min}
+        max={max}
+        step={1}
+        onValueChange={(v) => setValue(v[0] ?? 0)}
+        aria-label={label}
+      />
     </div>
   );
 }

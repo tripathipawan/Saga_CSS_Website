@@ -5,9 +5,16 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms of Service — SagaCSS" },
-      { name: "description", content: "Terms of Service for SagaCSS — free, local-first CSS tools provided as-is with no warranty." },
+      {
+        name: "description",
+        content:
+          "Terms of Service for SagaCSS — free, local-first CSS tools provided as-is with no warranty.",
+      },
       { property: "og:title", content: "Terms of Service — SagaCSS" },
-      { property: "og:description", content: "The simple terms that cover using SagaCSS's free CSS tools." },
+      {
+        property: "og:description",
+        content: "The simple terms that cover using SagaCSS's free CSS tools.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/terms" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/terms" }],
@@ -24,29 +31,30 @@ function TermsPage() {
       />
       <div className="rounded-xl border border-border bg-card p-6 text-sm leading-7 text-foreground">
         <p>
-          This page is maintained by the app owner to describe the basic terms of using SagaCSS.
-          By using the app you agree to the points below.
+          This page is maintained by the app owner to describe the basic terms of using SagaCSS. By
+          using the app you agree to the points below.
         </p>
 
         <h2 className="mt-6 text-base font-semibold">1. Free &amp; as-is</h2>
         <p className="mt-2 text-muted-foreground">
-          SagaCSS is provided free of charge, without warranty of any kind, express or implied.
-          The tools are offered on an &quot;as-is&quot; and &quot;as-available&quot; basis. We do not guarantee
-          that the app will be uninterrupted, error-free, or fit for any particular purpose.
+          SagaCSS is provided free of charge, without warranty of any kind, express or implied. The
+          tools are offered on an &quot;as-is&quot; and &quot;as-available&quot; basis. We do not
+          guarantee that the app will be uninterrupted, error-free, or fit for any particular
+          purpose.
         </p>
 
         <h2 className="mt-6 text-base font-semibold">2. Your content stays on your device</h2>
         <p className="mt-2 text-muted-foreground">
           Anything you design, save to My Kit, or configure is stored in your browser&apos;s
-          localStorage on your own device. It is never uploaded to a server. Clearing your
-          browser data will remove it — please export anything important.
+          localStorage on your own device. It is never uploaded to a server. Clearing your browser
+          data will remove it — please export anything important.
         </p>
 
         <h2 className="mt-6 text-base font-semibold">3. Acceptable use</h2>
         <p className="mt-2 text-muted-foreground">
-          Please use SagaCSS lawfully and don&apos;t attempt to disrupt the service for other
-          users, reverse-engineer non-public parts, or misuse the tools to build content that
-          violates the rights of others.
+          Please use SagaCSS lawfully and don&apos;t attempt to disrupt the service for other users,
+          reverse-engineer non-public parts, or misuse the tools to build content that violates the
+          rights of others.
         </p>
 
         <h2 className="mt-6 text-base font-semibold">4. Generated snippets</h2>

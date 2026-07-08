@@ -6,7 +6,11 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — SagaCSS" },
-      { name: "description", content: "Reach out to Pawan Tripathi, the maker of SagaCSS, via LinkedIn, GitHub, YouTube, Instagram, WhatsApp and Facebook." },
+      {
+        name: "description",
+        content:
+          "Reach out to Pawan Tripathi, the maker of SagaCSS, via LinkedIn, GitHub, YouTube, Instagram, WhatsApp and Facebook.",
+      },
       { property: "og:title", content: "Contact — SagaCSS" },
       { property: "og:description", content: "Get in touch with the maker of SagaCSS." },
       { property: "og:url", content: "https://csscraft.lovable.app/contact" },
@@ -17,18 +21,51 @@ export const Route = createFileRoute("/contact")({
 });
 
 const CHANNELS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/pawantripathi/", Icon: Linkedin, blurb: "Professional network and DMs." },
-  { label: "GitHub", href: "https://github.com/tripathipawan", Icon: Github, blurb: "Open issues, PRs and feature requests." },
-  { label: "YouTube", href: "https://www.youtube.com/@tripathidevlab", Icon: Youtube, blurb: "Tutorials and dev logs." },
-  { label: "Instagram", href: "https://www.instagram.com/tripathidevlab", Icon: Instagram, blurb: "Short-form dev content." },
-  { label: "WhatsApp Channel", href: "https://www.whatsapp.com/channel/0029Vb7sg2V3bbV4NpadBX1m", Icon: MessageCircle, blurb: "Announcements and updates." },
-  { label: "Facebook", href: "https://www.facebook.com/people/Pawan-Tripathi/pfbid0jkY7FJJFu4r7gnVGo3JtTETbbKkKe2s7AArUwAMjdYF3ELxLpaL95CdT82vBsKKol/", Icon: Facebook, blurb: "Community and posts." },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/pawantripathi/",
+    Icon: Linkedin,
+    blurb: "Professional network and DMs.",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/tripathipawan",
+    Icon: Github,
+    blurb: "Open issues, PRs and feature requests.",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@tripathidevlab",
+    Icon: Youtube,
+    blurb: "Tutorials and dev logs.",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/tripathidevlab",
+    Icon: Instagram,
+    blurb: "Short-form dev content.",
+  },
+  {
+    label: "WhatsApp Channel",
+    href: "https://www.whatsapp.com/channel/0029Vb7sg2V3bbV4NpadBX1m",
+    Icon: MessageCircle,
+    blurb: "Announcements and updates.",
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/people/Pawan-Tripathi/pfbid0jkY7FJJFu4r7gnVGo3JtTETbbKkKe2s7AArUwAMjdYF3ELxLpaL95CdT82vBsKKol/",
+    Icon: Facebook,
+    blurb: "Community and posts.",
+  },
 ];
 
 function ContactPage() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
-      <ToolHeader title="Contact & feedback" description="SagaCSS has no backend and no contact form. Reach the maker directly on any of these channels." />
+      <ToolHeader
+        title="Contact & feedback"
+        description="SagaCSS has no backend and no contact form. Reach the maker directly on any of these channels."
+      />
       <div className="grid gap-3 sm:grid-cols-2">
         {CHANNELS.map(({ label, href, Icon, blurb }) => (
           <a

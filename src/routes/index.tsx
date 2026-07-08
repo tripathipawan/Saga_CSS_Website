@@ -1,15 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Blend, Circle, Sparkles, BookOpen, GraduationCap, Target, Gauge, Image as ImageIcon, Layers } from "lucide-react";
+import {
+  ArrowRight,
+  Blend,
+  Circle,
+  Sparkles,
+  BookOpen,
+  GraduationCap,
+  Target,
+  Gauge,
+  Image as ImageIcon,
+  Layers,
+} from "lucide-react";
 import type { ComponentType } from "react";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "SagaCSS — Free Visual CSS Toolkit for Developers" },
-      { name: "description", content: "Free visual CSS toolkit: design gradients, shadows, animations, palettes, easing curves and more with live previews and copy-ready CSS, Tailwind and Bootstrap code." },
+      {
+        name: "description",
+        content:
+          "Free visual CSS toolkit: design gradients, shadows, animations, palettes, easing curves and more with live previews and copy-ready CSS, Tailwind and Bootstrap code.",
+      },
       { property: "og:title", content: "SagaCSS — Free Visual CSS Toolkit" },
-      { property: "og:description", content: "Design UI visually and copy production-ready CSS, Tailwind and Bootstrap code." },
+      {
+        property: "og:description",
+        content: "Design UI visually and copy production-ready CSS, Tailwind and Bootstrap code.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/" }],
@@ -85,7 +102,8 @@ function Index() {
               <h3 className="font-semibold">{name}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
               <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                Open <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                Open{" "}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
           ))}
@@ -94,9 +112,7 @@ function Index() {
 
       <section>
         <h2 className="mb-1 text-lg font-semibold">Coming soon</h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Advanced CSS tooling on the roadmap.
-        </p>
+        <p className="mb-4 text-sm text-muted-foreground">Advanced CSS tooling on the roadmap.</p>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
@@ -137,29 +153,63 @@ function Index() {
 
       <section>
         <h2 className="mb-1 text-lg font-semibold">Now live: Learn</h2>
-        <p className="mb-4 text-sm text-muted-foreground">Level up with interview prep, practice challenges and in-depth articles.</p>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Level up with interview prep, practice challenges and in-depth articles.
+        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Link to="/interview-prep" className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
-            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
+          <Link
+            to="/interview-prep"
+            className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+          >
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <GraduationCap className="h-5 w-5" />
+            </div>
             <h3 className="font-semibold">Interview Prep Hub</h3>
-            <p className="mt-1 text-sm text-muted-foreground">200+ HTML &amp; CSS questions with in-depth answers, filters, progress tracking and PDF export.</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">Open <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></span>
+            <p className="mt-1 text-sm text-muted-foreground">
+              200+ HTML &amp; CSS questions with in-depth answers, filters, progress tracking and
+              PDF export.
+            </p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+              Open{" "}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </Link>
-          <Link to="/practice" className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
-            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><Target className="h-5 w-5" /></div>
+          <Link
+            to="/practice"
+            className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+          >
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Target className="h-5 w-5" />
+            </div>
             <h3 className="font-semibold">CSS Practice Challenges</h3>
-            <p className="mt-1 text-sm text-muted-foreground">150+ hands-on challenges with a live editor, target preview and reveal-solution learning flow.</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">Open <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></span>
+            <p className="mt-1 text-sm text-muted-foreground">
+              150+ hands-on challenges with a live editor, target preview and reveal-solution
+              learning flow.
+            </p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+              Open{" "}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </Link>
-          <Link to="/blog" className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
-            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><BookOpen className="h-5 w-5" /></div>
+          <Link
+            to="/blog"
+            className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+          >
+            <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <BookOpen className="h-5 w-5" />
+            </div>
             <h3 className="font-semibold">SagaCSS Blog</h3>
-            <p className="mt-1 text-sm text-muted-foreground">Practical CSS articles on layout, performance, accessibility, dark mode, and modern design trends.</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">Open <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></span>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Practical CSS articles on layout, performance, accessibility, dark mode, and modern
+              design trends.
+            </p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+              Open{" "}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </Link>
         </div>
       </section>
-
     </div>
   );
 }

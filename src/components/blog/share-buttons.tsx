@@ -11,12 +11,7 @@ type Props = {
 // X / Twitter isn't in lucide-react as a filled icon; use inline SVG.
 function XIcon({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={className}
-      fill="currentColor"
-    >
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
       <path d="M18.244 2H21l-6.52 7.45L22 22h-6.75l-4.7-6.15L4.9 22H2.14l6.98-7.98L2 2h6.9l4.24 5.62L18.244 2Zm-2.37 18h1.86L8.22 4H6.24l9.634 16Z" />
     </svg>
   );
@@ -28,9 +23,7 @@ export function ShareButtons({ slug, title, description }: Props) {
   // Build absolute URL on the client so shares always resolve; fall back to
   // the canonical path when rendered on the server.
   const url =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/blog/${slug}`
-      : `/blog/${slug}`;
+    typeof window !== "undefined" ? `${window.location.origin}/blog/${slug}` : `/blog/${slug}`;
 
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);

@@ -5,7 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ToolHeader } from "@/components/tool-header";
-import { COMPAT_FEATURES, BROWSER_LABELS, getSupportBadge, type CompatFeature, type BrowserId } from "@/lib/compat-data";
+import {
+  COMPAT_FEATURES,
+  BROWSER_LABELS,
+  getSupportBadge,
+  type CompatFeature,
+  type BrowserId,
+} from "@/lib/compat-data";
 import { addSnippet } from "@/lib/my-kit";
 import { toast } from "sonner";
 
@@ -13,9 +19,17 @@ export const Route = createFileRoute("/tools/compatibility")({
   head: () => ({
     meta: [
       { title: "Browser Compatibility Checker — CSS Support Lookup — SagaCSS" },
-      { name: "description", content: "Look up any CSS property, pseudo-class, function or at-rule and instantly see browser support across Chrome, Firefox, Safari, Edge, Opera and mobile, with vendor prefixes and fallbacks." },
+      {
+        name: "description",
+        content:
+          "Look up any CSS property, pseudo-class, function or at-rule and instantly see browser support across Chrome, Firefox, Safari, Edge, Opera and mobile, with vendor prefixes and fallbacks.",
+      },
       { property: "og:title", content: "Browser Compatibility Checker — SagaCSS" },
-      { property: "og:description", content: "Instant CSS compatibility lookup across major desktop and mobile browsers, with fallback tips." },
+      {
+        property: "og:description",
+        content:
+          "Instant CSS compatibility lookup across major desktop and mobile browsers, with fallback tips.",
+      },
       { property: "og:url", content: "https://csscraft.lovable.app/tools/compatibility" },
     ],
     links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/compatibility" }],
@@ -24,14 +38,30 @@ export const Route = createFileRoute("/tools/compatibility")({
 });
 
 const HISTORY_KEY = "sagacss.compat.history";
-const BROWSERS: BrowserId[] = ["chrome", "firefox", "safari", "edge", "opera", "safari_ios", "chrome_android"];
+const BROWSERS: BrowserId[] = [
+  "chrome",
+  "firefox",
+  "safari",
+  "edge",
+  "opera",
+  "safari_ios",
+  "chrome_android",
+];
 
 function loadHistory(): string[] {
   if (typeof window === "undefined") return [];
-  try { return JSON.parse(window.localStorage.getItem(HISTORY_KEY) ?? "[]"); } catch { return []; }
+  try {
+    return JSON.parse(window.localStorage.getItem(HISTORY_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
 }
 function saveHistory(ids: string[]) {
-  try { window.localStorage.setItem(HISTORY_KEY, JSON.stringify(ids.slice(0, 8))); } catch { /* ignore */ }
+  try {
+    window.localStorage.setItem(HISTORY_KEY, JSON.stringify(ids.slice(0, 8)));
+  } catch {
+    /* ignore */
+  }
 }
 
 function CompatibilityPage() {
@@ -43,15 +73,19 @@ function CompatibilityPage() {
   const suggestions = React.useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    return COMPAT_FEATURES.filter((f) =>
-      f.name.toLowerCase().includes(q) ||
-      f.id.includes(q) ||
-      (f.keywords ?? []).some((k) => k.toLowerCase().includes(q)),
+    return COMPAT_FEATURES.filter(
+      (f) =>
+        f.name.toLowerCase().includes(q) ||
+        f.id.includes(q) ||
+        (f.keywords ?? []).some((k) => k.toLowerCase().includes(q)),
     ).slice(0, 10);
   }, [query]);
 
   const historyItems = React.useMemo(
-    () => history.map((id) => COMPAT_FEATURES.find((f) => f.id === id)).filter(Boolean) as CompatFeature[],
+    () =>
+      history
+        .map((id) => COMPAT_FEATURES.find((f) => f.id === id))
+        .filter(Boolean) as CompatFeature[],
     [history],
   );
 
@@ -72,7 +106,13 @@ function CompatibilityPage() {
       return `${label}: ${state}`;
     }).join("\n");
     const code = `/* ${f.name} — browser support (SagaCSS)\n${supportSummary}${f.prefixes ? "\nPrefixes: " + f.prefixes.join(" ") : ""}${f.fallback ? "\nFallback: " + f.fallback : ""}\n*/`;
-    addSnippet({ label: `${f.name} compatibility`, code, format: "css", source: "Browser Compatibility", sourcePath: "/tools/compatibility" });
+    addSnippet({
+      label: `${f.name} compatibility`,
+      code,
+      format: "css",
+      source: "Browser Compatibility",
+      sourcePath: "/tools/compatibility",
+    });
     toast.success("Saved to My Kit");
   };
 
@@ -87,7 +127,10 @@ function CompatibilityPage() {
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           value={query}
-          onChange={(e) => { setQuery(e.target.value); setShowSuggest(true); }}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setShowSuggest(true);
+          }}
           onFocus={() => setShowSuggest(true)}
           onBlur={() => setTimeout(() => setShowSuggest(false), 150)}
           placeholder="Search: backdrop-filter, :has(), container queries, subgrid…"
@@ -95,7 +138,14 @@ function CompatibilityPage() {
           aria-label="Search CSS feature"
         />
         {query && (
-          <button onClick={() => { setQuery(""); setSelected(null); }} aria-label="Clear" className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:bg-muted">
+          <button
+            onClick={() => {
+              setQuery("");
+              setSelected(null);
+            }}
+            aria-label="Clear"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:bg-muted"
+          >
             <X className="h-3.5 w-3.5" />
           </button>
         )}
@@ -109,7 +159,9 @@ function CompatibilityPage() {
                   className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm hover:bg-accent"
                 >
                   <span className="min-w-0 truncate">{f.name}</span>
-                  <Badge variant="outline" className="text-[10px] uppercase">{f.type}</Badge>
+                  <Badge variant="outline" className="text-[10px] uppercase">
+                    {f.type}
+                  </Badge>
                 </button>
               </li>
             ))}
@@ -119,10 +171,16 @@ function CompatibilityPage() {
 
       {!selected && historyItems.length > 0 && (
         <div className="mb-6">
-          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Recently checked</div>
+          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
+            Recently checked
+          </div>
           <div className="flex flex-wrap gap-2">
             {historyItems.map((f) => (
-              <button key={f.id} onClick={() => pick(f)} className="rounded-full border border-border bg-card px-3 py-1 text-xs hover:border-primary/40">
+              <button
+                key={f.id}
+                onClick={() => pick(f)}
+                className="rounded-full border border-border bg-card px-3 py-1 text-xs hover:border-primary/40"
+              >
                 {f.name}
               </button>
             ))}
@@ -147,9 +205,13 @@ function FeatureCard({ feature, onSave }: { feature: CompatFeature; onSave: () =
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="mb-1 flex flex-wrap items-center gap-1.5">
-            <Badge variant="outline" className="text-[10px] uppercase">{feature.type}</Badge>
+            <Badge variant="outline" className="text-[10px] uppercase">
+              {feature.type}
+            </Badge>
             {feature.globalUsage != null && (
-              <Badge variant="outline" className="text-[10px]">~{feature.globalUsage}% global support (est.)</Badge>
+              <Badge variant="outline" className="text-[10px]">
+                ~{feature.globalUsage}% global support (est.)
+              </Badge>
             )}
           </div>
           <h2 className="text-xl font-bold tracking-tight">{feature.name}</h2>
@@ -176,9 +238,21 @@ function FeatureCard({ feature, onSave }: { feature: CompatFeature; onSave: () =
                 <tr key={b} className="border-t border-border">
                   <td className="p-2 font-medium">{BROWSER_LABELS[b]}</td>
                   <td className="p-2">
-                    {badge === "full" && <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-700 dark:text-emerald-300"><Check className="h-3 w-3" /> Full</span>}
-                    {badge === "partial" && <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-xs text-amber-700 dark:text-amber-300"><AlertTriangle className="h-3 w-3" /> Partial</span>}
-                    {badge === "none" && <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 px-2 py-0.5 text-xs text-rose-700 dark:text-rose-300"><XCircle className="h-3 w-3" /> None</span>}
+                    {badge === "full" && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-700 dark:text-emerald-300">
+                        <Check className="h-3 w-3" /> Full
+                      </span>
+                    )}
+                    {badge === "partial" && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-xs text-amber-700 dark:text-amber-300">
+                        <AlertTriangle className="h-3 w-3" /> Partial
+                      </span>
+                    )}
+                    {badge === "none" && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 px-2 py-0.5 text-xs text-rose-700 dark:text-rose-300">
+                        <XCircle className="h-3 w-3" /> None
+                      </span>
+                    )}
                   </td>
                   <td className="p-2 text-muted-foreground">{sup.since ? `v${sup.since}` : "—"}</td>
                 </tr>
@@ -191,7 +265,12 @@ function FeatureCard({ feature, onSave }: { feature: CompatFeature; onSave: () =
       {feature.prefixes && feature.prefixes.length > 0 && (
         <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3 text-sm">
           <div className="font-medium text-amber-700 dark:text-amber-300">Vendor prefixes</div>
-          <div className="mt-1 text-muted-foreground">Include these for wider legacy support: <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{feature.prefixes.join(" ")}</code></div>
+          <div className="mt-1 text-muted-foreground">
+            Include these for wider legacy support:{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
+              {feature.prefixes.join(" ")}
+            </code>
+          </div>
         </div>
       )}
 
@@ -202,13 +281,19 @@ function FeatureCard({ feature, onSave }: { feature: CompatFeature; onSave: () =
         </div>
       )}
 
-      {feature.notes && (
-        <p className="mt-3 text-xs text-muted-foreground">{feature.notes}</p>
-      )}
+      {feature.notes && <p className="mt-3 text-xs text-muted-foreground">{feature.notes}</p>}
 
       <p className="mt-4 text-[11px] text-muted-foreground">
         Support data is an approximate snapshot for quick reference. For authoritative data, check{" "}
-        <a className="underline" href={`https://caniuse.com/?search=${encodeURIComponent(feature.name)}`} target="_blank" rel="noreferrer">caniuse.com</a>.
+        <a
+          className="underline"
+          href={`https://caniuse.com/?search=${encodeURIComponent(feature.name)}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          caniuse.com
+        </a>
+        .
       </p>
     </div>
   );

@@ -24,9 +24,13 @@ export const Route = createFileRoute("/blog/")({
     const queryString = [
       category ? `category=${encodeURIComponent(category)}` : null,
       q ? `q=${encodeURIComponent(q)}` : null,
-    ].filter(Boolean).join("&");
+    ]
+      .filter(Boolean)
+      .join("&");
     const nextHref = totalPages > 1 ? `/blog/page/2${queryString ? `?${queryString}` : ""}` : null;
-    const title = category ? `${category} Articles — SagaCSS Blog` : "SagaCSS Blog — Practical CSS Articles & Tutorials";
+    const title = category
+      ? `${category} Articles — SagaCSS Blog`
+      : "SagaCSS Blog — Practical CSS Articles & Tutorials";
     const description = category
       ? `${category} articles on the SagaCSS blog — practical CSS tutorials, tips and deep-dives.`
       : "Practical CSS articles: layout, fundamentals, performance, accessibility and modern design trends from the SagaCSS toolkit.";

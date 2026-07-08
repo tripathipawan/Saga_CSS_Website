@@ -1,5 +1,18 @@
 export type Specificity = { a: number; b: number; c: number; parts: Token[] };
-export type Token = { text: string; kind: "id" | "class" | "attr" | "pseudo-class" | "pseudo-element" | "element" | "universal" | "combinator" | "not-inner" | "is-inner" };
+export type Token = {
+  text: string;
+  kind:
+    | "id"
+    | "class"
+    | "attr"
+    | "pseudo-class"
+    | "pseudo-element"
+    | "element"
+    | "universal"
+    | "combinator"
+    | "not-inner"
+    | "is-inner";
+};
 
 /**
  * Compute CSS specificity for a single (non-comma) selector.
@@ -7,7 +20,9 @@ export type Token = { text: string; kind: "id" | "class" | "attr" | "pseudo-clas
  * Handles :not(), :is(), :where() (zero), attribute selectors, pseudo-elements.
  */
 export function specificity(selectorRaw: string): Specificity {
-  let a = 0, b = 0, c = 0;
+  let a = 0,
+    b = 0,
+    c = 0;
   const parts: Token[] = [];
   const s = selectorRaw.trim();
   let i = 0;
@@ -21,7 +36,13 @@ export function specificity(selectorRaw: string): Specificity {
       const ch = s[i];
       out += ch;
       if (ch === "(") depth++;
-      else if (ch === ")") { depth--; if (depth === 0) { i++; return out; } }
+      else if (ch === ")") {
+        depth--;
+        if (depth === 0) {
+          i++;
+          return out;
+        }
+      }
       i++;
     }
     return out;
@@ -45,7 +66,9 @@ export function specificity(selectorRaw: string): Specificity {
     if (ch === "#") {
       let id = "#";
       i++;
-      while (i < len && /[\w-]/.test(s[i])) { id += s[i++]; }
+      while (i < len && /[\w-]/.test(s[i])) {
+        id += s[i++];
+      }
       a++;
       parts.push({ text: id, kind: "id" });
       continue;
@@ -54,7 +77,9 @@ export function specificity(selectorRaw: string): Specificity {
     if (ch === ".") {
       let cls = ".";
       i++;
-      while (i < len && /[\w-]/.test(s[i])) { cls += s[i++]; }
+      while (i < len && /[\w-]/.test(s[i])) {
+        cls += s[i++];
+      }
       b++;
       parts.push({ text: cls, kind: "class" });
       continue;
@@ -62,8 +87,12 @@ export function specificity(selectorRaw: string): Specificity {
 
     if (ch === "[") {
       let attr = "";
-      while (i < len && s[i] !== "]") { attr += s[i++]; }
-      if (i < len) { attr += s[i++]; }
+      while (i < len && s[i] !== "]") {
+        attr += s[i++];
+      }
+      if (i < len) {
+        attr += s[i++];
+      }
       b++;
       parts.push({ text: attr, kind: "attr" });
       continue;
@@ -74,7 +103,9 @@ export function specificity(selectorRaw: string): Specificity {
       if (s[i + 1] === ":") {
         let pe = "::";
         i += 2;
-        while (i < len && /[\w-]/.test(s[i])) { pe += s[i++]; }
+        while (i < len && /[\w-]/.test(s[i])) {
+          pe += s[i++];
+        }
         c++;
         parts.push({ text: pe, kind: "pseudo-element" });
         continue;
@@ -82,7 +113,9 @@ export function specificity(selectorRaw: string): Specificity {
       // pseudo-class :x or :x(...)
       let pc = ":";
       i++;
-      while (i < len && /[\w-]/.test(s[i])) { pc += s[i++]; }
+      while (i < len && /[\w-]/.test(s[i])) {
+        pc += s[i++];
+      }
       const lowered = pc.toLowerCase();
       // legacy pseudo-elements without ::
       const legacyPE = new Set([":before", ":after", ":first-line", ":first-letter"]);
@@ -109,11 +142,20 @@ export function specificity(selectorRaw: string): Specificity {
           const sp = specificity(alt);
           if (!best || compare(sp, best) > 0) best = sp;
         }
-        if (best) { a += best.a; b += best.b; c += best.c; }
+        if (best) {
+          a += best.a;
+          b += best.b;
+          c += best.c;
+        }
         parts.push({ text: pc, kind: lowered === ":not" ? "not-inner" : "is-inner" });
         continue;
       }
-      if (lowered === ":nth-child" || lowered === ":nth-last-child" || lowered === ":nth-of-type" || lowered === ":nth-last-of-type") {
+      if (
+        lowered === ":nth-child" ||
+        lowered === ":nth-last-child" ||
+        lowered === ":nth-of-type" ||
+        lowered === ":nth-last-of-type"
+      ) {
         b++;
         parts.push({ text: pc, kind: "pseudo-class" });
         continue;
@@ -125,7 +167,9 @@ export function specificity(selectorRaw: string): Specificity {
 
     if (/[a-zA-Z_-]/.test(ch)) {
       let el = "";
-      while (i < len && /[\w-]/.test(s[i])) { el += s[i++]; }
+      while (i < len && /[\w-]/.test(s[i])) {
+        el += s[i++];
+      }
       c++;
       parts.push({ text: el, kind: "element" });
       continue;
@@ -150,12 +194,15 @@ export function fmt(sp: { a: number; b: number; c: number }): string {
 
 function splitSelectorList(src: string): string[] {
   const out: string[] = [];
-  let depth = 0, buf = "";
+  let depth = 0,
+    buf = "";
   for (const ch of src) {
     if (ch === "(") depth++;
     else if (ch === ")") depth--;
-    if (ch === "," && depth === 0) { out.push(buf.trim()); buf = ""; }
-    else buf += ch;
+    if (ch === "," && depth === 0) {
+      out.push(buf.trim());
+      buf = "";
+    } else buf += ch;
   }
   if (buf.trim()) out.push(buf.trim());
   return out;
