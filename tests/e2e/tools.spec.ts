@@ -28,20 +28,35 @@ const TOOLS = [
 
 async function readTab(page: Page, name: "CSS" | "Tailwind" | "Bootstrap") {
   const btn = page.getByRole("button", { name, exact: true }).locator("visible=true").first();
-  await btn.click();
-  await page.waitForFunction(
-    (n) => {
-      const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
-        (el) => el.textContent?.trim() === n,
+  await expect(btn).toBeVisible();
+
+  const deadline = Date.now() + 25000;
+  let pressed = false;
+  while (!pressed && Date.now() < deadline) {
+    await btn.click();
+    try {
+      await page.waitForFunction(
+        (n) => {
+          const b = [...document.querySelectorAll('button[aria-pressed="true"]')].find(
+            (el) => el.textContent?.trim() === n,
+          );
+          return Boolean(b);
+        },
+        name,
+        { polling: 100, timeout: 2000 },
       );
-      return Boolean(b);
-    },
-    name,
-    { polling: 100 },
-  );
+      pressed = true;
+    } catch {
+      // Click likely landed before hydration finished — retry.
+    }
+  }
+  expect(pressed, `${name} tab should become active`).toBe(true);
+
   const code = await page.locator("pre code:visible").first().innerText();
   return code.trim();
 }
+
+const TAILWIND_CONFIG_ONLY = new Set(["/tools/color-palette"]);
 
 for (const path of TOOLS) {
   test(`tool ${path} renders CSS / Tailwind / Bootstrap with distinct output`, async ({ page }) => {
@@ -59,8 +74,11 @@ for (const path of TOOLS) {
     expect(tailwind.length, "Tailwind output should not be empty").toBeGreaterThan(0);
     expect(bootstrap.length, "Bootstrap output should not be empty").toBeGreaterThan(0);
 
-    // Tailwind and Bootstrap should read as markup (contain a tag), not raw CSS rulesets.
-    expect(tailwind, "Tailwind output should contain HTML markup").toMatch(/<\w+/);
+    // Tailwind and Bootstrap should read as markup (contain a tag), not raw CSS rulesets —
+    // except tools whose Tailwind export is legitimately a config snippet.
+    if (!TAILWIND_CONFIG_ONLY.has(path)) {
+      expect(tailwind, "Tailwind output should contain HTML markup").toMatch(/<\w+/);
+    }
     expect(bootstrap, "Bootstrap output should contain HTML markup").toMatch(/<\w+/);
 
     // At least two of the three outputs must differ.
