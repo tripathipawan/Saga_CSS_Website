@@ -13,7 +13,9 @@ export function AppShell({ children }: { children: ReactNode }) {
     try {
       const v = localStorage.getItem("sagacss.sidebarCollapsed");
       if (v === "1") setCollapsed(true);
-    } catch {}
+    } catch {
+      // ignore malformed/unavailable localStorage
+    }
   }, []);
 
   const toggleCollapsed = () => {
@@ -21,7 +23,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       const next = !prev;
       try {
         localStorage.setItem("sagacss.sidebarCollapsed", next ? "1" : "0");
-      } catch {}
+      } catch {
+        // ignore write errors (e.g. private mode / quota)
+      }
       return next;
     });
   };

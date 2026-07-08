@@ -29,7 +29,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     root.style.colorScheme = theme;
     try {
       localStorage.setItem(STORAGE_KEY, theme);
-    } catch {}
+    } catch {
+      // ignore write errors (e.g. private mode / quota)
+    }
   }, [theme]);
 
   const setTheme = (t: Theme) => setThemeState(t);

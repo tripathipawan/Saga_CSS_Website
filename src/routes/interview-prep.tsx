@@ -165,19 +165,31 @@ function InterviewPrepPage() {
   const toggleOpen = (id: string) =>
     setOpenIds((prev) => {
       const n = new Set(prev);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) {
+        n.delete(id);
+      } else {
+        n.add(id);
+      }
       return n;
     });
   const toggleReviewed = (id: string) =>
     setReviewed((prev) => {
       const n = new Set(prev);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) {
+        n.delete(id);
+      } else {
+        n.add(id);
+      }
       return n;
     });
   const toggleBookmark = (id: string) =>
     setBookmarks((prev) => {
       const n = new Set(prev);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) {
+        n.delete(id);
+      } else {
+        n.add(id);
+      }
       return n;
     });
 
@@ -247,7 +259,7 @@ function InterviewPrepPage() {
             </button>
           )}
         </div>
-        <Select value={lang} onValueChange={(v) => setLang(v as any)}>
+        <Select value={lang} onValueChange={(v) => setLang(v as QLang | "all")}>
           <SelectTrigger className="w-full sm:w-32" aria-label="Filter by language">
             <SelectValue />
           </SelectTrigger>
@@ -257,7 +269,7 @@ function InterviewPrepPage() {
             <SelectItem value="HTML">HTML</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={level} onValueChange={(v) => setLevel(v as any)}>
+        <Select value={level} onValueChange={(v) => setLevel(v as QLevel | "all")}>
           <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level">
             <SelectValue />
           </SelectTrigger>

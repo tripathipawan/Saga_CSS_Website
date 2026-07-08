@@ -31,7 +31,9 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     try {
       window.localStorage.removeItem("cheat-sheet:chapter");
-    } catch {}
+    } catch {
+      // ignore unavailable localStorage
+    }
   });
 });
 

@@ -37,10 +37,12 @@ const slug = (s: string) =>
     .replace(/(^-|-$)/g, "");
 
 // Minimal CSS.escape polyfill for querySelector attribute values.
-const cssEscape = (s: string) =>
-  typeof (globalThis as any).CSS !== "undefined" && (globalThis as any).CSS.escape
-    ? (globalThis as any).CSS.escape(s)
+const cssEscape = (s: string) => {
+  const g = globalThis as unknown as { CSS?: { escape?: (v: string) => string } };
+  return typeof g.CSS !== "undefined" && g.CSS.escape
+    ? g.CSS.escape(s)
     : s.replace(/[^a-zA-Z0-9_-]/g, (c) => `\\${c}`);
+};
 
 export const Route = createFileRoute("/cheat-sheet")({
   head: () => ({
@@ -1248,13 +1250,17 @@ function CheatSheetPage() {
       const raw = localStorage.getItem(LS_KEY);
       const n = raw ? parseInt(raw, 10) : 0;
       if (!Number.isNaN(n) && n >= 0 && n < SECTIONS.length) setCurrent(n);
-    } catch {}
+    } catch {
+      // ignore malformed/unavailable localStorage
+    }
   }, []);
 
   React.useEffect(() => {
     try {
       localStorage.setItem(LS_KEY, String(current));
-    } catch {}
+    } catch {
+      // ignore write errors (e.g. private mode / quota)
+    }
   }, [current]);
 
   const goTo = (i: number) => {

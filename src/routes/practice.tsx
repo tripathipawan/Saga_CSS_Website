@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ToolHeader } from "@/components/tool-header";
+import type { jsPDF } from "jspdf";
 import {
   Select,
   SelectContent,
@@ -176,13 +177,21 @@ function PracticePage() {
   const toggleDone = (id: string) =>
     setDone((p) => {
       const n = new Set(p);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) {
+        n.delete(id);
+      } else {
+        n.add(id);
+      }
       return n;
     });
   const toggleBookmark = (id: string) =>
     setBookmarks((p) => {
       const n = new Set(p);
-      n.has(id) ? n.delete(id) : n.add(id);
+      if (n.has(id)) {
+        n.delete(id);
+      } else {
+        n.add(id);
+      }
       return n;
     });
 
@@ -284,7 +293,7 @@ function PracticePage() {
             </button>
           )}
         </div>
-        <Select value={level} onValueChange={(v) => setLevel(v as any)}>
+        <Select value={level} onValueChange={(v) => setLevel(v as ChallengeLevel | "all")}>
           <SelectTrigger className="w-full sm:w-36" aria-label="Filter by level">
             <SelectValue />
           </SelectTrigger>
@@ -792,7 +801,7 @@ async function exportPracticePdf(items: Challenge[], scope: string) {
 }
 
 function renderCode(
-  doc: any,
+  doc: jsPDF,
   code: string,
   margin: number,
   contentW: number,
