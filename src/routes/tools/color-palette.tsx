@@ -42,7 +42,11 @@ function formatPalette(palette: Palette, format: Format): string {
   if (format === "tailwind") {
     return `// tailwind.config.ts\nextend: {\n  colors: {\n    "${slug}": {\n${palette.colors.map((c, i) => `      ${(i + 1) * 100}: "${c}",`).join("\n")}\n    }\n  }\n}`;
   }
-  return `// _variables.scss\n${palette.colors.map((c, i) => `$${slug}-${i + 1}: ${c};`).join("\n")}`;
+  const scssVars = palette.colors.map((c, i) => `$${slug}-${i + 1}: ${c};`).join("\n");
+  const swatches = palette.colors
+    .map((c) => `  <div class="flex-fill" style="background:${c}"></div>`)
+    .join("\n");
+  return `// _variables.scss\n${scssVars}\n\n<!-- swatch preview -->\n<div class="d-flex rounded overflow-hidden">\n${swatches}\n</div>`;
 }
 
 function useFavorites() {
