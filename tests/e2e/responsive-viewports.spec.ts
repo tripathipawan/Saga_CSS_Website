@@ -48,7 +48,10 @@ for (const vp of VIEWPORTS) {
       await page.waitForLoadState("networkidle");
       await assertNoHorizontalOverflow(page, vp.label, "/tools/gradient");
       // Controls area must render at least one slider or input.
-      const controls = page.locator("input, [role='slider'], select, button").first();
+      const controls = page
+        .locator("input, [role='slider'], select, button")
+        .locator("visible=true")
+        .first();
       await expect(controls).toBeVisible();
     });
   });
