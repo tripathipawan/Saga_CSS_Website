@@ -57,7 +57,7 @@ test("Copy CSS button flips to 'Copied', shows a toast, and clipboard has valid 
   await page.goto("/tools/gradient");
   await page.waitForLoadState("networkidle");
 
-  const copyBtn = page.getByRole("button", { name: /^copy( css)?$/i }).first();
+  const copyBtn = page.getByRole("button", { name: /^copy(\s(css|to clipboard).*)?$/i }).first();
   await copyBtn.click();
 
   // Visible success state on the button.

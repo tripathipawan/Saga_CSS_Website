@@ -387,7 +387,7 @@ function CodePanel({
             size="sm"
             variant="ghost"
             onClick={handleCopy}
-            aria-label={format === "css" ? undefined : `Copy ${labelFor(format)} to clipboard`}
+            aria-label={`Copy ${labelFor(format)} to clipboard`}
             className="h-7 gap-1.5 text-xs"
           >
             {copied ? (
