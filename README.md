@@ -169,463 +169,93 @@ I built SagaCSS to fix that: one toolkit, one design system, over 30 tools, zero
 
 ## 📁 Project Structure
 
-CSS Craft Studio/
-├─ .github/
-│  └─ workflows/
-│     ├─ ci.yml
-│     └─ prod-audit.yml
-├─ .lovable/
-│  ├─ plan.md
-│  └─ project.json
-├─ .output/
-│  ├─ public/
-│  │  ├─ assets/
-│  │  │  ├─ 3d-shapes-Bzqbi7p8.js
-│  │  │  ├─ about-gfrx22Zp.js
-│  │  │  ├─ animation-rqp8trvv.js
-│  │  │  ├─ arrow-left-DeWUefty.js
-│  │  │  ├─ arrow-right-DMlx-ndy.js
-│  │  │  ├─ art-deco-BOpl8hO3.js
-│  │  │  ├─ badge-BiS8sqGB.js
-│  │  │  ├─ base64-Dg5ur6MH.js
-│  │  │  ├─ bezier-Tv65fOM1.js
-│  │  │  ├─ blog-listing-BY-Tmxk3.js
-│  │  │  ├─ blog._slug-B_pN4SId.js
-│  │  │  ├─ blog._slug-B7dRkGdT.js
-│  │  │  ├─ blog.index-CXVfnHPB.js
-│  │  │  ├─ blog.page._page-B-rzZIy7.js
-│  │  │  ├─ blog.page._page-BJ7btEwS.js
-│  │  │  ├─ border-radius-5S-cy7Ar.js
-│  │  │  ├─ box-shadow-CzzdwwdL.js
-│  │  │  ├─ box-sizing-DELZ5KN9.js
-│  │  │  ├─ button-vLUi6j2g.js
-│  │  │  ├─ cheat-sheet-Ba1LlALf.js
-│  │  │  ├─ check-D9wkJQ6o.js
-│  │  │  ├─ checkbox-l1ibPwh0.js
-│  │  │  ├─ chevron-down-pd9kQrte.js
-│  │  │  ├─ chevron-left-DWAMC5eW.js
-│  │  │  ├─ chevron-right-CI6BH5nv.js
-│  │  │  ├─ circle-x-C0Qj2RNB.js
-│  │  │  ├─ clamp-B9ALFLjg.js
-│  │  │  ├─ claymorphism-DVNnlqYD.js
-│  │  │  ├─ clip-path-DW2oUM--.js
-│  │  │  ├─ color-converter-CpWpq29d.js
-│  │  │  ├─ color-mixer-eq6iS3mw.js
-│  │  │  ├─ color-palette-DaURWtUR.js
-│  │  │  ├─ color-SynUP4z7.js
-│  │  │  ├─ compatibility-EWTAc5B1.js
-│  │  │  ├─ contact-DqK7VYXk.js
-│  │  │  ├─ contrast-oN9ufL3R.js
-│  │  │  ├─ cookies-C1ayCrB3.js
-│  │  │  ├─ copy-BTRlwyix.js
-│  │  │  ├─ cyberpunk-Bga74xlI.js
-│  │  │  ├─ dialog-D4cmqDnf.js
-│  │  │  ├─ dist-C2J943E6.js
-│  │  │  ├─ dist-CEEgxtJU.js
-│  │  │  ├─ dist-CrvgwOXu.js
-│  │  │  ├─ dist-D8a0J2d1.js
-│  │  │  ├─ dist-DRDLgAyM.js
-│  │  │  ├─ dist-DSxGyVi_.js
-│  │  │  ├─ dist-x7XCJDlp.js
-│  │  │  ├─ download-Bz8y5GMR.js
-│  │  │  ├─ eye-DpRR1NvA.js
-│  │  │  ├─ faq-BnrdKAPE.js
-│  │  │  ├─ filter-DKlZTKts.js
-│  │  │  ├─ flexbox-Cm-BRnGx.js
-│  │  │  ├─ fonts-8LX_90nH.js
-│  │  │  ├─ glassmorphism-BsaJSxMm.js
-│  │  │  ├─ gradient-B2o9v9dj.js
-│  │  │  ├─ grid-Bmoc-zZm.js
-│  │  │  ├─ html2canvas-CbbIgMYO.js
-│  │  │  ├─ image-text-BpO5TECJ.js
-│  │  │  ├─ index-IHmSb0QA.js
-│  │  │  ├─ index.es-fz32M2bg.js
-│  │  │  ├─ interview-prep-Bpzkibd2.js
-│  │  │  ├─ jspdf.es.min-BJ8os3V0.js
-│  │  │  ├─ jsx-runtime-B6jttwkn.js
-│  │  │  ├─ label-zdhKqtEY.js
-│  │  │  ├─ less-CIgeYRiV.js
-│  │  │  ├─ link-BDPQAmgU.js
-│  │  │  ├─ link-CmiubHTA.js
-│  │  │  ├─ my-kit-5pNvreGI.js
-│  │  │  ├─ my-kit-LhGOaD-F.js
-│  │  │  ├─ neubrutalism-w_gNNcMc.js
-│  │  │  ├─ neumorphism-CA-hXZlg.js
-│  │  │  ├─ play-BVGYFC2N.js
-│  │  │  ├─ plus-BabVofps.js
-│  │  │  ├─ practice-BNH5uSrv.js
-│  │  │  ├─ preprocessor-CgVXzjBj.js
-│  │  │  ├─ privacy-DAaqBk9d.js
-│  │  │  ├─ purify.es-ZPrpXrUc.js
-│  │  │  ├─ react-CES6V0Ih.js
-│  │  │  ├─ react-dom-DWuVlKIp.js
-│  │  │  ├─ reset-6vhVcwwC.js
-│  │  │  ├─ responsive-DzyNo1Al.js
-│  │  │  ├─ rolldown-runtime-Bh1tDfsg.js
-│  │  │  ├─ routes-gKMyr8IR.js
-│  │  │  ├─ scrollbar-BYCJJ1k4.js
-│  │  │  ├─ select-tkkliiDm.js
-│  │  │  ├─ settings-wo_wye2F.js
-│  │  │  ├─ shuffle-BRtgeQWn.js
-│  │  │  ├─ slider-txiHiLuE.js
-│  │  │  ├─ specificity-CBx-jepq.js
-│  │  │  ├─ spinner-1Xg5OApu.js
-│  │  │  ├─ sticky-code-BblTR1vB.js
-│  │  │  ├─ styles-BA2ISnXF.css
-│  │  │  ├─ svg-CvCp9c6d.js
-│  │  │  ├─ switch-68l7eg5T.js
-│  │  │  ├─ terms-YNiHwNRr.js
-│  │  │  ├─ text-shadow-BR4WAK5R.js
-│  │  │  ├─ textarea-D_gmu_4E.js
-│  │  │  ├─ theme-3ioJyNkp.js
-│  │  │  ├─ theme-variables-BVoVO0w5.js
-│  │  │  ├─ tool-header-DmhHeH1c.js
-│  │  │  ├─ trash-2-Z9ZQSsA1.js
-│  │  │  ├─ typeof-B5XbjTb1.js
-│  │  │  ├─ upload-Dq_C7pzE.js
-│  │  │  ├─ useStore-DG_K-2X6.js
-│  │  │  ├─ utils-BqKe6Eo2.js
-│  │  │  ├─ web-vitals-client-Dy2u2yjy.js
-│  │  │  └─ y2k-mJQhnRk1.js
-│  │  ├─ _headers
-│  │  ├─ favicon.svg
-│  │  ├─ og-image.jpg
-│  │  └─ robots.txt
-│  ├─ server/
-│  │  ├─ _chunks/
-│  │  │  └─ ssr-renderer.mjs
-│  │  ├─ _libs/
-│  │  │  ├─ @floating-ui/
-│  │  │  │  ├─ core+[...].mjs
-│  │  │  │  ├─ dom+[...].mjs
-│  │  │  │  └─ react-dom+[...].mjs
-│  │  │  ├─ @radix-ui/
-│  │  │  │  ├─ react-accordion+[...].mjs
-│  │  │  │  ├─ react-checkbox+[...].mjs
-│  │  │  │  ├─ react-dialog+[...].mjs
-│  │  │  │  ├─ react-dropdown-menu+[...].mjs
-│  │  │  │  └─ react-select+[...].mjs
-│  │  │  ├─ @tanstack/
-│  │  │  │  ├─ react-router+[...].mjs
-│  │  │  │  └─ router-core+[...].mjs
-│  │  │  ├─ babel__runtime.mjs
-│  │  │  ├─ canvg+[...].mjs
-│  │  │  ├─ class-variance-authority+clsx.mjs
-│  │  │  ├─ copy-anything+is-what.mjs
-│  │  │  ├─ dompurify.mjs
-│  │  │  ├─ fast-png+iobuffer+pako.mjs
-│  │  │  ├─ fflate.mjs
-│  │  │  ├─ h3-v2+rou3.mjs
-│  │  │  ├─ h3+rou3+srvx.mjs
-│  │  │  ├─ hookable.mjs
-│  │  │  ├─ html2canvas.mjs
-│  │  │  ├─ jspdf.mjs
-│  │  │  ├─ less+parse-node-version.mjs
-│  │  │  ├─ lucide-react.mjs
-│  │  │  ├─ radix-ui__number.mjs
-│  │  │  ├─ radix-ui__primitive.mjs
-│  │  │  ├─ radix-ui__react-arrow.mjs
-│  │  │  ├─ radix-ui__react-label.mjs
-│  │  │  ├─ radix-ui__react-slider.mjs
-│  │  │  ├─ radix-ui__react-switch.mjs
-│  │  │  ├─ radix-ui__react-tabs.mjs
-│  │  │  ├─ radix-ui__react-tooltip.mjs
-│  │  │  ├─ sonner.mjs
-│  │  │  ├─ tailwind-merge.mjs
-│  │  │  ├─ tanstack__history.mjs
-│  │  │  ├─ tanstack__query-core.mjs
-│  │  │  ├─ tanstack__react-query.mjs
-│  │  │  ├─ tanstack__zod-adapter+zod.mjs
-│  │  │  ├─ unenv.mjs
-│  │  │  └─ web-vitals.mjs
-│  │  ├─ _ssr/
-│  │  │  ├─ 3d-shapes-Ct08Iq0C.mjs
-│  │  │  ├─ about-CD_VWiJr.mjs
-│  │  │  ├─ animation-CIwzBpNm.mjs
-│  │  │  ├─ art-deco-C03l6Tuf.mjs
-│  │  │  ├─ badge-D1Dupn2y.mjs
-│  │  │  ├─ base64-BXuU2TMW.mjs
-│  │  │  ├─ bezier-CgwMcRyk.mjs
-│  │  │  ├─ blog-DMGEGB3V.mjs
-│  │  │  ├─ blog-listing-BA91Cr1A.mjs
-│  │  │  ├─ blog._slug-1IDed_0U.mjs
-│  │  │  ├─ blog._slug-CCfnb-ch.mjs
-│  │  │  ├─ blog._slug-DsyzL8y5.mjs
-│  │  │  ├─ blog.index-0Fs0Ydeg.mjs
-│  │  │  ├─ blog.index-BbcVc4e3.mjs
-│  │  │  ├─ blog.page._page-Bz5LLZWf.mjs
-│  │  │  ├─ blog.page._page-CHbYYDa0.mjs
-│  │  │  ├─ blog.page._page-DRALWAvJ.mjs
-│  │  │  ├─ border-radius-BUJIIFVb.mjs
-│  │  │  ├─ box-shadow-B4ZoG4yo.mjs
-│  │  │  ├─ box-sizing-BJ56s1PH.mjs
-│  │  │  ├─ button-Bq5vK6RO.mjs
-│  │  │  ├─ button-Bv1dHIBp.mjs
-│  │  │  ├─ cheat-sheet-DZPsuYmb.mjs
-│  │  │  ├─ checkbox-kt6FvQcE.mjs
-│  │  │  ├─ clamp-CC5n32W0.mjs
-│  │  │  ├─ claymorphism-CLscA1HA.mjs
-│  │  │  ├─ clip-path-DBMfrMdH.mjs
-│  │  │  ├─ color-converter-DLjZ7uul.mjs
-│  │  │  ├─ color-D2MAPZPc.mjs
-│  │  │  ├─ color-mixer-wrzefKe1.mjs
-│  │  │  ├─ color-palette-Cmq21bPe.mjs
-│  │  │  ├─ compatibility-zVw5PZeQ.mjs
-│  │  │  ├─ contact-ubsS69SP.mjs
-│  │  │  ├─ contrast-B-K-EiBQ.mjs
-│  │  │  ├─ cookies-DdL_-4Ah.mjs
-│  │  │  ├─ createStart-Dt05N14y.mjs
-│  │  │  ├─ cyberpunk-CDpCKWSr.mjs
-│  │  │  ├─ dialog-DIo89e4g.mjs
-│  │  │  ├─ empty-plugin-adapters-D9UWiqvJ.mjs
-│  │  │  ├─ faq-D_R1Ektt.mjs
-│  │  │  ├─ filter-BVwrb4ws.mjs
-│  │  │  ├─ flexbox-B4WwGiHG.mjs
-│  │  │  ├─ fonts--_7lTnmR.mjs
-│  │  │  ├─ glassmorphism-jx415ORc.mjs
-│  │  │  ├─ gradient-DysCLDvz.mjs
-│  │  │  ├─ grid-CraFLIhl.mjs
-│  │  │  ├─ image-text-eRctdwgU.mjs
-│  │  │  ├─ input-B8Q2ztVi.mjs
-│  │  │  ├─ interview-prep-4QJcuRiI.mjs
-│  │  │  ├─ interview-prep-wX2sD4_o.mjs
-│  │  │  ├─ label-DBD1bRRP.mjs
-│  │  │  ├─ lovable-error-reporting-4GCzfVkY.mjs
-│  │  │  ├─ my-kit-Cm369dlY.mjs
-│  │  │  ├─ my-kit-IT2LWPFK.mjs
-│  │  │  ├─ neubrutalism-BopaUfxA.mjs
-│  │  │  ├─ neumorphism-WyyxTk9F.mjs
-│  │  │  ├─ practice-C1ottcDf.mjs
-│  │  │  ├─ practice-DpiFl-AM.mjs
-│  │  │  ├─ preprocessor-iRjCuwJu.mjs
-│  │  │  ├─ privacy-CBNSE6MO.mjs
-│  │  │  ├─ reset-CRr9FjgG.mjs
-│  │  │  ├─ responsive-WY4R8e9a.mjs
-│  │  │  ├─ router-KJj_ARxx.mjs
-│  │  │  ├─ routes-D4L4UmFJ.mjs
-│  │  │  ├─ scrollbar-CWTf3X9n.mjs
-│  │  │  ├─ select-Dg1urBTx.mjs
-│  │  │  ├─ server-fch9M0y5.mjs
-│  │  │  ├─ settings-BieHlnjH.mjs
-│  │  │  ├─ sheet-nNBP-y5w.mjs
-│  │  │  ├─ slider-D7iqiWp9.mjs
-│  │  │  ├─ specificity-B1zceqBO.mjs
-│  │  │  ├─ spinner-DFkZSPFp.mjs
-│  │  │  ├─ ssr.mjs
-│  │  │  ├─ start-Ok9K6Nid.mjs
-│  │  │  ├─ sticky-code-DW-JZxh-.mjs
-│  │  │  ├─ svg-BEQSV1pq.mjs
-│  │  │  ├─ switch-Cn1w-cIH.mjs
-│  │  │  ├─ terms-BlLOWqrS.mjs
-│  │  │  ├─ text-shadow-_gZ3b94e.mjs
-│  │  │  ├─ textarea-kko37XEX.mjs
-│  │  │  ├─ theme-DSsYo74w.mjs
-│  │  │  ├─ theme-provider-Drg-rbhs.mjs
-│  │  │  ├─ theme-variables-CFSeN8eX.mjs
-│  │  │  ├─ tool-header-BHQDoi2W.mjs
-│  │  │  ├─ utils-C_uf36nf.mjs
-│  │  │  ├─ web-vitals-client-BCovSY6e.mjs
-│  │  │  └─ y2k-BvxXKvvK.mjs
-│  │  ├─ _runtime.mjs
-│  │  ├─ _tanstack-start-manifest_v-D0736X8S.mjs
-│  │  ├─ index.mjs
-│  │  └─ wrangler.json
-│  ├─ nitro.json
-│  ├─ package-lock.json
-│  └─ package.json
-├─ .wrangler/
-│  └─ deploy/
-│     └─ config.json
-├─ public/
-│  ├─ favicon.svg
-│  ├─ og-image.jpg
-│  └─ robots.txt
-├─ scripts/
-│  ├─ lint-bootstrap.mjs
-│  └─ prod-seo-audit.mjs
-├─ src/
-│  ├─ components/
-│  │  ├─ blog/
-│  │  │  ├─ blog-listing.tsx
-│  │  │  └─ share-buttons.tsx
-│  │  ├─ layout/
-│  │  │  ├─ app-footer.tsx
-│  │  │  ├─ app-header.tsx
-│  │  │  ├─ app-shell.tsx
-│  │  │  └─ app-sidebar.tsx
-│  │  ├─ ui/
-│  │  │  ├─ accordion.tsx
-│  │  │  ├─ alert-dialog.tsx
-│  │  │  ├─ alert.tsx
-│  │  │  ├─ aspect-ratio.tsx
-│  │  │  ├─ avatar.tsx
-│  │  │  ├─ badge.tsx
-│  │  │  ├─ breadcrumb.tsx
-│  │  │  ├─ button.tsx
-│  │  │  ├─ calendar.tsx
-│  │  │  ├─ card.tsx
-│  │  │  ├─ carousel.tsx
-│  │  │  ├─ chart.tsx
-│  │  │  ├─ checkbox.tsx
-│  │  │  ├─ collapsible.tsx
-│  │  │  ├─ command.tsx
-│  │  │  ├─ context-menu.tsx
-│  │  │  ├─ dialog.tsx
-│  │  │  ├─ drawer.tsx
-│  │  │  ├─ dropdown-menu.tsx
-│  │  │  ├─ form.tsx
-│  │  │  ├─ hover-card.tsx
-│  │  │  ├─ input-otp.tsx
-│  │  │  ├─ input.tsx
-│  │  │  ├─ label.tsx
-│  │  │  ├─ menubar.tsx
-│  │  │  ├─ navigation-menu.tsx
-│  │  │  ├─ pagination.tsx
-│  │  │  ├─ popover.tsx
-│  │  │  ├─ progress.tsx
-│  │  │  ├─ radio-group.tsx
-│  │  │  ├─ resizable.tsx
-│  │  │  ├─ scroll-area.tsx
-│  │  │  ├─ select.tsx
-│  │  │  ├─ separator.tsx
-│  │  │  ├─ sheet.tsx
-│  │  │  ├─ sidebar.tsx
-│  │  │  ├─ skeleton.tsx
-│  │  │  ├─ slider.tsx
-│  │  │  ├─ sonner.tsx
-│  │  │  ├─ switch.tsx
-│  │  │  ├─ table.tsx
-│  │  │  ├─ tabs.tsx
-│  │  │  ├─ textarea.tsx
-│  │  │  ├─ toggle-group.tsx
-│  │  │  ├─ toggle.tsx
-│  │  │  └─ tooltip.tsx
-│  │  ├─ code-block.tsx
-│  │  ├─ coming-soon.tsx
-│  │  ├─ sticky-code.tsx
-│  │  ├─ theme-provider.tsx
-│  │  ├─ theme-toggle.tsx
-│  │  └─ tool-header.tsx
-│  ├─ hooks/
-│  │  └─ use-mobile.tsx
-│  ├─ lib/
-│  │  ├─ blog-posts.ts
-│  │  ├─ blog.ts
-│  │  ├─ color.ts
-│  │  ├─ compat-data.ts
-│  │  ├─ error-capture.ts
-│  │  ├─ error-page.ts
-│  │  ├─ interview-questions.ts
-│  │  ├─ lovable-error-reporting.ts
-│  │  ├─ my-kit.ts
-│  │  ├─ palettes.ts
-│  │  ├─ practice-challenges.ts
-│  │  ├─ practice-checks.ts
-│  │  ├─ socials.ts
-│  │  ├─ specificity.ts
-│  │  ├─ storage-migration.ts
-│  │  ├─ tools.ts
-│  │  ├─ utils.ts
-│  │  └─ web-vitals-client.ts
-│  ├─ routes/
-│  │  ├─ api/
-│  │  │  └─ public/
-│  │  │     └─ vitals.ts
-│  │  ├─ styles/
-│  │  │  ├─ art-deco.tsx
-│  │  │  ├─ claymorphism.tsx
-│  │  │  ├─ cyberpunk.tsx
-│  │  │  ├─ glassmorphism.tsx
-│  │  │  ├─ neubrutalism.tsx
-│  │  │  ├─ neumorphism.tsx
-│  │  │  └─ y2k.tsx
-│  │  ├─ tools/
-│  │  │  ├─ 3d-shapes.tsx
-│  │  │  ├─ animation.tsx
-│  │  │  ├─ base64.tsx
-│  │  │  ├─ bezier.tsx
-│  │  │  ├─ border-radius.tsx
-│  │  │  ├─ box-shadow.tsx
-│  │  │  ├─ box-sizing.tsx
-│  │  │  ├─ button.tsx
-│  │  │  ├─ clamp.tsx
-│  │  │  ├─ clip-path.tsx
-│  │  │  ├─ color-converter.tsx
-│  │  │  ├─ color-mixer.tsx
-│  │  │  ├─ color-palette.tsx
-│  │  │  ├─ compatibility.tsx
-│  │  │  ├─ contrast.tsx
-│  │  │  ├─ filter.tsx
-│  │  │  ├─ flexbox.tsx
-│  │  │  ├─ fonts.tsx
-│  │  │  ├─ gradient.tsx
-│  │  │  ├─ grid.tsx
-│  │  │  ├─ image-text.tsx
-│  │  │  ├─ preprocessor.tsx
-│  │  │  ├─ reset.tsx
-│  │  │  ├─ responsive.tsx
-│  │  │  ├─ scrollbar.tsx
-│  │  │  ├─ specificity.tsx
-│  │  │  ├─ spinner.tsx
-│  │  │  ├─ svg.tsx
-│  │  │  ├─ text-shadow.tsx
-│  │  │  ├─ theme-variables.tsx
-│  │  │  └─ theme.tsx
-│  │  ├─ __root.tsx
-│  │  ├─ about.tsx
-│  │  ├─ blog.$slug.tsx
-│  │  ├─ blog.index.tsx
-│  │  ├─ blog.page.$page.tsx
-│  │  ├─ cheat-sheet.tsx
-│  │  ├─ contact.tsx
-│  │  ├─ cookies.tsx
-│  │  ├─ faq.tsx
-│  │  ├─ index.tsx
-│  │  ├─ interview-prep.tsx
-│  │  ├─ my-kit.tsx
-│  │  ├─ practice.tsx
-│  │  ├─ privacy.tsx
-│  │  ├─ README.md
-│  │  ├─ settings.tsx
-│  │  ├─ sitemap[.]xml.ts
-│  │  └─ terms.tsx
-│  ├─ types/
-│  │  └─ less.d.ts
-│  ├─ router.tsx
-│  ├─ routeTree.gen.ts
-│  ├─ server.ts
-│  ├─ start.ts
-│  └─ styles.css
-├─ tests/
-│  └─ e2e/
-│     ├─ a11y.spec.ts
-│     ├─ blog.spec.ts
-│     ├─ bootstrap-tab.spec.ts
-│     ├─ cheat-sheet.spec.ts
-│     ├─ footer.spec.ts
-│     ├─ generators.spec.ts
-│     ├─ my-kit.spec.ts
-│     ├─ pdf-and-clipboard.spec.ts
-│     ├─ prod-smoke.spec.ts
-│     ├─ responsive-viewports.spec.ts
-│     ├─ seo.spec.ts
-│     ├─ social-jsonld.spec.ts
-│     └─ tools.spec.ts
-├─ .gitignore
-├─ .prettierignore
-├─ .prettierrc
-├─ AGENTS.md
-├─ bun.lock
-├─ bunfig.toml
-├─ components.json
-├─ eslint.config.js
-├─ lighthouserc.json
-├─ package-lock.json
-├─ package.json
-├─ playwright.config.ts
-├─ tsconfig.json
-└─ vite.config.ts
-
+Saga_CSS_Website/
+├── src/
+│   ├── routes/                       # File-based routing (TanStack Router)
+│   │   ├── index.tsx                 # Homepage
+│   │   ├── about.tsx / contact.tsx / faq.tsx
+│   │   ├── privacy.tsx / terms.tsx / cookies.tsx
+│   │   ├── cheat-sheet.tsx           # CSS quick-reference page
+│   │   ├── interview-prep.tsx        # Interview question bank
+│   │   ├── practice.tsx              # Practice challenges + checker
+│   │   ├── my-kit.tsx                # Saved snippets page
+│   │   ├── settings.tsx
+│   │   ├── sitemap[.]xml.ts          # Dynamic sitemap generation
+│   │   ├── blog.index.tsx / blog.slug.tsx/blog.page.slug.tsx / blog.page.
+slug.tsx/blog.page.page.tsx
+│   │   ├── api/public/vitals.ts      # Web Vitals reporting endpoint
+│   │   ├── styles/                   # Design-style showcase pages
+│   │   │   ├── glassmorphism.tsx
+│   │   │   ├── neumorphism.tsx
+│   │   │   ├── claymorphism.tsx
+│   │   │   ├── neubrutalism.tsx
+│   │   │   ├── y2k.tsx
+│   │   │   ├── cyberpunk.tsx
+│   │   │   └── art-deco.tsx
+│   │   └── tools/                    # 30+ individual CSS tool pages
+│   │       ├── gradient.tsx / box-shadow.tsx / text-shadow.tsx
+│   │       ├── grid.tsx / flexbox.tsx / box-sizing.tsx
+│   │       ├── color-palette.tsx / color-converter.tsx / color-mixer.tsx / contrast.tsx
+│   │       ├── clip-path.tsx / border-radius.tsx / svg.tsx / 3d-shapes.tsx
+│   │       ├── animation.tsx / bezier.tsx / filter.tsx / image-text.tsx
+│   │       ├── button.tsx / fonts.tsx / spinner.tsx / scrollbar.tsx
+│   │       ├── theme.tsx / theme-variables.tsx / reset.tsx / clamp.tsx
+│   │       ├── preprocessor.tsx / base64.tsx
+│   │       ├── compatibility.tsx     # Browser support checker
+│   │       ├── specificity.tsx       # Specificity visualizer
+│   │       └── responsive.tsx        # Multi-breakpoint preview tester
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── app-header.tsx        # Top nav with theme toggle
+│   │   │   ├── app-sidebar.tsx       # Tool navigation sidebar
+│   │   │   ├── app-footer.tsx
+│   │   │   └── app-shell.tsx         # Page wrapper
+│   │   ├── blog/
+│   │   │   ├── blog-listing.tsx
+│   │   │   └── share-buttons.tsx
+│   │   ├── ui/                       # shadcn/ui primitives (accordion, dialog, etc.)
+│   │   ├── tool-header.tsx           # Shared header for every tool page
+│   │   ├── sticky-code.tsx           # Sticky "copy code" panel used across tools
+│   │   ├── code-block.tsx            # Syntax-highlighted code output
+│   │   ├── theme-provider.tsx / theme-toggle.tsx
+│   │   └── coming-soon.tsx
+│   ├── lib/
+│   │   ├── tools.ts                  # Central registry of every tool/style/route
+│   │   ├── palettes.ts               # Color palette dataset
+│   │   ├── color.ts                  # Color conversion utilities
+│   │   ├── specificity.ts            # Selector specificity parser
+│   │   ├── compat-data.ts            # Browser compatibility dataset (~120 features)
+│   │   ├── interview-questions.ts    # Interview prep question bank
+│   │   ├── practice-challenges.ts / practice-checks.ts  # Challenges + checker logic
+│   │   ├── my-kit.ts                 # localStorage snippet save/load
+│   │   ├── blog.ts / blog-posts.ts   # Blog content + helpers
+│   │   ├── storage-migration.ts      # localStorage schema migrations
+│   │   ├── web-vitals-client.ts      # Core Web Vitals reporting
+│   │   └── utils.ts                  # cn() class utility
+│   ├── hooks/
+│   │   └── use-mobile.tsx
+│   ├── router.tsx                    # Router instance
+│   ├── server.ts / start.ts          # SSR entry points (TanStack Start / Nitro)
+│   └── styles.css
+├── tests/
+│   └── e2e/                          # Playwright test suites
+│       ├── tools.spec.ts / generators.spec.ts
+│       ├── a11y.spec.ts              # Accessibility (axe-core)
+│       ├── seo.spec.ts / social-jsonld.spec.ts
+│       ├── blog.spec.ts / footer.spec.ts
+│       ├── pdf-and-clipboard.spec.ts / my-kit.spec.ts
+│       ├── responsive-viewports.spec.ts
+│       └── prod-smoke.spec.ts        # Post-deploy smoke tests
+├── scripts/
+│   ├── prod-seo-audit.mjs            # SEO audit against a live URL
+│   └── lint-bootstrap.mjs
+├── .github/workflows/
+│   ├── ci.yml                        # Lint, build, E2E, a11y, SEO tests on every push/PR
+│   └── prod-audit.yml                # Manual Lighthouse + smoke audit against a deployed URL
+├── lighthouserc.json                 # Lighthouse CI config
+├── public/
+├── vite.config.ts
+└── package.json
 ---
 
 ## 🔬 Features In Detail
