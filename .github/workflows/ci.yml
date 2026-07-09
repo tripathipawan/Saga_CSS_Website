@@ -60,50 +60,10 @@ jobs:
           path: playwright-report
           retention-days: 14
 
-      - name: Lighthouse CI (performance + SEO)
-        run: bunx lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-      - name: Summarize Lighthouse scores
-        if: always()
-        run: |
-          if [ ! -d .lighthouseci ]; then
-            echo "No Lighthouse results found." >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          echo "## Lighthouse scores" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "| URL | Performance | Accessibility | Best Practices | SEO |" >> "$GITHUB_STEP_SUMMARY"
-          echo "|-----|-------------|---------------|----------------|-----|" >> "$GITHUB_STEP_SUMMARY"
-          for f in .lighthouseci/lhr-*.json; do
-            [ -f "$f" ] || continue
-            node -e "
-              const r = require('./' + process.argv[1]);
-              const c = r.categories;
-              const pct = (x) => x == null ? 'n/a' : Math.round(x * 100);
-              console.log('| ' + r.finalUrl + ' | ' + pct(c.performance?.score) + ' | ' + pct(c.accessibility?.score) + ' | ' + pct(c['best-practices']?.score) + ' | ' + pct(c.seo?.score) + ' |');
-            " "$f" >> "$GITHUB_STEP_SUMMARY"
-          done
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Full HTML reports are attached as the **lighthouse-html-reports** artifact on this run." >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload Lighthouse artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-reports
-          path: .lighthouseci
-          retention-days: 14
-
-      - name: Upload Lighthouse HTML reports only
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-html-reports
-          path: .lighthouseci/*.html
-          if-no-files-found: warn
-          retention-days: 30
+      # Lighthouse hardcoded https://csscraft.lovable.app/ pe test kar raha tha,
+      # jo ab dead hai (404) — isliye CI hamesha fail ho rahi thi.
+      # Ab Lighthouse "Production audit" workflow se manually chalega,
+      # real deployed URL ke against (prod-audit.yml dekho).
 
       - name: SEO / JSON-LD sameAs regression
         run: bunx playwright test tests/e2e/social-jsonld.spec.ts
