@@ -383,7 +383,13 @@ function CodePanel({
             <BookmarkPlus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Save</span>
           </Button>
-          <Button size="sm" variant="ghost" onClick={handleCopy} className="h-7 gap-1.5 text-xs">
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={handleCopy}
+            className="h-7 gap-1.5 text-xs"
+            aria-label={`Copy ${labelFor(format)} to clipboard`}
+          >
             {copied ? (
               <Check className="h-3.5 w-3.5 text-primary" />
             ) : (
@@ -437,6 +443,7 @@ export function StickyCode({
       <Button
         type="button"
         onClick={() => setOpen(true)}
+        aria-label="Copy code to clipboard"
         className="fixed bottom-4 right-4 z-40 h-12 gap-2 rounded-full shadow-lg lg:hidden"
       >
         {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
