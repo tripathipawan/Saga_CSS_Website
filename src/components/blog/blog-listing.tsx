@@ -85,7 +85,7 @@ export function BlogListing({ page, category, query }: Props) {
                 : "rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
             }
           >
-            All <span className="ml-1 text-muted-foreground/70">({BLOG_POSTS.length})</span>
+            All <span className="ml-1 text-muted-foreground">({BLOG_POSTS.length})</span>
           </Link>
           {categories.map(({ category: c, count }) => {
             const active = category === c;
