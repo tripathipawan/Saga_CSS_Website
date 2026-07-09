@@ -399,7 +399,10 @@ function CodePanel({
           </Button>
         </div>
       </div>
-      <pre className="max-h-[18rem] w-full max-w-full overflow-auto whitespace-pre-wrap break-all p-3 text-[11px] leading-relaxed font-mono text-foreground sm:max-h-[22rem] sm:text-xs">
+      <pre
+        tabIndex={0}
+        className="max-h-[18rem] w-full max-w-full overflow-auto whitespace-pre-wrap break-all p-3 text-[11px] leading-relaxed font-mono text-foreground sm:max-h-[22rem] sm:text-xs"
+      >
         <code className="block w-full">{active.code}</code>
       </pre>
       {active.note && (

@@ -189,14 +189,15 @@ ${FACES.map((f) => `.face.${f.key} { background: ${colors[f.key]}; transform: ${
         >
           {FACES.map((f) => (
             <div
-              key={f.key}
-              className="absolute inset-0 border border-white/20 flex items-center justify-center text-white text-sm font-medium"
+              className="absolute inset-0 border border-white/20 flex items-center justify-center"
               style={{
                 background: colors[f.key],
                 transform: f.transform.replace("var(--half)", `${size / 2}px`),
               }}
             >
-              {f.label}
+              <span className="rounded bg-black/70 px-1.5 py-0.5 text-sm font-medium text-white">
+                {f.label}
+              </span>
             </div>
           ))}
         </div>

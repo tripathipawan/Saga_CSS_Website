@@ -138,7 +138,7 @@ function PalettePage() {
         <div className="relative -mx-4 sm:mx-0">
           <div
             className="scrollbar-none flex gap-1 overflow-x-auto px-4 pb-1 sm:flex-wrap sm:overflow-visible sm:px-0"
-            role="tablist"
+            role="group"
             aria-label="Palette categories"
           >
             {(["All", "Favorites", ...CATEGORIES] as const).map((c) => (
@@ -259,20 +259,11 @@ function PalettePage() {
                         {p.colors.map((c, i) => (
                           <span
                             key={i}
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`Copy color ${c}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               copy(c, `${c} copied`);
                             }}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") {
-                                e.stopPropagation();
-                                copy(c, `${c} copied`);
-                              }
-                            }}
-                            className="h-14 flex-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="h-14 flex-1 cursor-pointer"
                             style={{ background: c }}
                           />
                         ))}

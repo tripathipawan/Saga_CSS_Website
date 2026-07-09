@@ -150,7 +150,7 @@ function SvgPage() {
       />
 
       <div className="flex min-h-[16rem] items-center justify-center overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-accent/5 p-6">
-        <div dangerouslySetInnerHTML={{ __html: svg }} aria-label="SVG preview" />
+        <div dangerouslySetInnerHTML={{ __html: svg }} role="img" aria-label="SVG preview" />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

@@ -101,7 +101,7 @@ export function BlogListing({ page, category, query }: Props) {
                 }
                 aria-current={active ? "page" : undefined}
               >
-                {c} <span className="ml-1 text-muted-foreground/70">({count})</span>
+                {c} <span className="ml-1 text-muted-foreground">({count})</span>
               </Link>
             );
           })}
