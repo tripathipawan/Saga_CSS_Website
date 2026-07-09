@@ -19,9 +19,9 @@ export const Route = createFileRoute("/styles/glassmorphism")({
       },
       { property: "og:title", content: "Glassmorphism — SagaCSS" },
       { property: "og:description", content: "Frosted-glass CSS generator with live preview." },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/glassmorphism" },
+      { property: "og:url", content: "/styles/glassmorphism" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/glassmorphism" }],
+    links: [{ rel: "canonical", href: "/styles/glassmorphism" }],
   }),
   component: GlassPage,
 });

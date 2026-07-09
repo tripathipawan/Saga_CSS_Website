@@ -21,9 +21,9 @@ export const Route = createFileRoute("/styles/art-deco")({
         property: "og:description",
         content: "Elegant Art Deco card generator with symmetrical corner accents.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/art-deco" },
+      { property: "og:url", content: "/styles/art-deco" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/art-deco" }],
+    links: [{ rel: "canonical", href: "/styles/art-deco" }],
   }),
   component: ArtDecoPage,
 });

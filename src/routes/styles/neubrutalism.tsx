@@ -16,9 +16,9 @@ export const Route = createFileRoute("/styles/neubrutalism")({
       },
       { property: "og:title", content: "Neubrutalism — SagaCSS" },
       { property: "og:description", content: "Bold, high-contrast neubrutalist CSS generator." },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/neubrutalism" },
+      { property: "og:url", content: "/styles/neubrutalism" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/neubrutalism" }],
+    links: [{ rel: "canonical", href: "/styles/neubrutalism" }],
   }),
   component: NeubrutalPage,
 });

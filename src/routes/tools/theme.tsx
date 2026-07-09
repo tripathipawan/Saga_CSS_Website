@@ -21,9 +21,9 @@ export const Route = createFileRoute("/tools/theme")({
         content:
           "Design tokens for colors, spacing, typography and radius with copy-ready CSS, Tailwind and Bootstrap output.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/theme" },
+      { property: "og:url", content: "/tools/theme" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/theme" }],
+    links: [{ rel: "canonical", href: "/tools/theme" }],
   }),
   component: ThemePage,
 });

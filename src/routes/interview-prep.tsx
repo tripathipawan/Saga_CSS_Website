@@ -62,9 +62,9 @@ export const Route = createFileRoute("/interview-prep")({
         property: "og:description",
         content: "200 HTML and CSS interview questions with in-depth answers and code examples.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/interview-prep" },
+      { property: "og:url", content: "/interview-prep" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/interview-prep" }],
+    links: [{ rel: "canonical", href: "/interview-prep" }],
   }),
   component: InterviewPrepPage,
 });

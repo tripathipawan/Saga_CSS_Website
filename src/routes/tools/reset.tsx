@@ -20,9 +20,9 @@ export const Route = createFileRoute("/tools/reset")({
         property: "og:description",
         content: "Pick exactly what to reset and copy a tailored CSS reset stylesheet.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/reset" },
+      { property: "og:url", content: "/tools/reset" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/reset" }],
+    links: [{ rel: "canonical", href: "/tools/reset" }],
   }),
   component: ResetPage,
 });

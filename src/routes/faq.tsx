@@ -18,9 +18,9 @@ export const Route = createFileRoute("/faq")({
       },
       { property: "og:title", content: "FAQ — SagaCSS" },
       { property: "og:description", content: "Answers to common questions about SagaCSS." },
-      { property: "og:url", content: "https://csscraft.lovable.app/faq" },
+      { property: "og:url", content: "/faq" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/faq" }],
+    links: [{ rel: "canonical", href: "/faq" }],
   }),
   component: FaqPage,
 });

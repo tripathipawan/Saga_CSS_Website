@@ -23,9 +23,9 @@ export const Route = createFileRoute("/tools/color-converter")({
         property: "og:description",
         content: "Convert colors between every major CSS format with live preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/color-converter" },
+      { property: "og:url", content: "/tools/color-converter" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/color-converter" }],
+    links: [{ rel: "canonical", href: "/tools/color-converter" }],
   }),
   component: ColorConverterPage,
 });

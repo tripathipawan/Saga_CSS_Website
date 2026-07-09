@@ -22,8 +22,10 @@ export function ShareButtons({ slug, title, description }: Props) {
 
   // Build absolute URL on the client so shares always resolve; fall back to
   // the canonical path when rendered on the server.
-  const url =
-    typeof window !== "undefined" ? `${window.location.origin}/blog/${slug}` : `/blog/${slug}`;
+  const [url, setUrl] = React.useState(`/blog/${slug}`);
+  React.useEffect(() => {
+    setUrl(`${window.location.origin}/blog/${slug}`);
+  }, [slug]);
 
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);

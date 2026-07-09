@@ -28,9 +28,9 @@ export const Route = createFileRoute("/tools/responsive")({
         content:
           "Side-by-side multi-device preview for HTML+CSS, with sync-scroll and custom breakpoints.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/responsive" },
+      { property: "og:url", content: "/tools/responsive" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/responsive" }],
+    links: [{ rel: "canonical", href: "/tools/responsive" }],
   }),
   component: ResponsivePage,
 });

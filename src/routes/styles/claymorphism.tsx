@@ -17,9 +17,9 @@ export const Route = createFileRoute("/styles/claymorphism")({
       },
       { property: "og:title", content: "Claymorphism — SagaCSS" },
       { property: "og:description", content: "Puffy pastel clay-style CSS generator." },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/claymorphism" },
+      { property: "og:url", content: "/styles/claymorphism" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/claymorphism" }],
+    links: [{ rel: "canonical", href: "/styles/claymorphism" }],
   }),
   component: ClayPage,
 });

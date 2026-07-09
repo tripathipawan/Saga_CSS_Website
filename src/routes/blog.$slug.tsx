@@ -24,13 +24,13 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: `${post.title} — SagaCSS` },
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `https://csscraft.lovable.app/blog/${post.slug}` },
+        { property: "og:url", content: `/blog/${post.slug}` },
         { property: "article:section", content: post.category },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
       ],
-      links: [{ rel: "canonical", href: `https://csscraft.lovable.app/blog/${post.slug}` }],
+      links: [{ rel: "canonical", href: `/blog/${post.slug}` }],
     };
   },
   notFoundComponent: PostNotFound,
@@ -62,7 +62,7 @@ function BlogPostPage() {
     const base =
       typeof window !== "undefined"
         ? `${window.location.origin}/blog/${post.slug}`
-        : `https://csscraft.lovable.app/blog/${post.slug}`;
+        : `/blog/${post.slug}`;
     const url = `${base}#${id}`;
     try {
       await navigator.clipboard.writeText(url);

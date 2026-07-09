@@ -18,9 +18,9 @@ export const Route = createFileRoute("/tools/button")({
       },
       { property: "og:title", content: "Button Style Generator — SagaCSS" },
       { property: "og:description", content: "Design custom CSS buttons with live hover preview." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/button" },
+      { property: "og:url", content: "/tools/button" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/button" }],
+    links: [{ rel: "canonical", href: "/tools/button" }],
   }),
   component: ButtonPage,
 });

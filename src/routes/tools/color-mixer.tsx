@@ -24,9 +24,9 @@ export const Route = createFileRoute("/tools/color-mixer")({
         property: "og:description",
         content: "Blend colors visually with RGB or HSL interpolation.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/color-mixer" },
+      { property: "og:url", content: "/tools/color-mixer" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/color-mixer" }],
+    links: [{ rel: "canonical", href: "/tools/color-mixer" }],
   }),
   component: MixerPage,
 });

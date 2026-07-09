@@ -18,9 +18,9 @@ export const Route = createFileRoute("/tools/svg")({
       },
       { property: "og:title", content: "SVG Generator — SagaCSS" },
       { property: "og:description", content: "Design production-ready SVG shapes visually." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/svg" },
+      { property: "og:url", content: "/tools/svg" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/svg" }],
+    links: [{ rel: "canonical", href: "/tools/svg" }],
   }),
   component: SvgPage,
 });

@@ -21,9 +21,9 @@ export const Route = createFileRoute("/tools/3d-shapes")({
         property: "og:description",
         content: "Interactive CSS-only 3D cube preview with copy-ready code.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/3d-shapes" },
+      { property: "og:url", content: "/tools/3d-shapes" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/3d-shapes" }],
+    links: [{ rel: "canonical", href: "/tools/3d-shapes" }],
   }),
   component: ThreeDPage,
 });

@@ -18,9 +18,9 @@ export const Route = createFileRoute("/tools/grid")({
       },
       { property: "og:title", content: "Grid Layout Generator — SagaCSS" },
       { property: "og:description", content: "Simple and bento CSS grid layouts in one tool." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/grid" },
+      { property: "og:url", content: "/tools/grid" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/grid" }],
+    links: [{ rel: "canonical", href: "/tools/grid" }],
   }),
   component: GridPage,
 });

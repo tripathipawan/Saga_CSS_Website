@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/filter")({
         content:
           "Stack multiple CSS filters live on an image with instant CSS / Tailwind / Bootstrap output.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/filter" },
+      { property: "og:url", content: "/tools/filter" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/filter" }],
+    links: [{ rel: "canonical", href: "/tools/filter" }],
   }),
   component: FilterPage,
 });

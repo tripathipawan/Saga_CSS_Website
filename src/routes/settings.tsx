@@ -19,9 +19,9 @@ export const Route = createFileRoute("/settings")({
         property: "og:description",
         content: "Configure theme and default code format for SagaCSS.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/settings" },
+      { property: "og:url", content: "/settings" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/settings" }],
+    links: [{ rel: "canonical", href: "/settings" }],
   }),
   component: SettingsPage,
 });

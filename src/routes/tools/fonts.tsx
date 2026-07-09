@@ -19,9 +19,9 @@ export const Route = createFileRoute("/tools/fonts")({
         property: "og:description",
         content: "Curated Google Fonts explorer with proven pairing suggestions.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/fonts" },
+      { property: "og:url", content: "/tools/fonts" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/fonts" }],
+    links: [{ rel: "canonical", href: "/tools/fonts" }],
   }),
   component: FontsPage,
 });

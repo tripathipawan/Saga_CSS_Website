@@ -23,9 +23,9 @@ export const Route = createFileRoute("/tools/animation")({
         property: "og:description",
         content: "Design CSS transitions and keyframe animations visually.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/animation" },
+      { property: "og:url", content: "/tools/animation" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/animation" }],
+    links: [{ rel: "canonical", href: "/tools/animation" }],
   }),
   component: AnimationPage,
 });

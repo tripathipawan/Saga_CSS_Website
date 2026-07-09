@@ -23,9 +23,9 @@ export const Route = createFileRoute("/tools/text-shadow")({
         property: "og:description",
         content: "Multi-layer text-shadow generator with live preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/text-shadow" },
+      { property: "og:url", content: "/tools/text-shadow" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/text-shadow" }],
+    links: [{ rel: "canonical", href: "/tools/text-shadow" }],
   }),
   component: TextShadowPage,
 });

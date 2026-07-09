@@ -15,9 +15,9 @@ export const Route = createFileRoute("/cookies")({
         property: "og:description",
         content: "No tracking cookies. Just local browser storage for your preferences.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/cookies" },
+      { property: "og:url", content: "/cookies" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/cookies" }],
+    links: [{ rel: "canonical", href: "/cookies" }],
   }),
   component: CookiesPage,
 });

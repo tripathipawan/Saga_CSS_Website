@@ -20,9 +20,9 @@ export const Route = createFileRoute("/tools/bezier")({
         property: "og:description",
         content: "Interactive cubic-bezier editor with live animated preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/bezier" },
+      { property: "og:url", content: "/tools/bezier" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/bezier" }],
+    links: [{ rel: "canonical", href: "/tools/bezier" }],
   }),
   component: BezierPage,
 });

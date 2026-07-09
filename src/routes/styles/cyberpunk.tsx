@@ -21,9 +21,9 @@ export const Route = createFileRoute("/styles/cyberpunk")({
         property: "og:description",
         content: "Layered neon glow shadows, scanlines and grid textures with live preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/cyberpunk" },
+      { property: "og:url", content: "/styles/cyberpunk" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/cyberpunk" }],
+    links: [{ rel: "canonical", href: "/styles/cyberpunk" }],
   }),
   component: CyberpunkPage,
 });

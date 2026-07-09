@@ -21,9 +21,9 @@ export const Route = createFileRoute("/tools/base64")({
         property: "og:description",
         content: "Encode and decode Base64 image data URIs in the browser.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/base64" },
+      { property: "og:url", content: "/tools/base64" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/base64" }],
+    links: [{ rel: "canonical", href: "/tools/base64" }],
   }),
   component: Base64Page,
 });

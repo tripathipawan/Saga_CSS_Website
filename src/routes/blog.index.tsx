@@ -46,7 +46,7 @@ export const Route = createFileRoute("/blog/")({
         { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [
-        { rel: "canonical", href: "https://csscraft.lovable.app/blog" },
+        { rel: "canonical", href: "/blog" },
         ...(nextHref ? [{ rel: "next", href: nextHref }] : []),
       ],
     };

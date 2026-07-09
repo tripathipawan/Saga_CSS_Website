@@ -13,9 +13,9 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:title", content: "Contact — SagaCSS" },
       { property: "og:description", content: "Get in touch with the maker of SagaCSS." },
-      { property: "og:url", content: "https://csscraft.lovable.app/contact" },
+      { property: "og:url", content: "/contact" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/contact" }],
+    links: [{ rel: "canonical", href: "/contact" }],
   }),
   component: ContactPage,
 });

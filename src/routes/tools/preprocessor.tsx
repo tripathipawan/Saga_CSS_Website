@@ -20,9 +20,9 @@ export const Route = createFileRoute("/tools/preprocessor")({
         property: "og:description",
         content: "In-browser SCSS and LESS compiler with instant CSS output.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/preprocessor" },
+      { property: "og:url", content: "/tools/preprocessor" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/preprocessor" }],
+    links: [{ rel: "canonical", href: "/tools/preprocessor" }],
   }),
   component: PreprocessorPage,
 });

@@ -23,9 +23,9 @@ export const Route = createFileRoute("/tools/spinner")({
         content:
           "23+ pure-CSS loaders with live play/pause preview and copy-ready CSS, Tailwind and Bootstrap.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/spinner" },
+      { property: "og:url", content: "/tools/spinner" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/spinner" }],
+    links: [{ rel: "canonical", href: "/tools/spinner" }],
   }),
   component: LoaderPage,
 });

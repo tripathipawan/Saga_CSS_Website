@@ -24,9 +24,9 @@ export const Route = createFileRoute("/tools/box-shadow")({
         property: "og:description",
         content: "Multi-layer box-shadow generator with live preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/box-shadow" },
+      { property: "og:url", content: "/tools/box-shadow" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/box-shadow" }],
+    links: [{ rel: "canonical", href: "/tools/box-shadow" }],
   }),
   component: BoxShadowPage,
 });

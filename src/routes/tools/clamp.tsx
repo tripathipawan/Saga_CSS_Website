@@ -19,9 +19,9 @@ export const Route = createFileRoute("/tools/clamp")({
         property: "og:description",
         content: "Visual clamp() generator for fluid, responsive typography and spacing.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/clamp" },
+      { property: "og:url", content: "/tools/clamp" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/clamp" }],
+    links: [{ rel: "canonical", href: "/tools/clamp" }],
   }),
   component: ClampPage,
 });

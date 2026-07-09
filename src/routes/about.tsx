@@ -15,9 +15,9 @@ export const Route = createFileRoute("/about")({
         content:
           "How SagaCSS started, what it offers, who built it, and the philosophy behind keeping developer tools free, fast and local-first.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/about" },
+      { property: "og:url", content: "/about" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/about" }],
+    links: [{ rel: "canonical", href: "/about" }],
   }),
   component: AboutPage,
 });

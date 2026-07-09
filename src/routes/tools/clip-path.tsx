@@ -15,9 +15,9 @@ export const Route = createFileRoute("/tools/clip-path")({
       },
       { property: "og:title", content: "Clip Path Generator — SagaCSS" },
       { property: "og:description", content: "Design CSS clip-path polygons visually." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/clip-path" },
+      { property: "og:url", content: "/tools/clip-path" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/clip-path" }],
+    links: [{ rel: "canonical", href: "/tools/clip-path" }],
   }),
   component: ClipPathPage,
 });

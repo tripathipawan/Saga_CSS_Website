@@ -20,9 +20,9 @@ export const Route = createFileRoute("/tools/color-palette")({
       },
       { property: "og:title", content: "Color Palette Library — SagaCSS" },
       { property: "og:description", content: "Curated palettes with multi-format export." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/color-palette" },
+      { property: "og:url", content: "/tools/color-palette" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/color-palette" }],
+    links: [{ rel: "canonical", href: "/tools/color-palette" }],
   }),
   component: PalettePage,
 });

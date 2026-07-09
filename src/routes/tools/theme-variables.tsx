@@ -20,9 +20,9 @@ export const Route = createFileRoute("/tools/theme-variables")({
         property: "og:description",
         content: "Auto-derive dark mode variables from your palette with a live UI preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/theme-variables" },
+      { property: "og:url", content: "/tools/theme-variables" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/theme-variables" }],
+    links: [{ rel: "canonical", href: "/tools/theme-variables" }],
   }),
   component: ThemeVarsPage,
 });

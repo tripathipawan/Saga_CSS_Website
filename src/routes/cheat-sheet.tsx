@@ -58,9 +58,9 @@ export const Route = createFileRoute("/cheat-sheet")({
         property: "og:description",
         content: "The essential CSS reference — flexbox, grid, selectors, units. Download as PDF.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/cheat-sheet" },
+      { property: "og:url", content: "/cheat-sheet" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/cheat-sheet" }],
+    links: [{ rel: "canonical", href: "/cheat-sheet" }],
   }),
   component: CheatSheetPage,
 });

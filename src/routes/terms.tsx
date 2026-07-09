@@ -15,9 +15,9 @@ export const Route = createFileRoute("/terms")({
         property: "og:description",
         content: "The simple terms that cover using SagaCSS's free CSS tools.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/terms" },
+      { property: "og:url", content: "/terms" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/terms" }],
+    links: [{ rel: "canonical", href: "/terms" }],
   }),
   component: TermsPage,
 });

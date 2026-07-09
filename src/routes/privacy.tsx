@@ -15,9 +15,9 @@ export const Route = createFileRoute("/privacy")({
         property: "og:description",
         content: "How SagaCSS handles your data — short version: it doesn't.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/privacy" },
+      { property: "og:url", content: "/privacy" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/privacy" }],
+    links: [{ rel: "canonical", href: "/privacy" }],
   }),
   component: PrivacyPage,
 });

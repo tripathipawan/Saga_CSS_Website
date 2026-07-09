@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/border-radius")({
         property: "og:description",
         content: "Per-corner radius + organic blob mode with live preview and copy-ready CSS.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/border-radius" },
+      { property: "og:url", content: "/tools/border-radius" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/border-radius" }],
+    links: [{ rel: "canonical", href: "/tools/border-radius" }],
   }),
   component: BorderRadiusPage,
 });

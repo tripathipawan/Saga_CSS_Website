@@ -30,9 +30,9 @@ export const Route = createFileRoute("/tools/compatibility")({
         content:
           "Instant CSS compatibility lookup across major desktop and mobile browsers, with fallback tips.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/compatibility" },
+      { property: "og:url", content: "/tools/compatibility" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/compatibility" }],
+    links: [{ rel: "canonical", href: "/tools/compatibility" }],
   }),
   component: CompatibilityPage,
 });

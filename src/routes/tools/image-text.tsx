@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/image-text")({
         property: "og:description",
         content: "Fill text with an image or gradient using background-clip: text.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/image-text" },
+      { property: "og:url", content: "/tools/image-text" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/image-text" }],
+    links: [{ rel: "canonical", href: "/tools/image-text" }],
   }),
   component: ImageTextPage,
 });

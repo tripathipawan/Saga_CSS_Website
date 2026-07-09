@@ -18,9 +18,9 @@ export const Route = createFileRoute("/styles/neumorphism")({
       },
       { property: "og:title", content: "Neumorphism — SagaCSS" },
       { property: "og:description", content: "Neumorphic UI generator with live preview." },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/neumorphism" },
+      { property: "og:url", content: "/styles/neumorphism" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/neumorphism" }],
+    links: [{ rel: "canonical", href: "/styles/neumorphism" }],
   }),
   component: NeumorphismPage,
 });

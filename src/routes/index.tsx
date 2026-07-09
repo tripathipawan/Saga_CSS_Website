@@ -27,9 +27,9 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Design UI visually and copy production-ready CSS, Tailwind and Bootstrap code.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/" },
+      { property: "og:url", content: "/" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/" }],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: Index,
 });

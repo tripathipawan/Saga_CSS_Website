@@ -16,9 +16,9 @@ export const Route = createFileRoute("/tools/flexbox")({
       },
       { property: "og:title", content: "Flexbox Playground — SagaCSS" },
       { property: "og:description", content: "Design flex layouts visually." },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/flexbox" },
+      { property: "og:url", content: "/tools/flexbox" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/flexbox" }],
+    links: [{ rel: "canonical", href: "/tools/flexbox" }],
   }),
   component: FlexPage,
 });

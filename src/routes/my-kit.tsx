@@ -28,9 +28,9 @@ export const Route = createFileRoute("/my-kit")({
         property: "og:description",
         content: "Save, preview and combine your favourite SagaCSS snippets.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/my-kit" },
+      { property: "og:url", content: "/my-kit" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/my-kit" }],
+    links: [{ rel: "canonical", href: "/my-kit" }],
   }),
   component: MyKitPage,
 });

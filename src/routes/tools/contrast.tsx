@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/contrast")({
         property: "og:description",
         content: "WCAG AA/AAA contrast checker with automatic fix suggestions.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/contrast" },
+      { property: "og:url", content: "/tools/contrast" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/contrast" }],
+    links: [{ rel: "canonical", href: "/tools/contrast" }],
   }),
   component: ContrastPage,
 });

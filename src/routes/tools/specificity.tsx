@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/specificity")({
         property: "og:description",
         content: "Visual specificity calculator for CSS selectors, with side-by-side comparison.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/specificity" },
+      { property: "og:url", content: "/tools/specificity" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/specificity" }],
+    links: [{ rel: "canonical", href: "/tools/specificity" }],
   }),
   component: SpecificityPage,
 });

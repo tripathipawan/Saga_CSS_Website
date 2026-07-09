@@ -46,10 +46,10 @@ export const Route = createFileRoute("/blog/page/$page")({
         { property: "og:title", content: `Blog — Page ${page} — SagaCSS` },
         { property: "og:description", content: `Page ${page} of the SagaCSS blog.` },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `https://csscraft.lovable.app/blog/page/${page}` },
+        { property: "og:url", content: `/blog/page/${page}` },
       ],
       links: [
-        { rel: "canonical", href: `https://csscraft.lovable.app/blog/page/${page}` },
+        { rel: "canonical", href: `/blog/page/${page}` },
         { rel: "prev", href: prevHref },
         ...(nextHref ? [{ rel: "next", href: nextHref }] : []),
       ],

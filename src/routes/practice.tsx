@@ -60,9 +60,9 @@ export const Route = createFileRoute("/practice")({
         content:
           "150 live-editor CSS challenges with automated checks — Flexbox, Grid, animations, selectors, responsive design.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/practice" },
+      { property: "og:url", content: "/practice" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/practice" }],
+    links: [{ rel: "canonical", href: "/practice" }],
   }),
   component: PracticePage,
 });

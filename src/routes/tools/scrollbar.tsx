@@ -22,9 +22,9 @@ export const Route = createFileRoute("/tools/scrollbar")({
         property: "og:description",
         content: "Live custom scrollbar preview with copy-ready WebKit + Firefox CSS.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/scrollbar" },
+      { property: "og:url", content: "/tools/scrollbar" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/scrollbar" }],
+    links: [{ rel: "canonical", href: "/tools/scrollbar" }],
   }),
   component: ScrollbarPage,
 });

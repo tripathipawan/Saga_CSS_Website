@@ -23,9 +23,9 @@ export const Route = createFileRoute("/tools/gradient")({
         property: "og:description",
         content: "Multi-stop, live-preview gradient generator with copy-ready CSS.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/gradient" },
+      { property: "og:url", content: "/tools/gradient" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/gradient" }],
+    links: [{ rel: "canonical", href: "/tools/gradient" }],
   }),
   component: GradientPage,
 });

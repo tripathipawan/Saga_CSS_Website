@@ -19,9 +19,9 @@ export const Route = createFileRoute("/tools/box-sizing")({
         property: "og:description",
         content: "Interactive CSS box model visualizer with copy-ready code.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/tools/box-sizing" },
+      { property: "og:url", content: "/tools/box-sizing" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/tools/box-sizing" }],
+    links: [{ rel: "canonical", href: "/tools/box-sizing" }],
   }),
   component: BoxSizingPage,
 });

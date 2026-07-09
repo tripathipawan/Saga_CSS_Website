@@ -20,9 +20,9 @@ export const Route = createFileRoute("/styles/y2k")({
         property: "og:description",
         content: "Chrome text, bubble cards and glossy Y2K gradients with live preview.",
       },
-      { property: "og:url", content: "https://csscraft.lovable.app/styles/y2k" },
+      { property: "og:url", content: "/styles/y2k" },
     ],
-    links: [{ rel: "canonical", href: "https://csscraft.lovable.app/styles/y2k" }],
+    links: [{ rel: "canonical", href: "/styles/y2k" }],
   }),
   component: Y2KPage,
 });
