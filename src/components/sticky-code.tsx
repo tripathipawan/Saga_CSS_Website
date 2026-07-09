@@ -383,13 +383,7 @@ function CodePanel({
             <BookmarkPlus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Save</span>
           </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={handleCopy}
-            aria-label={`Copy ${labelFor(format)} to clipboard`}
-            className="h-7 gap-1.5 text-xs"
-          >
+          <Button size="sm" variant="ghost" onClick={handleCopy} className="h-7 gap-1.5 text-xs">
             {copied ? (
               <Check className="h-3.5 w-3.5 text-primary" />
             ) : (
