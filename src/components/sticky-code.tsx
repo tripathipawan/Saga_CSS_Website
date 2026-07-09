@@ -442,10 +442,10 @@ export function StickyCode({
       <Button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="View generated code"
         className="fixed bottom-4 right-4 z-40 h-12 gap-2 rounded-full shadow-lg lg:hidden"
       >
-        <Code2 className="h-4 w-4" /> View Code
+        {copied ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
+        {copied ? "Copied" : "Copy"}
       </Button>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto">

@@ -1,13 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("My Kit", () => {
-  test.beforeEach(async ({ context }) => {
-    // Auto-accept prompt() dialog with a snippet label.
-    context.on("page", (p) => {
-      p.on("dialog", (d) => d.accept("Test snippet"));
-    });
-  });
-
   test("save from multiple tools, select, and combine-export", async ({ page }) => {
     page.on("dialog", (d) => d.accept("Test snippet"));
 
