@@ -169,6 +169,7 @@ I built SagaCSS to fix that: one toolkit, one design system, over 30 tools, zero
 
 ## 📁 Project Structure
 
+```
 Saga_CSS_Website/
 ├── src/
 │   ├── routes/                       # File-based routing (TanStack Router)
@@ -181,8 +182,7 @@ Saga_CSS_Website/
 │   │   ├── my-kit.tsx                # Saved snippets page
 │   │   ├── settings.tsx
 │   │   ├── sitemap[.]xml.ts          # Dynamic sitemap generation
-│   │   ├── blog.index.tsx / blog.slug.tsx/blog.page.slug.tsx / blog.page.
-slug.tsx/blog.page.page.tsx
+│   │   ├── blog.index.tsx / blog.$slug.tsx / blog.page.$page.tsx
 │   │   ├── api/public/vitals.ts      # Web Vitals reporting endpoint
 │   │   ├── styles/                   # Design-style showcase pages
 │   │   │   ├── glassmorphism.tsx
@@ -256,6 +256,9 @@ slug.tsx/blog.page.page.tsx
 ├── public/
 ├── vite.config.ts
 └── package.json
+```
+
+
 ---
 
 ## 🔬 Features In Detail
