@@ -431,6 +431,7 @@ export function StickyCode({
   label?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   return (
     <>
       <div className="hidden min-w-0 lg:block lg:sticky lg:top-20 lg:self-start">
