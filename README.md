@@ -186,7 +186,7 @@ Saga_CSS_Website/
 │   │   ├── sitemap[.]xml.ts          # Dynamic sitemap generation
 │   │   ├── blog.index.tsx / blog.$slug.tsx / blog.page.$page.tsx
 │   │   ├── api/public/vitals.ts      # Web Vitals reporting endpoint
-│   │   ├── styles/                   # Design-style showcase pages
+│   │   ├── styles/                   # All Design-style showcase pages
 │   │   │   ├── glassmorphism.tsx
 │   │   │   ├── neumorphism.tsx
 │   │   │   ├── claymorphism.tsx
@@ -210,7 +210,7 @@ Saga_CSS_Website/
 │   │   ├── layout/
 │   │   │   ├── app-header.tsx        # Top nav with theme toggle
 │   │   │   ├── app-sidebar.tsx       # Tool navigation sidebar
-│   │   │   ├── app-footer.tsx
+│   │   │   ├── app-footer.tsx        # Footer bar
 │   │   │   └── app-shell.tsx         # Page wrapper
 │   │   ├── blog/
 │   │   │   ├── blog-listing.tsx
